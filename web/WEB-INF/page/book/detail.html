@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>买书</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="${css}/m.css" />
+    <link rel="stylesheet" href="${css}/webui/weui.css"/>
+    <link rel="stylesheet" href="${css}/webui/example.css"/>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    </head>
+<body>
+<form id="form1" method="post" action="">
+<div class="header">
+    <a class="back-icon" href="javascript:history.back(-1)"></a>
+    买书
+</div>
+<!--<div class="user_info">
+    <img src="http://ubookmall.b0.upaiyun.com/user/2016/03/16/7052968895_1458121901.jpg!middle" >
+    <div class="nickname gender_f">科波拉天堂</div>
+    <div class="school_name">辽宁石油化工大学</div>
+    <div style="clear: both;"></div>
+</div>-->
+<div class="book_info_container">
+    <input type="hidden" id="id" name="id" value="${book.id!''}">
+    <img class="book_pic" src="${book.imagePath!''}">
+    <div class="book_info">
+        <div class="title">${book.title!''}</div>
+        <div class="author_press">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
+        <div class="author_press">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
+        <div class="price_info">
+            <span class="now_price">${book.biji!''}|${book.number!''}|￥${book.price!''}</span>&nbsp;
+            <!-- <span class="line_through">￥28.00</span>-->
+        </div>
+    </div>
+</div>
+</div>
+<div class="weui_toptips weui_warn js_tooltips">格式不对</div>
+<div class="weui_cell" >
+    <div class="weui_cell_hd"><label class="weui_label">购买数量</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+        <input class="weui_input" type="number" id="number" name="number" pattern="[0-9]*"  />
+    </div>
+    <div class="weui_btn_area" style="width:50%">
+        <a class="weui_btn weui_btn_primary" href="javascript:" id="buyBtn">确定</a>
+    </div>
+    </div>
+<div style="height: 50px;"></div>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#number').bind('blur', function (){
+            var number=$("#number").val();
+            if(''==number||number.trim().length==0){
+                showTips("请输入数量");
+                number=0;
+            }
+            var sum="${book.number!'0'}";
+            sum=parseInt(sum);
+            if(number>sum){
+                showTips("只剩下"+sum+"本了");
+            }
+        });
+
+        $("#buyBtn").bind('click',function () {
+            var number=$("#number").val();
+            var f=true;
+            var sum="${book.number!'0'}";
+            sum=parseInt(sum);
+            if(''==number||number.trim().length==0){
+                showTips("请输入数量");
+                number=0;
+                f=false;
+            }else if(number<=0){
+                showTips("最少购买1本");
+                f=false;
+            }
+            else if(number>sum){
+                showTips("购买数量不能大于"+sum);
+                f=false;
+            }else{
+                f=true;
+            }
+            if(f){
+                buy_book();
+            }
+
+        })
+
+    });
+    function showTips(value){
+        $('.js_tooltips').html(value);
+        $('.js_tooltips').show();
+        setTimeout(function (){
+            $('.js_tooltips').hide();
+        }, 3000);
+        return false;
+    }
+    function buy_book(){
+        var url="${cmsReq}/webui/payPage.html";
+        var id=$("#id").val();
+        var number=$("#number").val();
+        $("#form1").attr('action',url+"?id="+id+"&number="+number);
+        $("#form1").attr('method','get');
+        $("#form1").submit();
+    }
+</script>

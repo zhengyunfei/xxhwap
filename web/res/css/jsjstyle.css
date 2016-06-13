@@ -1,0 +1,20 @@
+.onLoad{background:url(../img/onLoad.gif) no-repeat 3px 10px;padding-left:25px;font-size: 12px; color:#999; vertical-align:middle } 
+.onCorrect{ display:inline-block; height:34px; background:url(../img/success.gif) no-repeat 0 11px; padding-left:15px; vertical-align:middle; padding-right:5px;width:180px !important}
+.onFocus,.onShow,.onLoad{ height:34px;line-height:34px; color:#999; width:180px !important}
+.onError{background:url(../img/error_01.png) left 10px no-repeat; padding-left:22px; width:180px !important}
+.onError-bottom{ width:158px; background:url(../img/bottom-left-w.gif) left bottom no-repeat; }
+.onError-right{background:url(../img/bottom-right-w.gif) right bottom no-repeat; }
+.onError-left{background:url(../img/top-left-w.gif) left top no-repeat; }
+.onError-top-right{background:url(../img/top-right-w.gif) right top no-repeat; line-height:18px !important; padding:11px 10px 11px 20px}
+.input_public{
+    margin: 0px 10px 0px 0px;
+    border: 1px solid #BDC7D8;
+    font-size: 15px;
+    line-height: 18px;
+    padding: 5px 4px;
+    vertical-align: middle;
+    width:240px;
+}
+.input_error{}
+.input_focus{}
+.input_correct{}

@@ -1,0 +1,306 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    background-color: rgb(245, 245, 245);
+    font-size: 14px;
+    font-family: 微软雅黑, sans-serif;
+}
+
+a, body, center, cite, code, dd, del, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hr, html, img, input, label, legend, li, mark, ol, p, section, span, strong, textarea, time, ul, var {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    font-style: normal;
+    color: #676767;
+}
+
+
+div.header {
+    background-color: #00C7B4;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    position: relative;
+    padding:10px 0;
+    font-size: 16px;
+}
+div.header .back-icon {
+    display: inline-block;
+    width: 50px;
+    height: 40px;
+    background: url(../img/back.png) no-repeat center center;
+    -webkit-background-size: 20px;
+    background-size: 20px;
+    position: absolute;
+    left: 0;
+    top: 0px;
+}
+
+.gender_m
+{
+    background: url(../img/male.png) no-repeat center left;
+    padding-left: 20px;
+    -webkit-background-size: 16px;
+    background-size: 16px;
+}
+.gender_f
+{
+    background: url(../img/female.png) no-repeat center left;
+    padding-left: 20px;
+    -webkit-background-size: 16px;
+    background-size: 16px;
+}
+
+div.download_container
+{
+    position: fixed;
+    bottom: 0;width: 100%;
+    opacity: 0.9;
+    background-color: #00C7B4;
+}
+div.download_container a
+{
+    padding: 10px 0;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+div.download_container a span
+{
+    padding-left: 30px;
+    background-size: 24px;
+    -webkit-background-size: 24px;
+    height: 24px;
+    display: inline-block;
+    color: #fff;
+    padding-top: 12px;
+}
+div.download_container a.ios span
+{
+    background: url(../img/ios.png) no-repeat left center;
+    background-size: 24px;
+    -webkit-background-size: 24px;
+}
+div.download_container a.android span
+{
+    background: url(../img/android.png) no-repeat left center;
+    background-size: 24px;
+    -webkit-background-size: 24px;
+}
+div.user_info
+{
+    display: block;
+    font-size: 14px;
+    padding:6px 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(240,240,240);
+    background-color: rgb(255,255,255);
+}
+div.user_info img
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin-right: 10px;
+    float: left;
+}
+div.user_info div.nickname
+{
+    float: left;
+    margin-top: 10px;
+}
+div.user_info div.school_name
+{
+    float: right;
+    margin-top: 10px;
+}
+.line_through
+{
+    color: rgb(185,185,185);
+    text-decoration: line-through;
+}
+div.book_info_container
+{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    background-color: rgb(255,255,255);
+    overflow: hidden;
+}
+div.book_info_container img.book_pic
+{
+    width: 105px;
+    height: 140px;
+    padding: 10px 0 10px 10px;
+}
+div.book_info_container div.book_info
+{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 10px;
+}
+
+div.book_comment
+{
+    color: rgb(140,140,140);
+    font-size: 12px;
+}
+div.book_info div.title
+{
+    font-size: 16px;
+}
+div.book_info div.isbn,div.book_info div.author_press
+{
+    padding: 6px 0;
+    color: rgb(154,154,154);
+}
+div.book_info div.price_info
+{
+    padding: 12px 0;
+    color: rgb(154,154,154);
+}
+div.book_info span.now_price
+{
+    font-size: 18px;
+    color: rgb(0,199,180);
+}
+ul.extend_info
+{
+    margin-left: 4px;
+}
+ul.extend_info li
+{
+    display: inline-block;
+}
+ul.extend_info li.created_at
+{
+    width: 35%;
+}
+ul.extend_info li.book_count
+{
+    width: 25%;
+}
+ul.extend_info li.quality
+{
+    width: 35%;
+}
+ul.extend_info li span
+{
+    color: rgb(154,154,154);
+    padding-left: 16px;
+    font-size: 12px;
+}
+ul.extend_info li.created_at span
+{
+    background: url(../img/date.png) no-repeat left center;
+    background-size: 12px;
+    -webkit-background-size: 12px;
+}
+ul.extend_info li.book_count span
+{
+    background: url(../img/book_count.png) no-repeat left center;
+    background-size: 12px;
+    -webkit-background-size: 12px;
+}
+ul.extend_info li.quality span
+{
+    background: url(../img/quality.png) no-repeat left center;
+    background-size: 12px;
+    -webkit-background-size: 12px;
+}
+
+
+div.book_comment
+{
+    padding: 10px;
+    border-top: 1px solid rgb(246,246,246);
+    background-color: rgb(255,255,255);
+}
+
+div.comment_container,div.visit_container
+{
+    position: relative;
+    margin-top: 10px;
+    padding: 1px 0;
+    background-color: rgb(255,255,255);
+}
+div.comment_container ul
+{
+    padding: 6px;
+}
+div.comment_container ul li
+{
+    border-bottom: 1px solid rgb(250,250,250);
+    padding: 10px 4px;
+}
+div.comment_container ul li:last-child
+{
+    border-bottom: none;
+}
+div.comment_container ul li img
+{
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    float: left;
+    margin-right: 10px;
+}
+div.comment_container ul li div.right_content
+{
+    margin-left: 40px;
+    position: relative;
+}
+div.comment_info
+{
+    font-size: 10px;
+    margin-bottom: 6px;
+}
+div.comment_info div
+{
+    color: rgb(160,160,160) !important;
+}
+div.right_content div.comment_time
+{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+div.comment_container div.title,div.visit_container div.title
+{
+    padding:0 6px;
+    margin: 10px 0;
+    border-left: 4px solid rgb(0,199,180);
+}
+div.visit_container div.visit_content
+{
+    border-top: 1px solid rgb(246,246,246);
+    padding: 10px;
+}
+div.comment_container ul#comment_list
+{
+    border-top: 1px solid rgb(246,246,246);
+}
+div.visit_container a
+{
+    padding: 10px 5px;
+}
+div.visit_container img
+{
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+}
+span.empty_tip
+{
+    padding: 0px;
+}
+
+ul#comment_list .gender_m,ul#comment_list .gender_f
+{
+    -webkit-background-size: 12px !important;
+    background-size: 12px !important;
+}

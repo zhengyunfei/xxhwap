@@ -1,0 +1,214 @@
+input.verify_code{
+    width: 80px;
+    margin: 0px 4px;
+    border: 1px solid #BDC7D8;
+    font-size: 22px;
+    line-height: 20px;
+    padding: 2px;
+    _padding: 1px 2px 0px 2px;
+}
+input.ubm_textinput,
+textarea.ubm_textinput,
+select.ubm_textinput
+{
+    margin: 0px 10px 0px 0px;
+    border: 1px solid #BDC7D8;
+    font-size: 15px;
+    line-height: 18px;
+    padding: 5px 4px;
+    vertical-align: middle;
+}
+input.ubm_textinput
+{
+    height: 18px;
+    width: 240px;
+}
+textarea.ubm_textinput
+{
+    height: 80px;
+    width: 240px;
+}
+select.ubm_textinput
+{
+    height: 30px;
+    width: 250px;
+}
+input.button,input.button_small,input.button_user_action
+{
+    border: 0px;
+    color: white;
+    cursor: pointer;
+    font-family: 微软雅黑,Arial,Helvetica,sans-serif;
+    background-color: rgb(255,159,30);
+    vertical-align: middle;
+}
+input.button
+{
+    font-size: 15px;
+    font-weight: bold;
+    padding: 4px 16px;
+    _padding:2px 8px;
+    _height: 28px;
+}
+input.button_small
+{
+    font-size: 13px;
+    padding: 2px 16px;
+    _padding:1px 8px;
+    _height: 22px;
+}
+input.button_user_action
+{
+    font-size: 13px;
+    padding: 6px 2px;
+    _padding:3px 1px;
+    _height: 26px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+input.button_hover
+{
+    background-color: rgb(254,137,0);
+}
+input.button:hover,input.button_small:hover,input.button_user_action:hover
+{
+    background-color: rgb(254,137,0);
+}
+
+input.disable,input.disable:hover
+{
+    background-color: rgb(193,193,193);
+    cursor:default;
+}
+div.form fieldset
+{
+    border: 1px solid #DDD;
+    padding: 5px;
+    margin: 0 5px 5px 0px;
+    -moz-border-radius:7px;
+}
+
+div.form fieldset legend
+{
+    font-weight: bold;
+    color: green;
+    padding: 0px;
+    margin-left: 10px;
+}
+
+div.form label
+{
+    float: left;
+    margin: 2px 5px 2px 0px;
+    color: rgb(91,176,199);
+    text-align: right;
+    letter-spacing: 2px;
+    width: 120px;
+    overflow: hidden;
+
+    font-size: 15px;
+    height: 18px;
+    line-height: 18px;
+    vertical-align: middle;
+}
+.forlabel
+{
+    float: left;
+    margin: 2px 5px 2px 0px;
+    color: rgb(91,176,199);
+    text-align: right;
+    letter-spacing: 2px;
+    width: 120px;
+    overflow: hidden;
+
+    font-size: 15px;
+    height: 18px;
+    line-height: 18px;
+    vertical-align: middle;
+}
+.forInputRight
+{
+	color: #999999;
+	outline: none;
+	font-size: 1.15em;
+	padding: 0 0 0 30px;
+	font-family: "Microsoft YaHei";
+}
+.forInputRight3
+{
+	color: #999999;
+	border: none;
+	font-size: 1.15em;
+	padding: 0 0 0 23px;
+	font-family: "Microsoft YaHei";
+}
+.forInput
+{
+
+	font-size: 1.15em;
+	letter-spacing:4px;
+}
+.forInput10
+{
+
+    font-size: 1.15em;
+    letter-spacing:10px;
+}
+.forInput2
+{
+
+    font-size: 1.15em;
+    letter-spacing:2px;
+}
+.forInput3{
+	font-size: 1.15em;
+}
+div.form a.block
+{
+    display: block;
+    margin-bottom: 5px;
+}
+
+div.form .row
+{
+    clear: both;
+    padding-top: 6px;
+}
+
+div.form span.required
+{
+    color: red;
+}
+
+div.form div.error label,
+div.form label.error,
+div.form span.error
+{
+    color: #C00;
+}
+
+div.breadcrumbs
+{
+    font-size: 16px;
+    margin: 0px 0px 5px 0px;
+    padding: 8px 10px;
+    border: 1px solid rgb(222, 222, 222);
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+
+div.list-view .sorter {
+    margin: 0 0 5px 0;
+    text-align: right;
+    font-size: 0.9em;
+    float: left;
+}
+
+div.list-view div.items
+{
+    clear: both;
+}

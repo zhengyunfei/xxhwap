@@ -1,0 +1,46 @@
+*{margin:0px; padding:0px;}
+body{font-family:"华文细黑";}
+li{ list-style:none;}
+#content{ background-color:#ffffff;text-align:center; margin:0% 6%;}
+.su_left,.su_right{display:block;}
+.shousuo{
+    position: relative; margin-top:5%; width:100%;
+    border: 1px dashed #BBBBBB;
+}
+.topdiv{
+    position: relative; margin-bottom:5%;margin-top:5%; width:100%;
+    border: 1px solid #BBBBBB;
+}
+.su_left input{color:#999999; border:none; min-width:100%; height:50px; border-radius:60px;  outline:none; font-size:1.15em; padding:0 0 0 23px;font-family:"Microsoft YaHei";}
+.su_right{background:url(../img/saoma.png) no-repeat 0px 0px; background-size:26px; width:31px; z-index:100; height:31px; position: absolute; right:8%; top: 26%; cursor:pointer;display: inline-block; cursor:pointer;}
+#code{ margin-top:15%; text-align:center;font-size:1.43em;}
+#code img{-webkit-appearance:none; max-width:60%; height: auto;}
+#code p{ margin: 0 auto; width:270px; font-size:18px; display:block; color:#333333;  line-height:30px; font-family:"Microsoft YaHei"; text-align: center; margin-top:10px;}
+#button{ margin-top: 3%;
+    margin-bottom: 3%;
+    width: 30%;
+    left: 50%;
+    right: 50%;
+    margin-left: 40%;
+    background-color: #31A290;
+    color:white;
+    border-radius: 60px;
+}
+#button button{ background-color:#01C6B4;  font-family:"华文细黑";  min-height:55px; color: #fff; border-radius:10px;border:none; outline:none; white-space:nowarp;}
+.rmss{ margin-top:8%;}
+.lef_bg,.rit_w{ float:left;}
+.lef_bg{ display:block; height:20px; width:3px; background-color:#ee4848; line-height:30px; }
+.rit_w{color:#666; font-family:"华文细黑"; margin-left:5%;}
+
+.rmss{ width:100%; height:45px;}
+.rmss_a{ margin-top:8%; width:100%; height:auto; margin:0 auto; display:inline-block;}
+.rmss_a ul{width:100%;}
+.rmss_a ul a{margin:1.5% 1.5%;border:1px solid #999;line-height:36px; border-radius:5px; width:30%; height:36px;float:left;display:block; text-decoration:none;}
+.rmss_a ul li{ color:#999; }
+.rmss_a ul li p{font-family:"华文细黑"; }
+
+@media screen and (max-width:375px) {#sd p{font-size:1.13em;} #button button{font-size:1.4em;} .rmss_a ul li p{font-size:0.7em;}}
+@media screen and (min-width:374px) and (max-width:600px){#sd p{font-size:1.4em;} #button button{font-size:1.6em;} .rmss_a ul li p{ font-size:1.1em;}}
+@media screen and (min-width:601px) and (max-width:900px){#sd p{font-size:1.43em;} #button button{font-size:2em; min-height:65px;} .rmss_a ul li p{font-size:1.5em;}}
+@media screen and (min-width:901px) {#sd p{font-size:1.43em;} #button button{font-size:1.9em; min-height:65px;} .rmss_a ul li p{ font-size:1.5em;}}
+

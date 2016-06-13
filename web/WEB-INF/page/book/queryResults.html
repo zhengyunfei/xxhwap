@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>买书</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" type="text/css" href="${css}/m.css" />
+<link rel="stylesheet" type="text/css" href="${css}/mindex.css" />
+</head>
+<body>
+<div class="header">
+    <a class="back-icon" href="${cmsReq}/book/index.html"></a>
+    买书
+</div>
+<!--send author info start-->
+<!--<div style="position: fixed;top: 0;width: 100%;">
+    <div class="header" style="opacity: 0.9;">
+        <a class="back-icon" href="/sell"></a>
+        科波拉天堂的出售列表
+    </div>
+    <div class="user_info" style="opacity: 0.9;">
+        <img src="http://ubookmall.b0.upaiyun.com/user/2016/03/16/7052968895_1458121901.jpg!middle" >
+        <div class="nickname gender_f">科波拉天堂</div>
+        <div class="school_name">辽宁石油化工大学</div>
+        <div style="clear: both;"></div>
+    </div>
+</div>-->
+<!--send author info end-->
+<!--send book list info start-->
+[#if books ?? && books?size>0]
+[#list books as book]
+<a href="${cmsReq}/webui/detail${book.id!''}.html">
+    <div class="single_item">
+        <img class="book_pic" src="${book.imagePath!''}">
+        <div class="book_info">
+            <div class="title">${book.title!''}</div>
+            <div class="author_press">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
+            <div class="author_press">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
+            <div class="price_info">
+                <span class="now_price">${book.biji!''}|${book.number!''}|￥${book.price!''}</span>&nbsp;
+               <!-- <span class="line_through">￥28.00</span>-->
+            </div>
+            <!--<ul class="extend_info">
+                <li class="created_at"><span>${book.sendTime!''}</span></li>
+                <li class="comment"><span>0</span></li>
+                <li class="quality"><span>8成新</span></li>
+            </ul>-->
+         </div>
+    </div>
+</a>
+[/#list]
+[#else]
+    <center>没有找到您要的书籍</center>
+[/#if]
+
+<!--send book list info end-->
+<div style="height: 50px;"></div>
+</body>
+</html>

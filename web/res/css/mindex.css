@@ -1,0 +1,95 @@
+a
+{
+    text-decoration: none;
+}
+div.single_item
+{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    background-color: rgb(255,255,255);
+    margin-top: 6px;
+    border-top: 1px solid rgb(230,230,230);
+    border-bottom: 1px solid rgb(230,230,230);
+    overflow: hidden;
+}
+div.single_item img.book_pic
+{
+    width: 75px;
+    height: 100px;
+    padding: 10px;
+}
+div.single_item div.book_info
+{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 10px 10px 10px 0;
+}
+
+div.book_info div.title
+{
+    font-size: 14px;
+}
+
+div.book_info div.author_press
+{
+    padding: 6px 0 4px 0;
+    font-size: 12px;
+    color: rgb(154,154,154);
+}
+div.book_info div.price_info
+{
+    padding: 10px 0;
+    font-size: 12px;
+}
+div.book_info span.now_price
+{
+    font-size: 18px;
+    color: rgb(0,199,180);
+}
+ul.extend_info
+{
+    margin-left: 4px;
+}
+ul.extend_info li
+{
+    display: inline-block;
+}
+ul.extend_info li.created_at
+{
+    width: 35%;
+}
+ul.extend_info li.comment
+{
+    width: 35%;
+}
+ul.extend_info li.quality
+{
+    width: 25%;
+}
+ul.extend_info li span
+{
+    color: rgb(154,154,154);
+    padding-left: 16px;
+    font-size: 12px;
+}
+ul.extend_info li.created_at span
+{
+    background: url(../images/date.png) no-repeat left center;
+    background-size: 12px;
+    -webkit-background-size: 12px;
+}
+ul.extend_info li.comment span
+{
+    background: url(../images/comment.png) no-repeat left center;
+    background-size: 12px;
+    -webkit-background-size: 12px;
+}
+ul.extend_info li.quality span
+{
+    background: url(../images/quality.png) no-repeat left center;
+    background-size: 12px;
+    -webkit-background-size: 12px;
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link href="${css}/Bar_code.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap -->
+    <link href="${css}/bootstrap.css" rel="stylesheet">
+    <link href="${css}/app.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${css}/form.css">
+    <link rel="stylesheet" type="text/css"  href="${css}/jsjstyle.css">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+<div id="content">
+    <form name="form1" id="form1" method="get" action="">
+        <input type="hidden" id="price" name="price">
+        <input type="hidden" id="summary" name="summary">
+        <input type="hidden" id="pages" name="pages">
+        <input type="hidden" id="imagePath" name="imagePath">
+        <input type="hidden" id="tags" name="tags">
+        <div class="shousuo">
+            <span class="su_left"><input type="text" name="isbn10" id="isbn10" placeholder="ISCN:请直接输入或点击右侧图标"></span>
+            <span class="su_right"><input type="button" value="" id="scanQRCode1" onclick="test()" name="" style="opacity:0;width:30px;height:20px;"></span>
+        </div>
+        <div class="shousuo">
+            <span class="forInput">书名</span>
+				<span class="forInputRight">
+					<input type="text" id="title" name="title">
+				</span>
+
+        </div>
+        <div class="shousuo">
+            <span class="forInput">作者</span>
+				<span class="forInputRight">
+					<input type="text" id="author" name="author">
+				</span>
+        </div>
+        <div class="shousuo">
+            <span class="forInput3">出版社</span>
+				<span class="forInputRight3">
+					<input type="text" id="publisher" name="publisher">
+				</span>
+
+        </div>
+        <div class="shousuo">
+            <span class="forInput">版次</span>
+				<span class="forInputRight">
+					<input type="text" id="binding" name="binding">
+				</span>
+        </div>
+        <div class="shousuo">
+            <span class="forInput">学校</span>
+				<span class="forInputRight">
+					<input type="text">
+				</span>
+
+        </div>
+        <div class="shousuo">
+            <span class="forInput">笔记</span>
+				<span class="forInputRight">
+					<select  id="beiji" style="width: 157px">
+                        <option value="">请选择</option>
+                        <option value="0">少</option>
+                        <option value="1">多</option>
+                    </select>
+				</span>
+
+        </div>
+        <div class="shousuo">
+            <span class="forInput">数量</span>
+				<span class="forInputRight">
+					<input type="text">
+				</span>
+
+        </div>
+        <div style="margin-bottom:10%">
+            <div id="button">
+                <button type="button"  class="btn-block">搜索</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ba_pullleft bar_lf">增加买卖就能减少伤害</div>
+            <div class="ba_pullright bar_rt">
+                <h4 class="text-right">-莫风</h4>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    wx.config({
+        debug: false,
+        appId: '${appid}',
+        timestamp:'${timestamp}',
+        nonceStr: '${nonceStr}',
+        signature: '${signature}',
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onVoiceRecordEnd',
+            'playVoice',
+            'onVoicePlayEnd',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
+    });
+   wx.ready(function () {
+        document.querySelector('#scanQRCode1').onclick = function () {
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                desc: 'scanQRCode desc',
+                success: function (res) {
+                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                    var ss = result.split(",");
+                    var isbn=ss[1];
+                    getBookInfoByIsbn(isbn);
+                }
+            });
+            wx.error(function (res) {
+                alert(""+res.errMsg);
+            });
+        };
+    });
+    function test(){
+        alert("点击");
+        getBookInfoByIsbn("9787208115774");
+    }
+    function getBookInfoByIsbn(isbn){
+        var url="${base}/book/searchByIsbn.html";
+        var data={"isbn":isbn};
+        $.ajax({
+            type: 'POST',
+            url: url ,
+            data: data ,
+            dataType: 'json',
+            success: function (data) {
+                var data=data.book;
+                console.log(data);
+                alert("获取成功="+data.title);
+                $("#title").val(data.title);
+                $("#author").val(data.author);
+                $("#publisher").val(data.publisher);
+                $("#binding").val(data.binding);
+            } ,error:function (err) {
+                alert("error:"+err);
+            }
+
+        });
+
+
+    }
+</script>
+
+<script>
+   /* $(document).ready(function() {
+
+        $("#form1").submit(function(){
+
+            if ($("input[id='gjz']").val() == ""){
+
+                alert("对不起，请输入关键字！");
+
+                $("input[id='gjz']").focus();
+
+                return false;
+
+            }
+        });
+
+    });*/
+</script>
+<!--<script src="${js}/demo.js"> </script>-->
+</html>
+

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta content=”yes” name=”apple-mobile-web-app-capable” />
+     <meta content=”black” name=”apple-mobile-web-app-status-bar-style” />
+     <meta content=”telephone=no” name=”format-detection” />
+    <link href="${css}/Bar_code.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap -->
+    <link href="${css}/bootstrap.css" rel="stylesheet">
+    <link href="${css}/app.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${css}/form.css">
+    <link rel="stylesheet" type="text/css"  href="${css}/jsjstyle.css">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <style>
+        /* 两列右侧自适应布局 */
+        .g-bd1{margin:0 0 10px;}
+        .g-sd1{position:relative;float:left;width:190px;margin-right:-190px;}
+        .g-sd1 i{color:red}
+        .g-mn1c i{color:red}
+        .g-mn1{float:right;width:100%;height: 100%}
+        .g-mn1c{width:60%;float:right;height:100%}
+        .g-div_input{margin-right: -22px;width: 100%;border-left: 0;border-right: 0;border-top: 0;}
+        .g-mn1c p{margin-right: -90px;}
+
+        .g-sd1 p{padding-top:70px;}
+        .rightInput{width: 100%;border-top:none;border-left:none;border-right:none;padding-top:9px;padding-bottom: 9px;}
+    </style>
+</head>
+<body>
+<div id="content">
+    <form name="form1" id="form1" method="get" action="">
+        <input type="hidden" id="summary" name="summary">
+        <input type="hidden" id="pages" name="pages">
+        <input type="hidden" id="imagePath" name="imagePath">
+        <input type="hidden" id="tags" name="tags">
+        <div class="topdiv">
+            <span class="su_left"><input type="text" name="isbn10" style="padding:0 0 2px;" id="isbn10" placeholder="ISBN:请直接输入或点击右侧图标"></span>
+            <span class="su_right"><input type="button" value="" id="scanQRCode1"  name="" style="opacity:0;width:30px;height:20px;"></span>
+        </div>
+        <div class="g-bd1 f-cb" style="border: 1px solid  #BBBBBB;height: 150px;">
+            <div class="g-sd1" style="width:40%;border-right: 1px solid #BBBBBB;height:100%" id="img1">
+                    <img src="${images}/addpic.png"  id="chooseImage" style="width:100%;height:120px;"/>
+            </div>
+            <div class="g-mn1">
+                <div class="g-mn1c" style="width: 60%;">
+                    <div class="g-div_input"><input type="text" class="rightInput" placeholder="&nbsp;&nbsp;书名"></div>
+                    <div class="g-div_input"><input type="text" class="rightInput" placeholder="&nbsp;&nbsp;作者"></div>
+                    <div class="g-div_input"><input type="text" class="rightInput" placeholder="&nbsp;&nbsp;出版社"></div>
+                    <div class="g-div_input"><input type="text"  class="rightInput" placeholder="&nbsp;&nbsp;版次"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="g-bd1 f-cb" style="border: 1px solid   #BBBBBB;height: 30px;">
+            <div class="g-sd1" style="width:50%;border-right: 1px solid #BBBBBB;height:100%" >
+               <i>*</i>学校<input type="text" id="school" name="school" style="width:79%;height:100%;border:none">
+            </div>
+            <div class="g-mn1">
+                <div class="g-mn1c" style="width: 50%;">
+                    <i>*</i> 笔记<input type="text" id="biji" name="biji"  style="width:77%;height:100%;border:none">
+                </div>
+            </div>
+        </div>
+
+        <div class="g-bd1 f-cb" style="border: 1px solid  #BBBBBB;height: 30px;">
+            <div class="g-sd1" style="width:50%;border-right: 1px solid  #BBBBBB;height:100%" >
+                <i>*</i>数量<input type="text" id="num" name="num" style="width:79%;height:100%;border:none">
+            </div>
+            <div class="g-mn1">
+                <div class="g-mn1c" style="width: 50%;">
+                    <i>*</i>单本售价<input type="text" id="price" name="price" style="width:62%;height:100%;border:none">
+                </div>
+            </div>
+        </div>
+        <div class="g-bd1 f-cb" style="border: 1px solid  #BBBBBB;height: 30px;">
+            <div class="g-sd1" style="width:100%;border-right: 1px solid  #BBBBBB;height:100%" >
+                <i>*</i>手机号码<input type="text" id="mobile" name="mobile" style="width:79%;height:100%;border:none">
+            </div>
+        </div>
+       <!-- <div class="shousuo">
+            <span class="forInput10"><font color="red">*</font>学校</span>
+				<span class="forInputRight">
+					<input type="text" id="school" name="school">
+				</span>
+
+        </div>
+        <div class="shousuo">
+            <span class="forInput10"><font color="red">*</font>笔记</span>
+				<span class="forInputRight">
+					<select  id="beiji" name="biji" style="width: 157px">
+                        <option value="">请选择</option>
+                        <option value="0">少</option>
+                        <option value="1">多</option>
+                    </select>
+				</span>
+
+        </div>
+        <div class="shousuo">
+            <span class="forInput10"><font color="red">*</font>数量</span>
+				<span class="forInputRight">
+					<input type="text">
+				</span>
+
+        </div>
+        <div class="shousuo">
+            <span class="" ><font color="red">*</font>单本售价</span>
+				<span class="forInputRight" >
+					<input type="text" id="binding" name="binding">
+				</span>
+        </div>-->
+        <!--<div class="shousuo">
+            <span class="forInput2"><font color="red">*</font>手机号</span>
+				<span class="forInputRight">
+					<input type="text" id="mobile" name="mobile">
+				</span>
+        </div>-->
+        <div style="margin-bottom:5%;border:1px solid #BBBBBB; z-index:1000;width:100%">
+                <button type="button" id="button"  class="btn-block" onclick="sendBook()">发布</button>
+        </div>
+        <div class="row">
+            <div class="ba_pullleft bar_lf">增加买卖就能减少伤害</div>
+            <div class="ba_pullright bar_rt">
+                <h4 class="text-right">-莫风</h4>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    // 5 图片接口
+    // 5.1 拍照、本地选图
+    var images = {
+        localId: [],
+        serverId: [],
+        downloadId:[]
+    };
+    wx.config({
+        debug: false,
+        appId: '${appid}',
+        timestamp:'${timestamp}',
+        nonceStr: '${nonceStr}',
+        signature: '${signature}',
+        jsApiList: [
+            'checkJsApi',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'openProductSpecificView'
+        ]
+    });
+   wx.ready(function () {
+       document.querySelector('#scanQRCode1').onclick = function () {
+           wx.scanQRCode({
+               needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+               scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+               desc: 'scanQRCode desc',
+               success: function (res) {
+                   var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                   var ss = result.split(",");
+                   var isbn = ss[1];
+                   getBookInfoByIsbn(isbn);
+               }
+           });
+           wx.error(function (res) {
+               alert("" + res.errMsg);
+           });
+       };
+
+
+       document.querySelector('#chooseImage').onclick = function () {
+           wx.chooseImage({
+               success: function (res) {
+                   images.localId = res.localIds;
+                   $(function () {
+                       if (images.localId.length >1) {
+                           alert('只能选择一张图片');
+                           return;
+                       }
+                       $.each(res.localIds, function (i, n) {
+                           $("#img1").innerHTML('<img src="' + n + '" width="100%" height="120"/>');
+                           upload();
+                       });
+                   });
+               }
+           });
+       };
+       // 5.2 图片预览
+       document.querySelector('#previewImage').onclick = function () {
+           wx.previewImage({
+               current: 'http://img5.douban.com/view/photo/photo/public/p1353993776.jpg',
+               urls: [
+                   'http://img3.douban.com/view/photo/photo/public/p2152117150.jpg',
+                   'http://img5.douban.com/view/photo/photo/public/p1353993776.jpg',
+                   'http://img3.douban.com/view/photo/photo/public/p2152134700.jpg'
+               ]
+           });
+       };
+       // 5.3 上传图片
+       document.querySelector('#uploadImage').onclick = function () {
+           if (images.localId.length == 0) {
+               alert('请先使用 chooseImage 接口选择图片');
+               return;
+           }
+           var i = 0, length = images.localId.length;
+           images.serverId = [];
+           upload();
+       };
+
+       // 5.4 下载图片
+       document.querySelector('#downloadImage').onclick = function () {
+           if (images.serverId.length == 0) {
+               alert('请先使用 uploadImage 上传图片');
+               return;
+           }
+
+          // var i = 0, length = images.serverId.length;
+          // images.localId = [];
+           download();
+       };
+   });
+       /*       document.querySelector('#uploadImage').onclick = function () {
+           if (images.localId.length == 0) {
+               alert('请先使用选择图片按钮');
+               return;
+           }
+           images.serverId = [];
+           jQuery(function(){
+               $.each(images.localId, function (i, n) {
+                   wx.uploadImage({
+                       localId: n,
+                       success: function (res) {
+                           images.serverId.push(res.serverId);
+                       },
+                       fail: function (res) {
+                           alert(JSON.stringify(res));
+                       }
+                   });
+               });
+           });
+       };
+
+       document.querySelector('#downloadImage').onclick = function () {
+           if (images.serverId.length == 0) {
+               alert('请先按上传图片按钮');
+               return;
+           }
+           $(function() {
+               $.each(images.serverId, function (i, n) {
+                   wx.downloadImage({
+                       serverId: n,
+                       success: function (res) {
+                           alert("下载成功");
+                           images.downloadId.push(res.localId);
+                           alert(res.localId);
+                       }
+                   });
+               });
+               $.each( images.downloadId, function(i, n){
+                   $("#img2").append('<img src = "'+ n+' " /> <br />');
+                   alert(n);
+               });
+           });
+       };
+});*/
+       function upload() {
+        var i = 0,length =  images.localId.length;
+        images.serverId = [] ;
+        wx.uploadImage({
+            localId: images.localId[i].toString(),
+            success: function (res) {
+                i++;
+                images.serverId.push(res.serverId);
+                downimage(res.serverId);
+                //根据medir_id将微信素材下载到本地服务器
+                if (i < length) {
+                    upload();
+                }
+            }, fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
+    }
+
+       function test(){
+        alert("点击");
+        getBookInfoByIsbn("9787208115774");
+    }
+    function getBookInfoByIsbn(isbn) {
+        var url =
+                "${base}/book/searchByIsbn.html";
+        var
+
+                data = {"isbn": isbn};
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                var data = data.book;
+                console.log(data);
+                alert("获取成功=" + data.title);
+                $("#title").val(data.title);
+                $("#author").val(data.author);
+                $("#publisher").val(data.publisher);
+                $("#binding").val(data.binding);
+            }, error: function (err) {
+                alert("error:" + err);
+            }
+
+        });
+    }
+function downimage(media_id){
+    var url="${cmsReq}/book/downimage.html";
+    alert(url);
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: {"media_id":media_id},
+        dataType: 'json',
+        success: function (data) {
+            var flg = data.success;
+            if(flg){
+                alert("下载到本地成功");
+                var src="/upload/"+media_id+"";
+            }
+
+        }, error: function (err) {
+            alert("error:" + eval("("+err.toString()+")"));
+        }
+
+    });
+}
+function sendBook(){
+    var school=$("#school").val();
+    var biji=$("#biji").val();
+    var sum=$("#sum").val();
+    var mobile=$("#mobile").val();
+}
+</script>
+
+<script>
+   /* $(document).ready(function() {
+
+        $("#form1").submit(function(){
+
+            if ($("input[id='gjz']").val() == ""){
+
+                alert("对不起，请输入关键字！");
+
+                $("input[id='gjz']").focus();
+
+                return false;
+
+            }
+        });
+
+    });*/
+</script>
+<!--<script src="${js}/demo.js"> </script>-->
+</html>
+

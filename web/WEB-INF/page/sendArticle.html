@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>发送图文消息</title>
+    <script></script>
+    <script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+发送图文json
+<textarea id="sendjson" style="width: 500px;height: 500px;">
+    {
+    "touser":"o-4SRs52-LjWlOtpxMs0maATbuSY",
+    "msgtype":"news",
+    "news":{
+        "articles": [
+         {
+             "title":"百度",
+             "description":"Is Really A Happy Day",
+             "url":"http://www.baidu.com",
+             "picurl":"http://www.5icool.org/uploadfile/2013/0220/20130220035258150.jpg"
+         },
+         {
+             "title":"Happy Day",
+             "description":"淘宝",
+             "url":"http://www.taobao.com",
+             "picurl":"http://www.5icool.org/uploadfile/2013/0220/20130220035259854.jpg"
+         }
+         ]
+    }
+}
+
+</textarea>
+<input type="button" id="sendBtn" value="发送" onclick="postData();">
+<label>返回结果</label>
+<textarea  style="width: 500px;height: 500px;" id="result"></textarea>
+</body>
+</html>
+<script>
+    function postData() {
+        var jsonStr=$("#sendjson").val();
+        alert(jsonStr);
+        var url="/sendAjax.html";
+        $.ajax({
+            type: "post",
+            url: url,
+            dataType : 'json',
+            data : {'json':jsonStr},
+            success: function(data){
+                console.log(data);
+                $("#result").val("{errcode:"+data.errcode+",errmsg:"+data.errmsg+"}");
+            },
+            error: function(xhr,status,errMsg){
+                alert("操作失败!");
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,11 @@
+公众号配置
+url：http://+域名＋/bsbservlet
+token:bsbservlet
+
+
+1:获取openid和基本信息的链接地址
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=换成自己的公众号appid&redirect_uri=http://域名/oauth/do.html&response_type=code&scope=snsapi_base&state=bsb1&from=singlemessage&isappinstalled=0#wechat_redirect
+
+
+2:发送图文消息的访问地址 http://localhost:8080/send.html
