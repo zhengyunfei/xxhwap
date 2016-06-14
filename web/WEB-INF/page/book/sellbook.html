@@ -166,121 +166,121 @@
             'openProductSpecificView'
         ]
     });
-   wx.ready(function () {
-       document.querySelector('#scanQRCode1').onclick = function () {
-           wx.scanQRCode({
-               needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-               scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-               desc: 'scanQRCode desc',
-               success: function (res) {
-                   var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                   var ss = result.split(",");
-                   var isbn = ss[1];
-                   getBookInfoByIsbn(isbn);
-               }
-           });
-           wx.error(function (res) {
-               alert("" + res.errMsg);
-           });
-       };
+    wx.ready(function () {
+        document.querySelector('#scanQRCode1').onclick = function () {
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                desc: 'scanQRCode desc',
+                success: function (res) {
+                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                    var ss = result.split(",");
+                    var isbn = ss[1];
+                    getBookInfoByIsbn(isbn);
+                }
+            });
+            wx.error(function (res) {
+                alert("" + res.errMsg);
+            });
+        };
 
 
-       document.querySelector('#chooseImage').onclick = function () {
-           wx.chooseImage({
-               success: function (res) {
-                   images.localId = res.localIds;
-                   $(function () {
-                       if (images.localId.length >1) {
-                           alert('只能选择一张图片');
-                           return;
-                       }
-                       $.each(res.localIds, function (i, n) {
-                           $("#img1").innerHTML('<img src="' + n + '" width="100%" height="120"/>');
-                           upload();
-                       });
-                   });
-               }
-           });
-       };
-       // 5.2 图片预览
-       document.querySelector('#previewImage').onclick = function () {
-           wx.previewImage({
-               current: 'http://img5.douban.com/view/photo/photo/public/p1353993776.jpg',
-               urls: [
-                   'http://img3.douban.com/view/photo/photo/public/p2152117150.jpg',
-                   'http://img5.douban.com/view/photo/photo/public/p1353993776.jpg',
-                   'http://img3.douban.com/view/photo/photo/public/p2152134700.jpg'
-               ]
-           });
-       };
-       // 5.3 上传图片
-       document.querySelector('#uploadImage').onclick = function () {
-           if (images.localId.length == 0) {
-               alert('请先使用 chooseImage 接口选择图片');
-               return;
-           }
-           var i = 0, length = images.localId.length;
-           images.serverId = [];
-           upload();
-       };
+        document.querySelector('#chooseImage').onclick = function () {
+            wx.chooseImage({
+                success: function (res) {
+                    images.localId = res.localIds;
+                    $(function () {
+                        if (images.localId.length >1) {
+                            alert('只能选择一张图片');
+                            return;
+                        }
+                        $.each(res.localIds, function (i, n) {
+                            $("#img1").innerHTML('<img src="' + n + '" width="100%" height="120"/>');
+                            upload();
+                        });
+                    });
+                }
+            });
+        };
+        // 5.2 图片预览
+        document.querySelector('#previewImage').onclick = function () {
+            wx.previewImage({
+                current: 'http://img5.douban.com/view/photo/photo/public/p1353993776.jpg',
+                urls: [
+                    'http://img3.douban.com/view/photo/photo/public/p2152117150.jpg',
+                    'http://img5.douban.com/view/photo/photo/public/p1353993776.jpg',
+                    'http://img3.douban.com/view/photo/photo/public/p2152134700.jpg'
+                ]
+            });
+        };
+        // 5.3 上传图片
+        document.querySelector('#uploadImage').onclick = function () {
+            if (images.localId.length == 0) {
+                alert('请先使用 chooseImage 接口选择图片');
+                return;
+            }
+            var i = 0, length = images.localId.length;
+            images.serverId = [];
+            upload();
+        };
 
-       // 5.4 下载图片
-       document.querySelector('#downloadImage').onclick = function () {
-           if (images.serverId.length == 0) {
-               alert('请先使用 uploadImage 上传图片');
-               return;
-           }
+        // 5.4 下载图片
+        document.querySelector('#downloadImage').onclick = function () {
+            if (images.serverId.length == 0) {
+                alert('请先使用 uploadImage 上传图片');
+                return;
+            }
 
-          // var i = 0, length = images.serverId.length;
-          // images.localId = [];
-           download();
-       };
-   });
-       /*       document.querySelector('#uploadImage').onclick = function () {
-           if (images.localId.length == 0) {
-               alert('请先使用选择图片按钮');
-               return;
-           }
-           images.serverId = [];
-           jQuery(function(){
-               $.each(images.localId, function (i, n) {
-                   wx.uploadImage({
-                       localId: n,
-                       success: function (res) {
-                           images.serverId.push(res.serverId);
-                       },
-                       fail: function (res) {
-                           alert(JSON.stringify(res));
-                       }
-                   });
-               });
-           });
-       };
+            // var i = 0, length = images.serverId.length;
+            // images.localId = [];
+            download();
+        };
+    });
+    /*       document.querySelector('#uploadImage').onclick = function () {
+     if (images.localId.length == 0) {
+     alert('请先使用选择图片按钮');
+     return;
+     }
+     images.serverId = [];
+     jQuery(function(){
+     $.each(images.localId, function (i, n) {
+     wx.uploadImage({
+     localId: n,
+     success: function (res) {
+     images.serverId.push(res.serverId);
+     },
+     fail: function (res) {
+     alert(JSON.stringify(res));
+     }
+     });
+     });
+     });
+     };
 
-       document.querySelector('#downloadImage').onclick = function () {
-           if (images.serverId.length == 0) {
-               alert('请先按上传图片按钮');
-               return;
-           }
-           $(function() {
-               $.each(images.serverId, function (i, n) {
-                   wx.downloadImage({
-                       serverId: n,
-                       success: function (res) {
-                           alert("下载成功");
-                           images.downloadId.push(res.localId);
-                           alert(res.localId);
-                       }
-                   });
-               });
-               $.each( images.downloadId, function(i, n){
-                   $("#img2").append('<img src = "'+ n+' " /> <br />');
-                   alert(n);
-               });
-           });
-       };
-});*/
-       function upload() {
+     document.querySelector('#downloadImage').onclick = function () {
+     if (images.serverId.length == 0) {
+     alert('请先按上传图片按钮');
+     return;
+     }
+     $(function() {
+     $.each(images.serverId, function (i, n) {
+     wx.downloadImage({
+     serverId: n,
+     success: function (res) {
+     alert("下载成功");
+     images.downloadId.push(res.localId);
+     alert(res.localId);
+     }
+     });
+     });
+     $.each( images.downloadId, function(i, n){
+     $("#img2").append('<img src = "'+ n+' " /> <br />');
+     alert(n);
+     });
+     });
+     };
+     });*/
+    function upload() {
         var i = 0,length =  images.localId.length;
         images.serverId = [] ;
         wx.uploadImage({
@@ -299,7 +299,7 @@
         });
     }
 
-       function test(){
+    function test(){
         alert("点击");
         getBookInfoByIsbn("9787208115774");
     }
@@ -328,33 +328,33 @@
 
         });
     }
-function downimage(media_id){
-    var url="${cmsReq}/book/downimage.html";
-    alert(url);
-    $.ajax({
-        type: 'POST',
-        url: url,
-        data: {"media_id":media_id},
-        dataType: 'json',
-        success: function (data) {
-            var flg = data.success;
-            if(flg){
-                alert("下载到本地成功");
-                var src="/upload/"+media_id+"";
+    function downimage(media_id){
+        var url="${cmsReq}/book/downimage.html";
+        alert(url);
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {"media_id":media_id},
+            dataType: 'json',
+            success: function (data) {
+                var flg = data.success;
+                if(flg){
+                    alert("下载到本地成功");
+                    var src="/upload/"+media_id+"";
+                }
+
+            }, error: function (err) {
+                alert("error:" + eval("("+err.toString()+")"));
             }
 
-        }, error: function (err) {
-            alert("error:" + eval("("+err.toString()+")"));
-        }
-
-    });
-}
-function sendBook(){
-    var school=$("#school").val();
-    var biji=$("#biji").val();
-    var sum=$("#sum").val();
-    var mobile=$("#mobile").val();
-}
+        });
+    }
+    function sendBook(){
+        var school=$("#school").val();
+        var biji=$("#biji").val();
+        var sum=$("#sum").val();
+        var mobile=$("#mobile").val();
+    }
 </script>
 
 <script>

@@ -767,8 +767,8 @@ input.weui_btn_plain_default {
     float: left;
     margin-right: 9px;
     margin-bottom: 9px;
-    width: 79px;
-    height: 79px;
+    width: 100px;
+    height: 100px;
     background: no-repeat center center;
     background-size: cover;
 }
@@ -777,7 +777,6 @@ input.weui_btn_plain_default {
 }
 .weui_uploader_status:before {
     content: " ";
-    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;

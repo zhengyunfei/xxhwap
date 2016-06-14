@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class Oauth2Servlet {
     private static final long serialVersionUID = -644518508267758016L;
-
     @RequestMapping(value = "/oauth/do.html", method = RequestMethod.GET)
     public ModelAndView oauth(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         String get_access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?" +

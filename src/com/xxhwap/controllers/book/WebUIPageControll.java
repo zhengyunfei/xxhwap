@@ -3,7 +3,9 @@ package com.xxhwap.controllers.book;
 import com.xxhwap.book.TudouBookInfo;
 import com.xxhwap.contrants.MobilePageContants;
 import com.xxhwap.services.IBookService;
+import com.xxhwap.utils.Config;
 import com.xxhwap.utils.FmUtils;
+import com.xxhwap.utils.Sign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,8 +44,18 @@ public class WebUIPageControll {
 								  HttpServletResponse response, ModelMap model) {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
+		sweepParam(request, mv);//获取扫一扫参数
 		mv.setViewName(MobilePageContants.WEBUI_INDEX_PAGE);
 		return mv;
+	}
+	private void sweepParam(HttpServletRequest request, ModelAndView mv) {
+		String url=request.getRequestURL().toString();
+		Map<String, String> res= Sign.getConfigMessageForWater(url);
+		Config config=new Config();
+		mv.addObject("appid",config.getString("appid"));
+		mv.addObject("timestamp",res.get("timestamp"));
+		mv.addObject("nonceStr",res.get("nonceStr"));
+		mv.addObject("signature",res.get("signature"));
 	}
 	/**
 	 * send book page

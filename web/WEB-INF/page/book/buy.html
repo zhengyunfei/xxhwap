@@ -162,25 +162,55 @@
         $("#form1").attr('action',url);
         $("#form1").attr('method','get');
         $("#form1").submit();
-        /*      $.ajax({
-         type: 'POST',
-         url: url ,
-         data: data ,
-         dataType: "json",
-         success: function (data) {
-         if(data.success){
-         $(".weui_toast_content").html("发布成功");
-         $("#toast").show();
-         setTimeout(function (){
-         $("#toast").hide();
-         window.location.href="${cmsReq}/webui/sendBookList.html";
-         }, 3000);
-         }
-         },error:function (err) {
+    }
 
-         }
-
-         });*/
+    wx.config({
+        debug: false,
+        appId: '${appid}',
+        timestamp:'${timestamp}',
+        nonceStr: '${nonceStr}',
+        signature: '${signature}',
+        jsApiList: [
+            'checkJsApi',
+            'scanQRCode'
+        ]
+    });
+    wx.ready(function () {
+        document.querySelector('#scanQRCode1').onclick = function () {
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                desc: 'scanQRCode desc',
+                success: function (res) {
+                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                    var ss = result.split(",");
+                    var isbn=ss[1];
+                    getBookInfoByIsbn(isbn);
+                }
+            });
+            wx.error(function (res) {
+                alert(""+res.errMsg);
+            });
+        };
+    });
+    function getBookInfoByIsbn(isbn){
+        var url="${base}/book/searchByIsbn.html";
+        var data={"isbn":isbn};
+        $.ajax({
+            type: 'POST',
+            url: url ,
+            data: data ,
+            dataType: 'json',
+            success: function (data) {
+                var data=data.book;
+                $("#title").val(data.title);
+                $("#author").val(data.author);
+                $("#publisher").val(data.publisher);
+                $("#binding").val(data.binding);
+            } ,error:function (err) {
+                alert("error:"+err);
+            }
+        });
     }
 </script>
 
