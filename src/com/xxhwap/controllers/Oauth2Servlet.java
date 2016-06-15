@@ -1,16 +1,16 @@
 package com.xxhwap.controllers;
-import com.xxhwap.bo.WeiXinUserBo;
-import com.xxhwap.bo.WeixinMain;
+import com.xxhwap.contrants.MobilePageContants;
 import com.xxhwap.utils.Config;
 import com.xxhwap.utils.HttpUtil;
+import com.xxhwap.utils.weixin.UrlContants;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /**
@@ -34,6 +34,7 @@ public class Oauth2Servlet {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
             String code = request.getParameter("code");
+            System.out.println("code============================"+code);
             //判断页面跳转
             String key = request.getParameter("state");
             Config config = new Config();
@@ -47,16 +48,34 @@ public class Oauth2Servlet {
             //获取当前登录的用户id
 
             JSONObject jsonObject = JSONObject.fromObject(json);
+            System.out.println("jsonObject========================="+jsonObject);
             if (jsonObject.has("openid")) {
                 openid = jsonObject.getString("openid");
             }
+            System.out.println("oepnId===================================="+openid);
+            ServletContext application =request.getSession().getServletContext();
+            //保存用户的openid到全局缓存中
+            application.setAttribute(MobilePageContants.CURRENT_USER_OPENID,openid);
             mv.addObject("openId", openid);
-            String access_token = jsonObject.getString("access_token");
+            String page="";
+            if(UrlContants.MENU_KEY_1.equals(key)){
+                page=MobilePageContants.MY_BUY_BOOK_PAGE;
+            }
+            if(UrlContants.MENU_KEY_2.equals(key)){
+                page=MobilePageContants.MY_SELL_BOOK_PAGE;
+            }
+            if(UrlContants.MENU_KEY_3.equals(key)){
+                page=MobilePageContants.MY_BUY_BOOK_PAGE;
+            }
+            if(UrlContants.MENU_KEY_5.equals(key)){
+                page=MobilePageContants.MY_SELL_BOOK_PAGE;
+            }
+            /*String access_token = jsonObject.getString("access_token");
             WeiXinUserBo bo = WeixinMain.getWechatUserInfo(appid, access_token);
             mv.addObject("bo", bo);
             if (!StringUtils.isEmpty(bo)) {
                 System.out.println("昵称=====================================" + bo.getNickname());
-            }
+            }*/
             response.setContentType("text/html; charset=utf-8");
         } catch (Exception e) {
             e.printStackTrace();

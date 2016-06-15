@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我卖的书</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="${css}/webui/weui.css"/>
+    <link rel="stylesheet" href="${css}/webui/example.css"/>
+<link rel="stylesheet" type="text/css" href="${css}/m.css" />
+<link rel="stylesheet" type="text/css" href="${css}/mindex.css" />
+</head>
+<body>
+<!--send book list info start-->
+[@send_book_list]
+[#if books ?? && books?size>0]
+[#list books as book]
+<a href="${cmsReq}/book/detail${book.id}.html">
+    <div class="single_item">
+        <img class="book_pic" src="${book.imagePath!''}">
+        <div class="book_info">
+            <div class="title">${book.title!''}</div>
+            <div class="author_press">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
+            <div class="author_press">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
+            <div class="author_press">${book.biji!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.price!''}</div>
+           <!-- <div class="price_info">
+                <span class="now_price">￥${book.price!''}</span>&nbsp;
+                <span class="line_through">￥28.00</span>
+            </div>-->
+           <ul class="extend_info2">
+               <!-- <li class="created_at"><span></span></li>
+                <li class="comment"><span></span></li>-->
+                <li class="comment"><a class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a><br/><a class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a></li>
+            </ul>
+         </div>
+    </div>
+</a>
+[/#list]
+[#else]
+<center>暂无交易</center>
+[/#if]
+[/@send_book_list]
+
+</body>
+</html>

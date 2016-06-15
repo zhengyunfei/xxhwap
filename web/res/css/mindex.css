@@ -39,6 +39,12 @@ div.book_info div.author_press
     font-size: 12px;
     color: rgb(154,154,154);
 }
+div.book_info div.author_press_mybuy
+{
+    padding: 4px 0 0 0;
+    font-size: 12px;
+    color: rgb(154,154,154);
+}
 div.book_info div.price_info
 {
     padding: 10px 0;
@@ -75,6 +81,24 @@ ul.extend_info li span
     padding-left: 16px;
     font-size: 12px;
 }
+
+ul.extend_info2
+{
+    float: right;
+}
+ul.extend_info2 li
+{
+    display: inline-block;
+}
+ul.extend_info li.created_at
+{
+    width: 35%;
+}
+ul.extend_info2 li.comment
+{
+    width: 100%;
+}
+
 ul.extend_info li.created_at span
 {
     background: url(../images/date.png) no-repeat left center;

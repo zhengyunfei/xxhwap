@@ -38,7 +38,7 @@ public class BookPageControll {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/book/index.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/book/buy.html", method = RequestMethod.GET)
 	public ModelAndView indexPage(HttpServletRequest request,
 								  HttpServletResponse response, ModelMap model) {
 		ModelAndView mv=new ModelAndView();
@@ -112,7 +112,36 @@ public class BookPageControll {
 		mv.setViewName(MobilePageContants.MY_SELL_BOOK);
 		return mv;
 	}
-
+	/**
+	 * my buy book index
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/book/mybuy.html", method = RequestMethod.GET)
+	public ModelAndView mybuy(HttpServletRequest request,
+								 HttpServletResponse response, ModelMap model) {
+		ModelAndView mv=new ModelAndView();
+		FmUtils.FmData(request,model);
+		mv.setViewName(MobilePageContants.MY_BUY_BOOK_PAGE);
+		return mv;
+	}
+	/**
+	 * my sell book index
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/book/mysell.html", method = RequestMethod.GET)
+	public ModelAndView mysell(HttpServletRequest request,
+							  HttpServletResponse response, ModelMap model) {
+		ModelAndView mv=new ModelAndView();
+		FmUtils.FmData(request,model);
+		mv.setViewName(MobilePageContants.MY_SELL_BOOK_PAGE);
+		return mv;
+	}
 	/**
 	 * download image to local server computer
 	 * @param request

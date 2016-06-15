@@ -39,13 +39,13 @@ public class WebUIPageControll {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/webui/index.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/book/sell.html", method = RequestMethod.GET)
 	public ModelAndView indexPage(HttpServletRequest request,
 								  HttpServletResponse response, ModelMap model) {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
 		sweepParam(request, mv);//获取扫一扫参数
-		mv.setViewName(MobilePageContants.WEBUI_INDEX_PAGE);
+		mv.setViewName(MobilePageContants.SELL_BOOK_PAGE);
 		return mv;
 	}
 	private void sweepParam(HttpServletRequest request, ModelAndView mv) {
@@ -167,7 +167,7 @@ public class WebUIPageControll {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/webui/detail{id}.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/book/detail{id}.html", method = RequestMethod.GET)
 	public ModelAndView detail(HttpServletRequest request,
 								  HttpServletResponse response, ModelMap model,@PathVariable String  id) {
 		ModelAndView mv=new ModelAndView();
@@ -276,6 +276,9 @@ public class WebUIPageControll {
 		mv.setViewName(MobilePageContants.MY_PAY_SUCCESS_PAGE);
 		return mv;
 	}
+
+
+
 	@Autowired
 	protected IBookService bookService;
 
