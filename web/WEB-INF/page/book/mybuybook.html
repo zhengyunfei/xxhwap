@@ -9,10 +9,10 @@
 </head>
 <body>
 <!--send book list info start-->
-[@send_book_list]
+[@send_book_list flag="1" openId="${current_user_openid_key!''}"]
 [#if books ?? && books?size>0]
 [#list books as book]
-<a href="http://www.jiushujie.com/sell/3938119?m=1">
+<a href="${cmsReq}/book/detail${book.id}.html">
     <div class="single_item">
         <img class="book_pic" src="${book.imagePath!''}">
         <div class="book_info">

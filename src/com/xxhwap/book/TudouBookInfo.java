@@ -28,6 +28,16 @@ public class TudouBookInfo  implements Serializable {
     private String openId;
     private String totalPrice;
     private int status;//出售状态 0 未出售 1 已出售
+    private int role;//出售状态 0 卖家 1 买家
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     public int getStatus() {
         return status;
     }

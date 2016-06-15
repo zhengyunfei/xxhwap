@@ -45,6 +45,13 @@ div.book_info div.author_press_mybuy
     font-size: 12px;
     color: rgb(154,154,154);
 }
+div.book_info div.author_press_right
+{
+    padding: 4px 0 0 0;
+    font-size: 12px;
+    color: rgb(154,154,154);
+    float:right;
+}
 div.book_info div.price_info
 {
     padding: 10px 0;
