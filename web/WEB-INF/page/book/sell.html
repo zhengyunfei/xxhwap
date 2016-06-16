@@ -25,7 +25,7 @@
             <input class="weui_input" type="number" pattern="[0-9]*" id="isbn10" name="isbn10" value="weui input error" placeholder="&nbsp;请直接输入或点击右侧图标扫描" style="font-size: 12px;"/>
         </div>
         <div class="weui_cell_ft">
-            <img  src="${css}/webui/images/saoma.png" width="30px;" height="30px;"/>
+            <img id="scanQRCode1"  src="${css}/webui/images/saoma.png" width="30px;" height="30px;"/>
         </div>
     </div>
      </div>
@@ -47,7 +47,7 @@
                     </div>-->
                     <div class="weui_uploader_bd" style="width:60%">
                         <ul class="weui_uploader_files"  id="img1">
-                            <li id="chooseImage" class="weui_uploader_file weui_uploader_status" style="background-image:url(${images}/upload.png)">
+                            <li id="chooseImage" class="weui_uploader_file weui_uploader_status" style="background-image:url(${images}/addpic.png)">
                             </li>
                            <!-- <li class="weui_uploader_file weui_uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
                                 <div class="weui_uploader_status_content">50%</div>
@@ -212,22 +212,30 @@
             var number=$("#number").val();
             var price=$("#price").val();
             var mobile=$("#mobile").val();
-            if(school.trim().length==0){
+            var f=true;
+            if(''==school||school.trim().length==0){
                 showTips("请输入学校");
+                f=false
             }
-            else if(biji.trim().length==0){
+            else if(''==biji||biji.trim().length==0){
                 showTips("请输入笔记");
+                f=false;
             }
-            else if(number.trim().length==0){
+            else if(''==number||number<=0||number.trim().length==0){
                 showTips("请输入数量");
+                f=false
             }
-            else if(price.trim().length==0){
+            else if(''==price||price.trim().length==0){
                 showTips("请输入单本售价");
+                f=false
             }
-            else if(mobile.trim().length==0){
+            else if(''==mobile||mobile.trim().length==0){
                 showTips("请输入手机号码");
+                f=false
+            }else{
+                save_book();
+
             }
-            save_book();
         })
 
     });

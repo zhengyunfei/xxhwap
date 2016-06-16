@@ -26,7 +26,7 @@
             <input class="weui_input" type="number" pattern="[0-9]*" id="isbn10" name="isbn10" value="weui input error" placeholder="&nbsp;请直接输入或点击右侧图标扫描" style="font-size: 12px;"/>
         </div>
         <div class="weui_cell_ft">
-            <img  src="${css}/webui/images/saoma.png" width="30px;" height="30px;"/>
+            <img id="scanQRCode1" src="${css}/webui/images/saoma.png" width="30px;" height="30px;"/>
         </div>
     </div>
      </div>
@@ -130,13 +130,13 @@
             var price=$("#price").val();
             var mobile=$("#mobile").val();
             var f=true;
-            if(school.trim().length==0){
+            if(''==school||school.trim().length==0){
                 f=showTips("请输入学校");
             }
-            else if(biji.trim().length==0){
+            else if(''==biji||biji.trim().length==0){
                 f=showTips("请输入笔记");
             }
-            else if(number.trim().length==0){
+            else if(''==number||number<=0||number.trim().length==0){
                 f=showTips("请输入数量");
             }else{
                 f=true;
