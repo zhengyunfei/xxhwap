@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="zero2ipo.picture">
+
+	<!-- *************************************************别名***************************************************** -->
+	<typeAlias alias="picture"	type="com.xxhwap.bo.PictureEntity" />
+	<typeAlias alias="pictureType"	type="com.xxhwap.bo.PictureTypeEntity" />
+
+	<!-- *********************************************多数据接收类型定义******************************************* -->
+	<resultMap id="pictureMap" class="picture">
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="url" column="URL" />
+		<result property="attachmentUrl" column="ATTACHMENTURL" />
+		<result property="remark" column="REMARK" />
+		<result property="pid" column="PID" />
+		<result property="tum" column="TUM" />
+	</resultMap>
+
+	<resultMap id="pictureTypeMap" class="pictureType">
+		<result property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="remark" column="REMARK"/>
+	</resultMap>
+
+	<!-- ************************************************查询************************************************* -->
+	<!-- 根据名字查找类型数据 -->
+	<select id="findPictureTypeByName" resultClass="pictureType">
+		SELECT
+			ID AS id, NAME as name, REMARK as remark
+		FROM
+			CFJ_PICTURE_TYPE
+		WHERE
+			NAME = #name#
+	</select>
+
+	<!-- 根据id查找图片信息 -->
+	<select id="findPictureByPid" resultMap="pictureMap">
+		SELECT
+			ID, NAME, URL, ATTACHMENTURL, REMARK,PID, TUM
+		FROM
+			CFJ_PICTURE
+		WHERE
+			PID = #pId#
+		ORDER BY TUM
+	</select>
+
+</sqlMap>

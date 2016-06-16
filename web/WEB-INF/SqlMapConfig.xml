@@ -18,6 +18,8 @@
     <!-- 手动配置ibatis的sql语句文件  -->
     <!-- 字典表 -->
     <sqlMap resource="com/xxhwap/sql/book_sql.xml"></sqlMap>
+    <sqlMap resource="com/xxhwap/sql/confManage_sql.xml"></sqlMap>
+    <sqlMap resource="com/xxhwap/sql/picture.xml"></sqlMap>
 
 
 </sqlMapConfig>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="mobile.config.weixin">
+	<!-- 项目部署实体类ConfSort -->
+	<typeAlias alias="sysConfSort" type="com.xxhwap.bo.ConfSort"/>
+	<resultMap id="sysConfSortList" class="sysConfSort">
+		<result property="sortCode" column="SORT_CODE"/>
+		<result property="proType" column="PRO_TYPE"/>
+		<result property="proCode" column="PRO_CODE"/>
+		<result property="confDes" column="CONF_DES"/>
+		<result property="remark" column="REMARK"/>
+	</resultMap>
+
+	<!-- 项目部署实体类ConfValue -->
+	<typeAlias alias="sysConfValue" type="com.xxhwap.bo.ConfValue"/>
+	<resultMap id="sysConfValueList" class="sysConfValue">
+		<result property="valueId" column="VALUE_ID"/>
+		<result property="sortCode" column="SORT_CODE"/>
+		<result property="confKey" column="CONF_KEY"/>
+		<result property="confValue" column="CONF_VALUE"/>
+		<result property="confDes" column="CONF_DES"/>
+		<result property="remark" column="REMARK"/>
+	</resultMap>
+
+	<!-- 查询所有项目部署分类 -->
+	<select id="querySysConfSortList" resultMap="sysConfSortList">
+		SELECT
+		      t.sort_code,
+		      t.pro_type,
+		      t.pro_code,
+		      t.conf_des,
+		      t.remark
+		 FROM
+		 	  S9_SYS_CONF_SORT t
+		 ORDER BY
+		 		t.sort_code
+	</select>
+
+	<!-- 查询项目部署分类总个数 -->
+	<select id="querySysConfSortCount" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT
+			count(1)
+		FROM
+			S9_SYS_CONF_SORT
+	</select>
+
+	<!-- 查询项目部署分类 -->
+	<select id="queryConfSort"  resultMap="sysConfSortList" parameterClass="java.lang.String">
+		SELECT
+		      t.sort_code,
+		      t.pro_type,
+		      t.pro_code,
+		      t.conf_des,
+		      t.remark
+		 FROM
+		 	  S9_SYS_CONF_SORT t
+		<dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="value">
+				<![CDATA[
+					t.SORT_CODE = #value#
+				]]>
+				</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 查询所有项目部署分类 -->
+	<select id="querySysConfValueList" resultMap="sysConfValueList" parameterClass="java.util.Map">
+		SELECT
+			 t.value_id,
+		     t.sort_code,
+		     t.conf_key,
+		     t.conf_value,
+		     t.conf_des,
+		     t.remark
+		FROM
+			S9_SYS_CONF_VALUE t
+			<dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="sortCode">
+				<![CDATA[
+					t.SORT_CODE = #sortCode#
+				]]>
+				</isNotEmpty>
+			</dynamic>
+		ORDER BY
+			t.value_id
+	</select>
+
+	<!-- 查询项目部署分类总个数 -->
+	<select id="querySysConfValueCount" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT
+			count(1)
+		FROM
+			S9_SYS_CONF_VALUE t
+			<dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="sortCode">
+				<![CDATA[
+					t.SORT_CODE = #sortCode#
+				]]>
+				</isNotEmpty>
+			</dynamic>
+	</select>
+		<!-- 查询项目配置参数信息 -->
+	<select id="queryConfValue"  resultMap="sysConfValueList">
+		SELECT
+		     t.value_id,
+		     t.sort_code,
+		     t.conf_key,
+		     t.conf_value,
+		     t.conf_des,
+		     t.remark
+		 FROM
+		 	  S9_SYS_CONF_VALUE t
+		<dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="value">
+				<![CDATA[
+					t.value_id = #value#
+				]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="confKey">
+				<![CDATA[
+					t.conf_key = #confKey#
+				]]>
+				</isNotEmpty>
+		</dynamic>
+	</select>
+ 		<!-- 保持项目配置信息 -->
+	<insert id="addConfSort" parameterClass="sysConfSort">
+		INSERT INTO
+			S9_SYS_CONF_SORT(
+				pro_type,
+				pro_code,
+				conf_des,
+				remark
+			)VALUES(
+				#proType#,
+				#proCode#,
+				#confDes#,
+				#remark#
+			)
+		<selectKey resultClass="java.lang.String" keyProperty="sortCode" >
+			SELECT LAST_INSERT_ID() AS sortCode
+		</selectKey>
+	</insert>
+
+   <!-- 删除项目 配置分类 -->
+	<delete id="deleteConfSort" parameterClass="java.lang.String">
+		DELETE FROM S9_SYS_CONF_SORT  WHERE SORT_CODE = #sortCode#
+	</delete>
+ 	<!-- 修改项目 配置分类 -->
+	<update id="updateConfSort" parameterClass="sysConfSort">
+		UPDATE
+				S9_SYS_CONF_SORT A
+		  	SET
+				A.pro_type = #proType#,
+				A.pro_code = #proCode#,
+				A.conf_des = #confDes#,
+				A.remark = #remark#
+			WHERE
+				A.SORT_CODE = #sortCode#
+
+
+
+	</update>
+
+	<!-- 修改参数明细信息-->
+	<update id="updateConfValue" parameterClass="sysConfValue">
+		UPDATE
+				S9_SYS_CONF_VALUE A
+			SET
+				A.SORT_CODE = #sortCode#,
+				A.CONF_KEY = #confKey#,
+				A.CONF_VALUE = #confValue#,
+				A.CONF_DES = #confDes#,
+				A.REMARK = #remark#
+			WHERE
+				A.VALUE_ID = #valueId#
+	</update>
+
+	<!-- 保存参数明细信息 -->
+	<insert id="addConfValue" parameterClass="sysConfValue">
+		INSERT INTO
+			S9_SYS_CONF_VALUE(
+				SORT_CODE,
+				CONF_KEY,
+				CONF_VALUE,
+				CONF_DES,
+				REMARK
+			)VALUES(
+				#sortCode#,
+				#confKey#,
+				#confValue#,
+				#confDes#,
+				#remark#
+			)
+	</insert>
+
+
+
+
+
+	<!-- 删除参数信息-->
+	<delete id="deleteConfValue" parameterClass="java.util.Map">
+		DELETE FROM S9_SYS_CONF_VALUE  WHERE VALUE_ID IN
+		<iterate property="contentEditId" conjunction="," close=")" open="(">
+			#contentEditId[]#
+		</iterate>
+	</delete>
+	<!-- 删除参数信息根据 配置分类信息标识 -->
+	<delete id="deleteConfValueByConfSortCode" parameterClass="java.lang.String">
+		DELETE FROM S9_SYS_CONF_VALUE  WHERE SORT_CODE = #sortCode#
+	</delete>
+</sqlMap>
