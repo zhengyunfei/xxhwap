@@ -41,21 +41,13 @@ public class BookAddControll {
 		Map<String,Object> map=new HashMap<String, Object>();
 		Map<String,Object> result=new HashMap<String, Object>();
 		try{
-			//first panduan lastsaletime
-			String time= DateUtil.getBeforeNDaysTime(2);
-			//if time<lastcanceldealtime then  bu neng jiaoyi
-			map.put("isCancelFlg",time);
-			int count=bookService.getCount(map);
-			if(count>=0){
-				result.put("result","cancelSalefail");
-			}else{//cancel
-				boolean flg=bookService.delBookById(id);
-				if(flg){
-					result.put("result","cancelSaleSuccess");
-				}else{
-					result.put("result","error");
-				}
+			boolean flg=bookService.delBookById(id);
+			if(flg){
+				result.put("result","cancelSaleSuccess");
+			}else{
+				result.put("result","error");
 			}
+
 		}catch (Exception e){
 			e.printStackTrace();
 		}

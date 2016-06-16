@@ -2,6 +2,7 @@ package com.xxhwap.common.freemarker.directives;
 
 import com.xxhwap.book.TudouBookInfo;
 import com.xxhwap.services.IBookService;
+import com.xxhwap.utils.DateUtil;
 import freemarker.core.Environment;
 import freemarker.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,19 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 			}
 			List<TudouBookInfo> list = new ArrayList<TudouBookInfo>();
 			list = bookService.findSendBookList(queryMap);
+			int size=list.size();
+			String now= DateUtil.getBeforeNDaysTime(2);
+			for(int i=0;i<size;i++){
+				int isCancel=1;
+				String lastCancelDealTime=list.get(i).getLastCancelSaleTime();
+				if(!StringUtils.isEmpty(lastCancelDealTime)){
+					int c=DateUtil.compare_date(now,lastCancelDealTime);
+					if(c<=0){//不可交易
+						isCancel=0;
+					}
+				}
+				list.get(i).setIsCancel(isCancel);
+			}
 			env.setVariable("books", ObjectWrapper.DEFAULT_WRAPPER.wrap(list));
 		}catch (Exception e){
 			e.printStackTrace();

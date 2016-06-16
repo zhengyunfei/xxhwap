@@ -30,8 +30,17 @@ public class TudouBookInfo  implements Serializable {
     private String totalPrice;
     private int status;//出售状态 0 未出售 1 已出售
     private int role;//出售状态 0 卖家 1 买家
-    private String lastCancelSaleTime;//上次撤销出售的时间
+    private int isCancel;//是否可以撤销出售的标志 0 不可撤销 1 可以撤销
 
+    public int getIsCancel() {
+        return isCancel;
+    }
+
+    public void setIsCancel(int isCancel) {
+        this.isCancel = isCancel;
+    }
+
+    private String lastCancelSaleTime;//上次撤销出售的时间
     public String getOid() {
         return oid;
     }
