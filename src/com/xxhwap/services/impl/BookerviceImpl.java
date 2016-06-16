@@ -35,4 +35,14 @@ public class BookerviceImpl implements IBookService {
 	public boolean updateBook(TudouBookInfo bookInfo) {
 		return bookDao.updateBook(bookInfo);
 	}
+
+	@Override
+	public int getCount(Map<String, Object> map) {
+		return bookDao.getCount(map);
+	}
+
+	@Override
+	public boolean delBookById(String id) {
+		return bookDao.delBookById(id);
+	}
 }

@@ -17,4 +17,8 @@ public interface IBookService {
     public List<TudouBookInfo> findSendBookList(Map<String,Object> queryMap) ;
     public TudouBookInfo findById(String id);
     public boolean updateBook(TudouBookInfo bookInfo);
+
+    public int getCount(Map<String, Object> map);
+
+    public boolean delBookById(String id);
 }

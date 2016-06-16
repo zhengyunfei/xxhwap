@@ -21,8 +21,10 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 	private static final String SAVE = COMMON+"save";
 	private static final String UPDATE = COMMON+"update";
 	private static final String DELETE = COMMON+"delete";
+	private static final String DELET_BY_ID = COMMON+"deleteById";
 	private static final String FINDALLLIST = COMMON+"findAllList";
 	private static final String FINDBYID = COMMON+"findById";
+	private static final String GETCOUNT = COMMON+"getCount";
 	@Override
 	public long sendBook(TudouBookInfo bookInfo) {
 		long id=0;
@@ -87,5 +89,30 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+	@Override
+	public int getCount(Map<String, Object> map) {
+		int count=0;
+		try{
+			count=(Integer) this.query(GETCOUNT,map);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	@Override
+	public boolean delBookById(String id) {
+		boolean flg=false;
+		try{
+			Map<String,Object> map=new HashMap<String, Object>();
+			map.put("id",id);
+			this.update(DELET_BY_ID,map);
+			flg=true;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return flg;
 	}
 }

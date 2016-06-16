@@ -24,6 +24,8 @@
 	<result property="openId" column="open_id"/>
 	<result property="status" column="status"/>
 	<result property="role" column="role"/>
+	<result property="lastCancelSaleTime" column="last_cancel_sale_time"/>
+	<result property="oid" column="oid"/>
 </resultMap>
 <!--查询-->
 <select id='findAllList' resultMap='bookMap'>
@@ -48,7 +50,9 @@ SELECT
 	sendTime,
 	open_id,
 	status,
-	role
+	role,
+	last_cancel_sale_time,
+	oid
 	FROM
 		book
 	<dynamic prepend="WHERE">
@@ -113,11 +117,16 @@ SELECT
 	sendTime,
 	open_id,
 	status,
-	role
+	role,
+	last_cancel_sale_time,
+	oid
 FROM book
 	<dynamic prepend="WHERE">
 		<isNotEmpty prepend="AND" property="id">
 			ID=#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="oid">
+			oid=#oid#
 		</isNotEmpty>
 	</dynamic>
 	limit 0,1
@@ -172,6 +181,7 @@ FROM book
 	<!--buy book-->
 	<insert id="save" parameterClass="book">
 		INSERT INTO book(
+		oid
 		tags,
 		isbn10,
 		isbn13,
@@ -194,6 +204,7 @@ FROM book
 		status,
 		role
 		)VALUES(
+		#oid#,
 		#tags#,
 		#isbn10#,
 		#isbn13#,
@@ -226,10 +237,14 @@ FROM book
 			 SET
 					 num = #number#,
 					 status = #status#
+					 <isNotEmpty property="lastCancelSaleTime" prepend=",">
+						 last_cancel_sale_time=#lastCancelSaleTime#
+					 </isNotEmpty>
 			 WHERE
 				id = #id#
 	</update>
 
+    <!--auto delete-->
 	<delete id="delete" parameterClass="java.util.Map">
 		<![CDATA[
 		DELETE FROM
@@ -240,4 +255,24 @@ FROM book
 		sale_time < #time#
 		]]>
 	</delete>
+	<!--auto delete-->
+	<delete id="deleteById" parameterClass="java.util.Map">
+		<![CDATA[
+		DELETE FROM
+			book
+		WHERE
+			id=#id#
+		]]>
+	</delete>
+	<select id="getCount" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT
+			count(0)
+		FROM book
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="isCancelFlg">
+				last_cancel_sale_time >= #isCancelFlg#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
 </sqlMap>

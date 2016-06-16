@@ -7,7 +7,8 @@ import java.io.Serializable;
  */
 public class TudouBookInfo  implements Serializable {
     private static final long serialVersionUID = 2179631010054135058L;
-    private long id;
+    private long id;//主键
+    private String oid;//当book被分成多份sale的时候,保留oid=id
     private String tags;//书本标签
     private String isbn10;//10位ISBN
     private String isbn13;
@@ -29,6 +30,23 @@ public class TudouBookInfo  implements Serializable {
     private String totalPrice;
     private int status;//出售状态 0 未出售 1 已出售
     private int role;//出售状态 0 卖家 1 买家
+    private String lastCancelSaleTime;//上次撤销出售的时间
+
+    public String getOid() {
+        return oid;
+    }
+
+    public void setOid(String oid) {
+        this.oid = oid;
+    }
+
+    public String getLastCancelSaleTime() {
+        return lastCancelSaleTime;
+    }
+
+    public void setLastCancelSaleTime(String lastCancelSaleTime) {
+        this.lastCancelSaleTime = lastCancelSaleTime;
+    }
 
     public int getRole() {
         return role;

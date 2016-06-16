@@ -232,6 +232,7 @@ public class WebUIPageControll {
 					TudouBookInfo newBookInfo=bookInfo;
 					newBookInfo.setNumber(number);
 					newBookInfo.setStatus(MobilePageContants.STATUS_1);//saled
+					newBookInfo.setOid(id);
 					long pid=bookService.saveBook(newBookInfo);
 					//step 2 update ori book num=onumber-num
 					bookInfo.setId(Long.parseLong(id));

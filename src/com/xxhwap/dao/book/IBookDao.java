@@ -21,4 +21,8 @@ public interface IBookDao {
 
 	public boolean updateBook(TudouBookInfo bookInfo);
 	public int deleteByMap(Map<String, Object> queryMap);
+
+	public int getCount(Map<String, Object> map);
+
+	public boolean delBookById(String id);
 }
