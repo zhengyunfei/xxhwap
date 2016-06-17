@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>卖书</title>
-    <link rel="stylesheet" href="${css}/webui/weui.css"/>
+    <link rel="stylesheet" href="${css}/webui/weui.css?v=1"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
-    <link rel="stylesheet" type="text/css" href="${css}/m.css" />
+    <link rel="stylesheet" type="text/css" href="${css}/m.css?v=1" />
     <link rel="stylesheet" type="text/css" href="${css}/mindex.css" />
 </head>
 <body ontouchstart>
@@ -30,7 +30,7 @@
     </div>
      </div>
     <div class="weui_cells weui_cells_form">
-        <div class="weui_toptips weui_warn js_tooltips">格式不对</div>
+        <div class="weui_toptips weui_warn js_tooltips" style="display:block">格式不对</div>
         <div id="toast" style="display: none;">
             <div class="weui_mask_transparent"></div>
             <div class="weui_toast">
@@ -392,7 +392,7 @@
         getBookInfoByIsbn("9787208115774");
     }
     function getBookInfoByIsbn(isbn) {
-        var url = "${base}/book/searchByIsbn.html";
+        var url = "${cmsReq}/book/searchByIsbn.html";
         var  data = {"isbn": isbn};
         $.ajax({
             type: 'POST',
@@ -407,8 +407,9 @@
                 $("#author").val(data.author);
                 $("#publisher").val(data.publisher);
                 $("#binding").val(data.binding);
+                $("#isbn10").val(data.isbn10);
             }, error: function (err) {
-                alert("error:" + err);
+                showTips("没有搜到任何书籍，请手动输入");
             }
 
         });

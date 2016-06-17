@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>买书</title>
-    <link rel="stylesheet" href="${css}/webui/weui.css"/>
+    <link rel="stylesheet" href="${css}/webui/weui.css?v=2"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
-    <link rel="stylesheet" type="text/css" href="${css}/m.css" />
+    <link rel="stylesheet" type="text/css" href="${css}/m.css?v=2" />
     <link rel="stylesheet" type="text/css" href="${css}/mindex.css" />
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
@@ -102,6 +102,7 @@
 
 <script src="${css}/webui/js/router.min.js?v=1"></script>
 <script src="${css}/webui/js/example.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -172,7 +173,41 @@
         signature: '${signature}',
         jsApiList: [
             'checkJsApi',
-            'scanQRCode'
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onVoiceRecordEnd',
+            'playVoice',
+            'onVoicePlayEnd',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
         ]
     });
     wx.ready(function () {
@@ -189,12 +224,13 @@
                 }
             });
             wx.error(function (res) {
-                alert(""+res.errMsg);
+                alert("my error");
+                alert(eval("("+res.errMsg+")"));
             });
         };
     });
     function getBookInfoByIsbn(isbn){
-        var url="${base}/book/searchByIsbn.html";
+        var url="${cmsReq}/book/searchByIsbn.html";
         var data={"isbn":isbn};
         $.ajax({
             type: 'POST',
@@ -207,8 +243,9 @@
                 $("#author").val(data.author);
                 $("#publisher").val(data.publisher);
                 $("#binding").val(data.binding);
+                $("#isbn10").val(data.isbn10);
             } ,error:function (err) {
-                alert("error:"+err);
+                showTips("没有搜到书籍，请手动输入");
             }
         });
     }

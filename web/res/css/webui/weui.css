@@ -572,7 +572,7 @@ input.weui_btn_plain_default {
     font-size: 14px;
     text-align: center;
     color: #FFF;
-    z-index: 2;
+    z-index: 999;
 }
 .weui_toptips.weui_warn {
     background-color: #E64340;

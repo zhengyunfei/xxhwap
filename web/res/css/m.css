@@ -24,6 +24,7 @@ div.header {
     position: relative;
     padding:10px 0;
     font-size: 16px;
+    z-index: 2;
 }
 div.header .back-icon {
     display: inline-block;
@@ -35,6 +36,7 @@ div.header .back-icon {
     position: absolute;
     left: 0;
     top: 0px;
+    z-index: 2;
 }
 
 .gender_m

@@ -51,12 +51,14 @@ public class RetrieveDocumentByURL {
         System.setProperty("sun.net.client.defaultReadTimeout", "30000"); // 读取超时30秒
         http.connect();
         InputStream is = http.getInputStream();
+        System.out.println("查询出来的book================================="+is);
         TudouBookInfo book = new BookXMLParser(is).getBook();
+        System.out.println("查询出来的book================================="+book);
         return book;
     }
     public static void main(String[] args) throws ClientProtocolException, IOException {
-       new RetrieveDocumentByURL("http://api.douban.com/book/subject/isbn/9787308083256");
-        //new RetrieveDocumentByURL("https://api.douban.com/v2/book/isbn/:9787208115774");
+      // new RetrieveDocumentByURL("http://api.douban.com/book/subject/isbn/6947751402018");
+        new RetrieveDocumentByURL("https://api.douban.com/v2/book/isbn/:6947751402018");
     }
 
 }

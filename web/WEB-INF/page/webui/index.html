@@ -384,7 +384,7 @@
         getBookInfoByIsbn("9787208115774");
     }
     function getBookInfoByIsbn(isbn) {
-        var url = "${base}/book/searchByIsbn.html";
+        var url = "${cmsReq}/book/searchByIsbn.html";
         var  data = {"isbn": isbn};
         $.ajax({
             type: 'POST',
