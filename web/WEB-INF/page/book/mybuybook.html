@@ -12,15 +12,15 @@
 [@send_book_list flag="1" openId="${current_user_openid_key!''}"]
 [#if books ?? && books?size>0]
 [#list books as book]
-<a href="${cmsReq}/book/detail${book.id}.html">
+<!--<a href="${cmsReq}/book/detail${book.id}.html">-->
     <div class="single_item">
         <img class="book_pic" src="${book.imagePath!''}">
         <div class="book_info">
             <div class="title">${book.title!''}</div>
             <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
             <div class="author_press_mybuy">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
-            <div class="author_press_mybuy">${book.biji!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.price!''}</div>
-            <div class="author_press_mybuy">${book.mobile!''}</div>
+            <div class="author_press_mybuy">笔记:[#if book.biji=='0']少[#else]多[/#if]&nbsp;&nbsp;|&nbsp;&nbsp;数量:${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥${book.price!''}</div>
+            <div class="author_press_mybuy">卖家手机号:${book.mobile!''}</div>
            <!-- <div class="price_info">
                 <span class="now_price">￥${book.price!''}</span>&nbsp;
                 <span class="line_through">￥28.00</span>
@@ -32,7 +32,7 @@
             </ul>-->
          </div>
     </div>
-</a>
+<!--</a>-->
 [/#list]
 [#else]
 <center>暂无交易</center>

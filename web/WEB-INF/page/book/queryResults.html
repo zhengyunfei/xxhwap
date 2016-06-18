@@ -37,7 +37,7 @@
             <div class="author_press">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
             <div class="author_press">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
             <div class="price_info">
-                <span class="now_price">${book.biji!''}|${book.number!''}|￥${book.price!''}</span>&nbsp;
+                <span class="now_price">笔记:[#if book.biji=='0']少[#else]多[/#if]|数量:${book.number!''}|单价:￥${book.price!''}</span>&nbsp;
                <!-- <span class="line_through">￥28.00</span>-->
             </div>
             <!--<ul class="extend_info">

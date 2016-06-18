@@ -12,7 +12,7 @@ a, body, center, cite, code, dd, del, div, dl, dt, em, fieldset, figcaption, fig
     border: 0;
     padding: 0;
     font-style: normal;
-   color: #676767;
+   /** color: #676767;/
 }
 label{
     margin: 0;
@@ -163,7 +163,7 @@ div.book_info div.title
 div.book_info div.isbn,div.book_info div.author_press
 {
     padding: 6px 0;
-    color: rgb(154,154,154);
+    /**color: rgb(154,154,154);**/
 }
 div.book_info div.price_info
 {

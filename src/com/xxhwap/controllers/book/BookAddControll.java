@@ -88,10 +88,11 @@ public class BookAddControll {
 						}
 					}
 				}else {**/
-					//else if oid is null then 只需要更新this book info status=0 and lastCancelSaleTime=now()
+					//else if oid is null then 只需要更新this book info status=0 and lastCancelSaleTime=now() and role=0 把角色从买家更换为卖家
 					 bookInfo.setStatus(MobilePageContants.STATUS_0);
 					 String now=DateUtil.getBeforeNDaysTime(0);
 					 bookInfo.setLastCancelSaleTime(now);
+				     bookInfo.setRole(MobilePageContants.STATUS_0);//卖家
 					bookService.updateBook(bookInfo);
 			//	}
 

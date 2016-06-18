@@ -23,7 +23,7 @@
             <div class="title"><a href="${cmsReq}/book/detail${book.id}.html" >${book.title!''}</a></div>
             <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
             <div class="author_press_mybuy">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
-            <div class="author_press_mybuy">${book.biji!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.price!''}</div>
+            <div class="author_press_mybuy">笔记:[#if book.biji=='0']少[#else]多[/#if]&nbsp;&nbsp;|&nbsp;&nbsp;数量:${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥${book.price!''}</div>
             <div class="author_press_right">
                 [#if book.status==0]
                     <i class="weui_btn weui_btn_mini weui_btn_primary">等待买家</i><br/>

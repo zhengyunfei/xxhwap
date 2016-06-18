@@ -27,8 +27,8 @@
         <div class="title">${book.title!''}</div>
         <div class="author_press">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
         <div class="author_press">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
-        <div class="price_info">
-            <span class="now_price">${book.biji!''}|${book.number!''}|￥${book.price!''}</span>&nbsp;
+        <div class="author_press">
+            <span>笔记:[#if book.biji=='0']少[#else]多[/#if]|数量：${book.number!''}|单价:￥${book.price!''}</span>
             <!-- <span class="line_through">￥28.00</span>-->
         </div>
     </div>
@@ -36,11 +36,11 @@
 </div>
 <div class="weui_toptips weui_warn js_tooltips">格式不对</div>
 <div class="weui_cell" >
-    <div class="weui_cell_hd"><label class="weui_label">购买数量</label></div>
+    <div class="weui_cell_hd"><label class="weui_label">购买数量:</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" type="number" id="number" name="number" pattern="[0-9]*"  />
+        <input class="weui_input" type="number" style="border: 1px solid;height: 38px;" id="number" name="number" pattern="[0-9]*"  />
     </div>
-    <div class="weui_btn_area" style="width:50%">
+    <div class="weui_btn_area" style="width:30%;padding-bottom:20px">
         <a class="weui_btn weui_btn_primary" href="javascript:" id="buyBtn">确定</a>
     </div>
     </div>

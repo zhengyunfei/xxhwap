@@ -240,6 +240,9 @@ FROM book
 					 <isNotEmpty property="lastCancelSaleTime" prepend=",">
 						 last_cancel_sale_time=#lastCancelSaleTime#
 					 </isNotEmpty>
+		             <isNotEmpty property="role" prepend=",">
+						 role=#role#
+					 </isNotEmpty>
 			 WHERE
 				id = #id#
 	</update>
