@@ -72,7 +72,7 @@ public class BookAddControll {
 			if(!StringUtils.isEmpty(bookInfo)){
 				String oid=bookInfo.getOid();
 				//if oid is not null and status=0 then need set orign book num 同时 delete this book info
-				if(!StringUtils.isEmpty(oid)){
+				/**if(!StringUtils.isEmpty(oid)){
 					TudouBookInfo orignBook=bookService.findById(oid);
 					if(!StringUtils.isEmpty(orignBook)){
 						int ostatus=orignBook.getStatus();
@@ -87,13 +87,13 @@ public class BookAddControll {
 							bookService.delBookById(id);
 						}
 					}
-				}else {
+				}else {**/
 					//else if oid is null then 只需要更新this book info status=0 and lastCancelSaleTime=now()
 					 bookInfo.setStatus(MobilePageContants.STATUS_0);
 					 String now=DateUtil.getBeforeNDaysTime(0);
 					 bookInfo.setLastCancelSaleTime(now);
 					bookService.updateBook(bookInfo);
-				}
+			//	}
 
 			}
 			result.put("result","dealSuccess");

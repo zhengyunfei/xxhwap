@@ -13,7 +13,7 @@
 </head>
 <body>
 <!--send book list info start-->
-[@send_book_list flag="0" openId="${current_user_openid_key!''}"]
+[@send_book_list  openId="${current_user_openid_key!''}"]
 [#if books ?? && books?size>0]
 [#list books as book]
 
