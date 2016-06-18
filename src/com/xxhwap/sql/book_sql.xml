@@ -181,7 +181,7 @@ FROM book
 	<!--buy book-->
 	<insert id="save" parameterClass="book">
 		INSERT INTO book(
-		oid
+		oid,
 		tags,
 		isbn10,
 		isbn13,

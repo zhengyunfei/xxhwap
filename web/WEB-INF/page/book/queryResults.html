@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="header">
-    <a class="back-icon" href="${cmsReq}/book/buy.html"></a>
+    <a class="back-icon" href="javascript:history.back(-1)"></a>
     买书
 </div>
 <!--send author info start-->
@@ -29,7 +29,7 @@
 <!--send book list info start-->
 [#if books ?? && books?size>0]
 [#list books as book]
-<a href="${cmsReq}/webui/detail${book.id!''}.html">
+<a href="${cmsReq}/book/detail${book.id!''}.html">
     <div class="single_item">
         <img class="book_pic" src="${book.imagePath!''}">
         <div class="book_info">
