@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -84,6 +85,14 @@ public class WebUIPageControll {
 	public Map<String,Object> sendbook(HttpServletRequest request,
 									   HttpServletResponse response, ModelMap model, TudouBookInfo bookInfo) {
 		Map<String,Object> resultMap=new HashMap<String, Object>();
+		//从缓存中获取openid
+		ServletContext application =request.getSession().getServletContext();
+		//保存用户的openid到全局缓存中
+		String openId=application.getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
+		if(!StringUtils.isEmpty(openId)){
+			bookInfo.setOpenId(openId);
+		}
+		String page="";
 		long id=bookService.sendBook(bookInfo);
 		if(id>0){
 			resultMap.put("success",true);

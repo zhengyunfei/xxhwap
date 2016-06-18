@@ -27,6 +27,7 @@
             <input type="hidden" id="isbn10" name="isbn10">
             <input type="hidden" id="summary" name="summary">
             <input type="hidden" id="pages" name="pages">
+            <input type="hidden" id="tags" name="tags">
             <input type="hidden" id="pubdate" name="pubdate">
             <input type="hidden" id="imagePath" name="imagePath">
         </div>
@@ -79,7 +80,7 @@
                     </div>
                 </div>
                 <div class="weui_cell_right">
-                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">出版社:</label></div>
+                    <div class="weui_cell_hd" style="width:35%"><label for="" class="weui_label">出版社:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" type="text" id="publisher" name="publisher"   />
                     </div>
@@ -413,11 +414,16 @@
                 $("#author").val(data.author);
                 $("#publisher").val(data.publisher);
                 $("#binding").val(data.binding);
+                $("#isbn13").val(data.isbn13);
                 $("#isbn10").val(data.isbn10);
                 $("#price").val(data.price);
                 $("#summary").val(data.summary);
                 $("#pages").val(data.pages);
+                $("#tags").val(data.tags);
                 $("#pubdate").val(data.pubdate);
+                $("#imagePath").val(data.imagePath);
+                $("#chooseImage").removeAttr('style');
+                $("#chooseImage").attr('style','background-image:url('+data.imagePath+');height:150px');
             }, error: function (err) {
                 showTips("没有搜到任何书籍，请手动输入");
             }
@@ -426,7 +432,6 @@
     }
     function downimage(media_id){
         var url="${cmsReq}/book/downimage.html";
-        alert(url);
         $.ajax({
             type: 'POST',
             url: url,
