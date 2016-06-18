@@ -165,7 +165,8 @@ public class BookPageControll {
 			System.out.println("token==========================="+token);
 			String requestUrl =DOWNLOAD_WEIXIN_IMAGE;
 			requestUrl = requestUrl.replace("ACCESS_TOKEN", token).replace("MEDIA_ID",media_id);
-			GetImage.downImageForNetUrl(requestUrl,media_id);
+			String base64Image=GetImage.downImageForNetUrl(requestUrl,media_id);
+			map.put("base64Image",base64Image);
 			map.put("success",true);
 		}catch (Exception e){
 			e.printStackTrace();

@@ -7,14 +7,20 @@ html, body {
     font-family: 微软雅黑, sans-serif;
 }
 
-a, body, center, cite, code, dd, del, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hr, html, img, input, label, legend, li, mark, ol, p, section, span, strong, textarea, time, ul, var {
+a, body, center, cite, code, dd, del, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hr, html, img, input, legend, li, mark, ol, p, section, span, strong, textarea, time, ul, var {
     margin: 0;
     border: 0;
     padding: 0;
     font-style: normal;
-    color: #676767;
+   color: #676767;
 }
-
+label{
+    margin: 0;
+    border: 0;
+    padding: 0;
+    font-style: normal;
+    /*  color: #676767;*/
+}
 
 div.header {
     background-color: #00C7B4;

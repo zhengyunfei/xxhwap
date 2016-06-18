@@ -54,6 +54,14 @@ public class RetrieveDocumentByURL {
         System.out.println("查询出来的book================================="+is);
         TudouBookInfo book = new BookXMLParser(is).getBook();
         System.out.println("查询出来的book================================="+book);
+
+        System.out.println("isbn13:->" + book.getIsbn13());
+        System.out.println("isbn10:->" + book.getIsbn10());
+        System.out.println("title:->" + book.getTitle());
+        System.out.println("summary:->"+ book.getSummary());
+        System.out.println("price:-->" + book.getPrice());
+        System.out.println("author:-->" + book.getAuthor());
+        System.out.println("ImagePath:-->" + book.getImagePath());
         return book;
     }
     public static void main(String[] args) throws ClientProtocolException, IOException {

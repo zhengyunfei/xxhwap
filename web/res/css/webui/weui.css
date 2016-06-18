@@ -661,7 +661,7 @@ input.weui_btn_plain_default {
     transform: rotate(45deg);
     height: 6px;
     width: 6px;
-    border-width: 2px 2px 0 0;
+    /*border-width: 2px 2px 0 0;*/
     border-color: #C8C8CD;
     border-style: solid;
     position: relative;

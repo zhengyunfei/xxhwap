@@ -15,6 +15,7 @@
     <a class="back-icon" href="#"></a>
     买书
 </div>
+<div class="weui_toptips weui_warn js_tooltips">格式不对</div>
 <div class="container" id="container"></div>
 
 <script type="text/html" id="tpl_home">
@@ -23,7 +24,7 @@
     <div class="weui_cell weui_cell_warn">
         <div class="weui_cell_hd" style="width:60px;"><label for="" class="weui_label">ISBN:</label></div>
         <div class="weui_cell_bd weui_cell_primary" >
-            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn10" name="isbn10" value="weui input error" placeholder="&nbsp;请直接输入或点击右侧图标扫描" style="font-size: 12px;"/>
+            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13"  placeholder="&nbsp;请直接输入或点击右侧图标扫描" style="font-size: 12px;"/>
         </div>
         <div class="weui_cell_ft">
             <img id="scanQRCode1" src="${css}/webui/images/saoma.png" width="30px;" height="30px;"/>
@@ -31,7 +32,6 @@
     </div>
      </div>
     <div class="weui_cells weui_cells_form">
-        <div class="weui_toptips weui_warn js_tooltips">格式不对</div>
         <div id="toast" style="display: none;">
             <div class="weui_mask_transparent"></div>
             <div class="weui_toast">
@@ -40,39 +40,39 @@
             </div>
         </div>
         <div class="weui_cell">
-                    <div class="weui_cell_hd" ><label for="" class="weui_label">书名</label></div>
+                    <div class="weui_cell_hd" ><label for="" class="weui_label">书名:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" type="text" id="title" name="title"  />
                     </div>
         </div>
         <div class="weui_cell">
-                    <div class="weui_cell_hd"><label for="" class="weui_label">作者</label></div>
+                    <div class="weui_cell_hd"><label for="" class="weui_label">作者:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" type="text" id="author" name="author"  />
                 </div>
             </div>
         <div class="weui_cell">
-                    <div class="weui_cell_hd" ><label for="" class="weui_label">出版社</label></div>
+                    <div class="weui_cell_hd" ><label for="" class="weui_label">出版社:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" type="text" id="publisher" name="publisher"   />
                     </div>
         </div>
         <div class="weui_cell">
-                    <div class="weui_cell_hd" ><label for="" class="weui_label">版次</label></div>
+                    <div class="weui_cell_hd" ><label for="" class="weui_label">版次:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" id="binding" name="binding" type="text" pattern="[0-9]*"  />
                      </div>
         </div>
 
             <div class="weui_cell">
-                <div class="weui_cell_hd" ><label class="weui_label"><font color="red">*</font>学校</label></div>
+                <div class="weui_cell_hd" ><label class="weui_label"><font color="red">*</font>学校:</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <input class="weui_input" type="text" id="school" name="school"  style="font-size: 12px;"/>
                 </div>
             </div>
             <div class="weui_cell">
-                    <div class="weui_cell_hd" ><label class="weui_label">笔记</label></div>
-                    <div class="weui_cell weui_cell_select">
+                    <div class="weui_cell_hd" ><label class="weui_label">笔记:</label></div>
+                    <div class="weui_cell weui_cell_select weui_select_before">
                                 <div class="weui_cell_bd weui_cell_primary">
                                     <select class="weui_select" name="biji" id="biji">
                                         <option  value=""></option>
@@ -83,7 +83,7 @@
                     </div>
             </div>
             <div class="weui_cell">
-                <div class="weui_cell_hd" ><label class="weui_label"><font color="red">*</font>数量</label></div>
+                <div class="weui_cell_hd" ><label class="weui_label"><font color="red">*</font>数量:</label></div>
                 <div class="weui_cell_bd weui_cell_primary" >
                     <input class="weui_input" type="number" id="number" name="number" pattern="[0-9]*" />
                 </div>
@@ -109,18 +109,21 @@
         $('#publisher').bind('blur', function (){
             var school=$("#school").val();
             if(school.trim().length==0){
+                //$(this).focus();
                 showTips("请输入学校");
             }
         });
         $('#biji').bind('blur', function (){
             var biji=$("#biji").val();
             if(biji.trim().length==0){
+               // $(this).focus();
                 showTips("请输入笔记");
             }
         });
         $('#number').bind('blur', function (){
             var number=$("#number").val();
             if(number.trim().length==0){
+               // $(this).focus();
                 showTips("请输入数量");
             }
         });
@@ -132,12 +135,15 @@
             var mobile=$("#mobile").val();
             var f=true;
             if(''==school||school.trim().length==0){
+              //  $("#school").focus();
                 f=showTips("请输入学校");
             }
             else if(''==biji||biji.trim().length==0){
+               // $("#biji").focus();
                 f=showTips("请输入笔记");
             }
             else if(''==number||number<=0||number.trim().length==0){
+                //$("#number").focus();
                 f=showTips("请输入数量");
             }else{
                 f=true;
@@ -173,41 +179,8 @@
         signature: '${signature}',
         jsApiList: [
             'checkJsApi',
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'onMenuShareQZone',
-            'hideMenuItems',
-            'showMenuItems',
-            'hideAllNonBaseMenuItem',
-            'showAllNonBaseMenuItem',
-            'translateVoice',
-            'startRecord',
-            'stopRecord',
-            'onVoiceRecordEnd',
-            'playVoice',
-            'onVoicePlayEnd',
-            'pauseVoice',
-            'stopVoice',
-            'uploadVoice',
-            'downloadVoice',
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            'downloadImage',
-            'getNetworkType',
-            'openLocation',
-            'getLocation',
-            'hideOptionMenu',
-            'showOptionMenu',
-            'closeWindow',
-            'scanQRCode',
-            'chooseWXPay',
-            'openProductSpecificView',
-            'addCard',
-            'chooseCard',
-            'openCard'
+            'scanQRCode'
+
         ]
     });
     wx.ready(function () {
@@ -243,7 +216,7 @@
                 $("#author").val(data.author);
                 $("#publisher").val(data.publisher);
                 $("#binding").val(data.binding);
-                $("#isbn10").val(data.isbn10);
+                $("#isbn13").val(data.isbn13);
             } ,error:function (err) {
                 showTips("没有搜到书籍，请手动输入");
             }

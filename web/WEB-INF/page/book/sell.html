@@ -14,6 +14,7 @@
     <a class="back-icon" href="#"></a>
     卖书
 </div>
+<div class="weui_toptips weui_warn js_tooltips" >格式不对</div>
 <div class="container" id="container"></div>
 
 <script type="text/html" id="tpl_home">
@@ -22,15 +23,20 @@
     <div class="weui_cell weui_cell_warn">
         <div class="weui_cell_hd" style="width:60px;"><label for="" class="weui_label">ISBN:</label></div>
         <div class="weui_cell_bd weui_cell_primary" >
-            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn10" name="isbn10" value="weui input error" placeholder="&nbsp;请直接输入或点击右侧图标扫描" style="font-size: 12px;"/>
+            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13" value="weui input error" placeholder="&nbsp;请直接输入或点击右侧图标扫描" style="font-size: 12px;"/>
+            <input type="hidden" id="isbn10" name="isbn10">
+            <input type="hidden" id="summary" name="summary">
+            <input type="hidden" id="pages" name="pages">
+            <input type="hidden" id="pubdate" name="pubdate">
+            <input type="hidden" id="imagePath" name="imagePath">
         </div>
         <div class="weui_cell_ft">
-            <img id="scanQRCode1"  src="${css}/webui/images/saoma.png" width="30px;" height="30px;"/>
+            <img id="scanQRCode1"  src="${images}/tiaoxingma.png" width="30px;" height="30px;"/>
         </div>
     </div>
      </div>
     <div class="weui_cells weui_cells_form">
-        <div class="weui_toptips weui_warn js_tooltips" style="display:block">格式不对</div>
+
         <div id="toast" style="display: none;">
             <div class="weui_mask_transparent"></div>
             <div class="weui_toast">
@@ -47,7 +53,7 @@
                     </div>-->
                     <div class="weui_uploader_bd" style="width:60%">
                         <ul class="weui_uploader_files"  id="img1">
-                            <li id="chooseImage" class="weui_uploader_file weui_uploader_status" style="background-image:url(${images}/addpic.png)">
+                            <li id="chooseImage" class="weui_uploader_file weui_uploader_status" style="background-image:url(${images}/upload.png)">
                             </li>
                            <!-- <li class="weui_uploader_file weui_uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
                                 <div class="weui_uploader_status_content">50%</div>
@@ -61,25 +67,25 @@
             </div>
             <div class="weui_cell_hd" style="width:64%;padding-bottom:29px;">
                 <div class="weui_cell_right">
-                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">书名</label></div>
+                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">书名:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" type="text" id="title" name="title"  />
                     </div>
                 </div>
                 <div class="weui_cell_right">
-                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">作者</label></div>
+                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">作者:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" type="text" id="author" name="author"  />
                     </div>
                 </div>
                 <div class="weui_cell_right">
-                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">出版社</label></div>
+                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">出版社:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" type="text" id="publisher" name="publisher"   />
                     </div>
                 </div>
                 <div class="weui_cell_right">
-                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">版次</label></div>
+                    <div class="weui_cell_hd" style="width:30%"><label for="" class="weui_label">版次:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input_right" id="binding" name="binding" type="text" pattern="[0-9]*"  />
                     </div>
@@ -261,7 +267,7 @@
                     $("#toast").show();
                     setTimeout(function (){
                         $("#toast").hide();
-                        window.location.href="${cmsReq}/webui/sendBookList.html";
+                        window.location.href="${cmsReq}/book/mysell.html";
                     }, 3000);
                 }
             },error:function (err) {
@@ -408,6 +414,10 @@
                 $("#publisher").val(data.publisher);
                 $("#binding").val(data.binding);
                 $("#isbn10").val(data.isbn10);
+                $("#price").val(data.price);
+                $("#summary").val(data.summary);
+                $("#pages").val(data.pages);
+                $("#pubdate").val(data.pubdate);
             }, error: function (err) {
                 showTips("没有搜到任何书籍，请手动输入");
             }
@@ -424,9 +434,11 @@
             dataType: 'json',
             success: function (data) {
                 var flg = data.success;
+                var base64Image=data.base64Image;
                 if(flg){
-                    alert("下载到本地成功");
-                    var src="/upload/"+media_id+"";
+                   // alert("下载到本地成功");
+                    //var src="/upload/"+media_id+"";
+                    $("#imagePath").val(base64Image);
                 }
 
             }, error: function (err) {
