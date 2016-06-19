@@ -62,6 +62,7 @@ public class Oauth2Servlet {
             ServletContext application =request.getSession().getServletContext();
             //保存用户的openid到全局缓存中
             application.setAttribute(MobilePageContants.CURRENT_USER_OPENID,openid);
+            application.setAttribute(MobilePageContants.CURRENT_USER_KEY,key);
             String page="";
             if(UrlContants.MENU_KEY_1.equals(key)){
                 page=domain+"book/buy.html";

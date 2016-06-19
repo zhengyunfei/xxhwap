@@ -92,22 +92,45 @@
             </div>
         </div>
     </div>
-        <div class="weui_cells weui_cells_form">
-            <div class="weui_cell">
-                <div class="weui_cell_hd" style="width:15%"><label class="weui_label">学校</label></div>
-                <div class="weui_cell_bd weui_cell_primary" style="width:30%">
-                    <input class="weui_input" type="text" id="school" name="school"  placeholder="学校"/>
+        <div class="weui_cells">
+            <div class="weui_cell weui_cell_select">
+                <div class="weui_cell_hd" style="width:50%">
+                    <select class="weui_select" name="select2" id="select2">
+                        <option value="">选择学校</option>
+                        [@find_code_list pcode="999999" codeSortId="119" ]
+                        [#if codes?? && codes?size>0]
+                        [#list codes as code]
+                        <option value="${code.codeValue!''}">${code.codeName!''}</option>
+                        [/#list]
+                        [/#if]
+                        [/@find_code_list]
+                    </select>
                 </div>
-                <div class="weui_cell_hd" style="width:15%"><label class="weui_label">笔记</label></div>
-                <div class="weui_cell weui_cell_select">
-                                <select class="weui_select" name="biji" id="biji">
-                                    <option  value=""></option>
-                                    <option value="1">多</option>
-                                    <option value="0">少</option>
-                                </select>
+                <div class="weui_cell_bd weui_cell_primary" style="width:50%">
+                    <select class="weui_select" name="school" id="school" style="width: 100%;">
+                    </select>
                 </div>
             </div>
-            <div class="weui_cell">
+        </div>
+
+
+        <div class="weui_cells">
+            <div class="weui_cell weui_cell_select weui_select_after">
+                <div class="weui_cell_hd">
+                    <label for="" class="weui_label">笔记:</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <select class="weui_select" name="select2">
+                        <option  value=""></option>
+                        <option value="1">多</option>
+                        <option value="0">少</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui_cells weui_cells_form">
+                       <div class="weui_cell">
                 <div class="weui_cell_hd" style="width:15%"><label class="weui_label">数量</label></div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:30%">
                     <input class="weui_input" type="number" id="number" name="number" pattern="[0-9]*" placeholder="数量"/>
@@ -165,30 +188,38 @@
 </html>
 <script type="text/javascript">
     $(document).ready(function(){
-       /* $('#isbn10').live('blur', function (){
-            var isbn10=$("#isbn10").val();
-            if(isbn10.trim().length!=8||isbn10.trim().length!=8){
-                showTips("isbn10值错误,请输入8位或者13位isbn码");
-            }
+        $("#select2").bind('change',function(){
+            var value=$(this).val();
+            $("#school option").remove();
+            var url="${cmsReq}/code/getCodeInfo.html";
+            var data={"codeSortId":"119","pCode":value};
+            getSchool(url,data)
         });
-        $('#title').live('blur', function (){
-            var title=$("#title").val();
-            if(title.trim().length==0){
-                showTips("请输入书名");
-            }
-        });
-        $('#author').live('blur', function (){
-            var author=$("#author").val();
-            if(author.trim().length==0){
-                showTips("请输入作者");
-            }
-        });
-        $('#publisher').live('blur', function (){
-            var publisher=$("#publisher").val();
-            if(publisher.trim().length==0){
-                showTips("请输入出版社");
-            }
-        });*/
+
+        /* $('#isbn10').live('blur', function (){
+             var isbn10=$("#isbn10").val();
+             if(isbn10.trim().length!=8||isbn10.trim().length!=8){
+                 showTips("isbn10值错误,请输入8位或者13位isbn码");
+             }
+         });
+         $('#title').live('blur', function (){
+             var title=$("#title").val();
+             if(title.trim().length==0){
+                 showTips("请输入书名");
+             }
+         });
+         $('#author').live('blur', function (){
+             var author=$("#author").val();
+             if(author.trim().length==0){
+                 showTips("请输入作者");
+             }
+         });
+         $('#publisher').live('blur', function (){
+             var publisher=$("#publisher").val();
+             if(publisher.trim().length==0){
+                 showTips("请输入出版社");
+             }
+         });*/
         $('#publisher').live('blur', function (){
             var school=$("#school").val();
             if(school.trim().length==0){
@@ -458,10 +489,25 @@
 
         });
     }
-    function sendBook(){
-        var school=$("#school").val();
-        var biji=$("#biji").val();
-        var sum=$("#sum").val();
-        var mobile=$("#mobile").val();
+    function getSchool(url,data){
+        $.ajax({
+            type: 'POST',
+            url: url ,
+            data: data ,
+            dataType: 'json',
+            success: function (data) {
+                $("#school option").remove();
+                var list=data.list;
+                var lenth=list.length;
+                for(var i=0;i<lenth;i++){
+                    var value=list[i].codeValue;
+                    var text=list[i].codeName;
+                    $("#school").append("<option value='"+value+"'>"+text+"</option>");
+                }
+
+            } ,error:function (err) {
+                showTips("没有搜到书籍，请手动输入");
+            }
+        });
     }
 </script>

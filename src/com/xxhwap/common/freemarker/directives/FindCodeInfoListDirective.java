@@ -25,6 +25,7 @@ public class FindCodeInfoListDirective implements TemplateDirectiveModel {
 	 */
 	private static final String PARAM_PCODE = "pcode";
 	private static final String PARAM_CODE_SORT_ID = "codeSortId";
+	private static final String PARAM_CODE_VALUE = "codeValue";
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -34,11 +35,15 @@ public class FindCodeInfoListDirective implements TemplateDirectiveModel {
 			Map<String,Object> queryMap=new HashMap<String, Object>();
 			String pcode = DirectiveUtils.getString(PARAM_PCODE, params);
 			String codeSortId = DirectiveUtils.getString(PARAM_CODE_SORT_ID, params);
+			String codeValue= DirectiveUtils.getString(PARAM_CODE_VALUE, params);
 			if(!StringUtils.isEmpty(pcode)){
 				queryMap.put("pcode",pcode);
 			}
 			if(!StringUtils.isEmpty(codeSortId)){
 				queryMap.put("codeSortId",codeSortId);
+			}
+			if(!StringUtils.isEmpty(codeValue)){
+				queryMap.put("codeValue",codeValue);
 			}
 
 			List<CodeInfo> list = new ArrayList<CodeInfo>();

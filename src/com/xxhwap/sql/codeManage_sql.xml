@@ -117,6 +117,9 @@
 				<isNotEmpty prepend="AND" property="pcode">
 					B.P_CODE = #pcode#
 				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="codeValue">
+					B.CODE_VALUE = #codeValue#
+				</isNotEmpty>
 			</isParameterPresent>
 		</dynamic>
 		ORDER BY B.DISP_SN

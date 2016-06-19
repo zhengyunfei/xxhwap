@@ -15,6 +15,7 @@ public class MobilePageContants {
         public static String WEBUI_INDEX_PAGE="webui/index";
         public static String WEBUI_DEMO_PAGE="webui/demo";
         public static String CURRENT_USER_OPENID="current_user_openid_key";
+        public static String CURRENT_USER_KEY="current_user_key";
 
         public static String BUG_BOOK_PAGE="book/buy";
         public static String SELL_BOOK_PAGE="book/sell";

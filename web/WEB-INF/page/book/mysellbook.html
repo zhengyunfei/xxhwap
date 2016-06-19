@@ -22,7 +22,18 @@
         <div class="book_info">
             <div class="title"><a href="${cmsReq}/book/detail${book.id}.html" >${book.title!''}</a></div>
             <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
-            <div class="author_press_mybuy">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
+            <div class="author_press_mybuy">
+                [@find_code_list pcode="999999" codeSortId="119" codeValue="${book.school!''}"]
+                [#if codes?? && codes?size>0]
+                [#list codes as code]
+                    ${code.codeName!''}
+                [/#list]
+                [#else]
+                    ${book.school!''}
+                [/#if]
+                [/@find_code_list]
+                &nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}
+            </div>
             <div class="author_press_mybuy">笔记:[#if book.biji=='0']少[#else]多[/#if]&nbsp;&nbsp;|&nbsp;&nbsp;数量:${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥${book.price!''}</div>
             <div class="author_press_right">
                 [#if book.status==0]
