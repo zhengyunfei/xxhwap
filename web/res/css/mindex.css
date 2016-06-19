@@ -16,8 +16,8 @@ div.single_item
 }
 div.single_item img.book_pic
 {
-    width: 75px;
-    height: 100px;
+    width: 125px;
+    height: 140px;
     padding: 10px;
 }
 div.single_item div.book_info

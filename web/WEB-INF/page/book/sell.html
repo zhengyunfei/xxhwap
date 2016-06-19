@@ -6,14 +6,12 @@
     <title>卖书</title>
     <link rel="stylesheet" href="${css}/webui/weui.css?v=1"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
-    <link rel="stylesheet" type="text/css" href="${css}/m.css?v=1" />
-    <link rel="stylesheet" type="text/css" href="${css}/mindex.css" />
 </head>
 <body ontouchstart>
-<div class="header">
+<!--<div class="header">
     <a class="back-icon" href="#"></a>
     卖书
-</div>
+</div>-->
 <div class="weui_toptips weui_warn js_tooltips" >格式不对</div>
 <div class="container" id="container"></div>
 
@@ -23,7 +21,7 @@
     <div class="weui_cell weui_cell_warn">
         <div class="weui_cell_hd" style="width:60px;"><label for="" class="weui_label">ISBN:</label></div>
         <div class="weui_cell_bd weui_cell_primary" >
-            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13" value="weui input error" placeholder="&nbsp;请直接输入或点击右侧图标扫描" style="font-size: 12px;"/>
+            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13" value="weui input error" placeholder="&nbsp;请直接输入或点击右侧图标扫描"/>
             <input type="hidden" id="isbn10" name="isbn10">
             <input type="hidden" id="summary" name="summary">
             <input type="hidden" id="pages" name="pages">
@@ -98,17 +96,15 @@
             <div class="weui_cell">
                 <div class="weui_cell_hd" style="width:15%"><label class="weui_label">学校</label></div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:30%">
-                    <input class="weui_input" type="text" id="school" name="school"  placeholder="学校" style="font-size: 12px;"/>
+                    <input class="weui_input" type="text" id="school" name="school"  placeholder="学校"/>
                 </div>
                 <div class="weui_cell_hd" style="width:15%"><label class="weui_label">笔记</label></div>
                 <div class="weui_cell weui_cell_select">
-                            <div class="weui_cell_bd weui_cell_primary">
                                 <select class="weui_select" name="biji" id="biji">
                                     <option  value=""></option>
                                     <option value="1">多</option>
                                     <option value="0">少</option>
                                 </select>
-                            </div>
                 </div>
             </div>
             <div class="weui_cell">
@@ -143,11 +139,21 @@
         <div class="weui_btn_area">
             <a class="weui_btn weui_btn_primary" href="javascript:" id="sendBtn" >发布</a>
         </div>
-    <div class="weui_cells">
-        <div class="weui_cells_tips">增加买卖就能减少伤害</div>
-        <div class="weui_cell_ft">—莫风</div>
-    </div>
-    </div>
+
+
+        <div class="bd">
+            <div class="weui_cells_title"></div>
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>增加买卖就能减少伤害</p>
+                    </div>
+                    <div class="weui_cell_ft">—摸风</div>
+                </div>
+            </div>
+        </div>
+
+       </div>
    </form>
 </script>
 

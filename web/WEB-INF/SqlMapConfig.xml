@@ -20,6 +20,7 @@
     <sqlMap resource="com/xxhwap/sql/book_sql.xml"></sqlMap>
     <sqlMap resource="com/xxhwap/sql/confManage_sql.xml"></sqlMap>
     <sqlMap resource="com/xxhwap/sql/picture.xml"></sqlMap>
+    <sqlMap resource="com/xxhwap/sql/codeManage_sql.xml"></sqlMap>
 
 
 </sqlMapConfig>

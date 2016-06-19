@@ -1,0 +1,258 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.xxhwap.code">
+	<typeAlias alias="codeSort" type="com.xxhwap.bo.CodeSort" />
+	<typeAlias alias="codeInfo" type="com.xxhwap.bo.CodeInfo" />
+	<!-- 代码分类信息树 -->
+	<resultMap class="codeSort" id="codeSortTree">
+		<result column="CODE_SORT_ID" property="codeSortId"/>
+		<result column="CODE_SORT_NAME" property="codeSortName"/>
+		<result column="CODE_SORT_TYPE" property="codeSortType"/>
+		<result column="CODE_TYPE" property="codeType"/>
+
+	</resultMap>
+	<!-- 查询代码分类管理树   -->
+	<select id="selectCodeSortTree" resultMap="codeSortTree">
+		SELECT  A.CODE_SORT_ID,A.CODE_SORT_NAME,A.CODE_SORT_TYPE,A.CODE_TYPE
+		FROM S9_SYS_CODE_SORT A
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend=" " property="codeSortName">
+			(
+				A.CODE_SORT_NAME like '%'||#codeSortName#||'%'
+				<isNotEmpty prepend="OR" property="codeSortType">
+					A.CODE_SORT_TYPE = #codeSortType#
+				</isNotEmpty>
+			)
+			</isNotEmpty>
+		</dynamic>
+		ORDER BY A.CODE_SORT_NAME
+	</select>
+	<!-- 代码分类明细信息   -->
+	<resultMap class="codeSort" id="codeSortDetail">
+		<result column="CODE_SORT_ID" property="codeSortId"/>
+		<result column="CODE_SORT_NAME" property="codeSortName"/>
+		<result column="CODE_SORT_TYPE" property="codeSortType"/>
+		<result column="MAINT_ORG_NO" property="maintOrgNo"/>
+		<result column="CODE_VN" property="codeVn"/>
+		<result column="VALID_FLAG" property="validFlag"/>
+		<result column="EFFECT_DATE" property="effectDate"/>
+		<result column="CODE_TYPE" property="codeType"/>
+
+	</resultMap>
+	<!-- 查询代码分类明细信息   -->
+	<select id="selectCodeSortDetail"  resultMap="codeSortDetail" parameterClass="java.util.Map">
+		SELECT A.CODE_SORT_ID,A.CODE_SORT_NAME,A.CODE_SORT_TYPE,A.MAINT_ORG_NO,
+				A.CODE_VN,A.VALID_FLAG,A.EFFECT_DATE,A.CODE_TYPE
+		FROM S9_SYS_CODE_SORT A
+		<dynamic prepend="WHERE">
+			<isParameterPresent>
+				<!-- 报 there is no readable property 错， 把  property 对应的改成value-->
+				<isNotEmpty prepend="AND" property="codeSortId">
+					A.CODE_SORT_ID = #codeSortId#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="codeType">
+					A.CODE_TYPE = #codeType#
+				</isNotEmpty>
+			</isParameterPresent>
+		</dynamic>
+	</select>
+	<!-- 新增P_CODE_SORT记录 -->
+	<insert id="addPCodeSort" parameterClass="codeSort">
+
+		INSERT INTO S9_SYS_CODE_SORT (CODE_SORT_NAME,MAINT_ORG_NO,CODE_VN,CODE_SORT_TYPE,VALID_FLAG,EFFECT_DATE,
+		CODE_TYPE)
+		VALUES(#codeSortName#,#maintOrgNo#,#codeVn#,#codeSortType#,#validFlag#,
+			#effectDate#,
+			#codeType#)
+		<selectKey resultClass="java.lang.String" keyProperty="codeSortId" >
+			SELECT LAST_INSERT_ID() AS codeSortId
+		</selectKey>
+	</insert>
+	<!-- 修改P_CODE_SORT记录 -->
+	<update id="updatePCodeSort" parameterClass="codeSort">
+		UPDATE S9_SYS_CODE_SORT A
+		SET
+		 A.CODE_SORT_NAME=#codeSortName# ,
+		 A.CODE_VN= #codeVn#,
+		 A.VALID_FLAG = #validFlag# ,
+		 A.EFFECT_DATE = #effectDate#,
+		 A.MAINT_ORG_NO =#maintOrgNo# ,
+		 A.CODE_TYPE = #codeType#,
+		 A.CODE_SORT_TYPE = #codeSortType#
+		WHERE A.CODE_SORT_ID = #codeSortId#
+	</update>
+	<!-- 删除代码分类 -->
+	<delete id="deletePCodeSort" parameterClass="java.lang.String">
+		DELETE FROM S9_SYS_CODE_SORT  WHERE CODE_SORT_ID = #codeSortId#
+	</delete>
+	<!-- P_CODE表，代码分类的代码信息 -->
+	<resultMap class="codeInfo" id="pCodes">
+		<result column="CODE_ID" property="codeId"/>
+		<result column="CODE_SORT_ID" property="codeSortId"/>
+		<result column="CODE_VALUE" property="codeValue"/>
+		<result column="CODE_NAME" property="codeName"/>
+		<result column="DISP_SN" property="dispSn"/>
+		<result column="CONTENT1" property="content1"/>
+		<result column="CONTENT2" property="content2"/>
+		<result column="CONTENT3" property="content3"/>
+		<result column="VALID_FLAG" property="validFlag"/>
+		<result column="CODE_TYPE" property="codeType"/>
+		<result column="P_CODE" property="pcode"/>
+		<result column="IS_MENU" property="isMenu"/>
+	</resultMap>
+	<!-- 查询P_CODE表代码信息列表 -->
+	<select id="selectPCodesInfo" resultMap="pCodes">
+		SELECT B.CODE_ID,B.CODE_SORT_ID,B.CODE_SORT_ID,B.CODE_VALUE,B.CODE_NAME,B.DISP_SN,
+			B.CONTENT1,B.CONTENT2,B.CONTENT3,B.VALID_FLAG,B.CODE_TYPE,B.P_CODE,IS_MENU
+		FROM S9_SYS_CODE B
+  		<!-- AND C.SYS_TYPE = #sysType#  -->
+		<dynamic prepend="WHERE">
+			<isParameterPresent>
+				<isNotEmpty prepend="AND" property="codeSortId">
+					B.CODE_SORT_ID = #codeSortId#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="codeType">
+					B.CODE_TYPE = #codeType#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="pcode">
+					B.P_CODE = #pcode#
+				</isNotEmpty>
+			</isParameterPresent>
+		</dynamic>
+		ORDER BY B.DISP_SN
+	</select>
+	<!-- 查询P_CODE表代码信息列表总记录数 -->
+	<select id="selectPCodesInfoCount" resultClass="java.lang.Integer">
+		SELECT COUNT(B.CODE_ID)
+		FROM S9_SYS_CODE B
+		<dynamic prepend="WHERE">
+			<isParameterPresent>
+				<isNotEmpty prepend="AND" property="codeSortId">
+					B.CODE_SORT_ID = #codeSortId#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="codeType">
+					B.CODE_TYPE = #codeType#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="codeValue">
+					B.CODE_VALUE = #codeValue#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="pcode">
+					B.P_CODE = #pcode#
+				</isNotEmpty>
+			</isParameterPresent>
+		</dynamic>
+	</select>
+	<!-- 查询P_CODE表代码明细信息 -->
+	<select id="selectPCodeInfoDetail" resultMap="pCodes">
+		SELECT B.CODE_ID,B.CODE_SORT_ID,B.CODE_VALUE,B.CODE_NAME,B.DISP_SN,
+			B.CONTENT1,B.CONTENT2,B.CONTENT3,B.VALID_FLAG,B.CODE_TYPE,B.P_CODE,IS_MENU
+		FROM S9_SYS_CODE B
+		<dynamic prepend="WHERE">
+			<isParameterPresent>
+				<isNotEmpty prepend="AND" property="codeId">
+					B.CODE_ID = #codeId#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="codeValue">
+					B.CODE_VALUE = #codeValue#
+				</isNotEmpty>
+			</isParameterPresent>
+		</dynamic>
+	</select>
+	<!-- 查询字典表信息 -->
+	<select id="getCodeValue"  resultMap="pCodes">
+		SELECT
+			B.CODE_ID,
+			B.CODE_SORT_ID,
+			B.CODE_SORT_ID,
+			B.CODE_VALUE,
+			B.CODE_NAME,
+			B.DISP_SN,
+			B.CONTENT1,
+			B.CONTENT2,
+			B.CONTENT3,
+			B.VALID_FLAG,
+			B.CODE_TYPE,
+			B.P_CODE,
+			B.IS_MENU
+	  FROM S9_SYS_CODE B
+	  WHERE
+	  B.CODE_SORT_ID =
+	         (SELECT SC.CODE_SORT_ID FROM  S9_SYS_CODE_SORT SC
+	         <![CDATA[ ]]>
+	          <dynamic prepend="WHERE">
+			<isParameterPresent>
+				<isNotEmpty prepend="AND" property="codeName">
+					SC.CODE_SORT_NAME = #codeName#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="codeId">
+				   SC.CODE_SORT_ID = #codeId#
+				</isNotEmpty>
+			</isParameterPresent>
+			</dynamic>
+		<![CDATA[ ]]>
+	          )
+	  AND      B.P_CODE = '999999'
+	  -- AND b.valid_flag='1'
+	  ORDER BY B.DISP_SN
+	</select>
+	<!-- 新增P_CODE记录 -->
+	<insert id="addPCodeInfo" parameterClass="codeInfo">
+		INSERT INTO S9_SYS_CODE (CODE_SORT_ID,CODE_VALUE,CODE_NAME,DISP_SN,CONTENT1,CONTENT2,CONTENT3,VALID_FLAG,CODE_TYPE,P_CODE,IS_MENU)
+		VALUES(#codeSortId#,#codeValue#,#codeName#,#dispSn#,#content1#,#content2#,#content3#,#validFlag#,#codeType#,#pcode#,#isMenu#)
+	</insert>
+
+	<!-- 修改P_CODE记录 -->
+	<update id="updatePCodeInfo" parameterClass="codeInfo">
+		UPDATE
+		   S9_SYS_CODE A
+	    SET
+			A.CODE_VALUE = #codeValue# ,
+			A.CODE_NAME=#codeName# ,
+			A.DISP_SN= #dispSn#,
+			A.CONTENT1=#content1#,
+			A.CONTENT2=#content2#,
+			A.CONTENT3=#content3#,
+			A.VALID_FLAG=#validFlag#,
+			A.CODE_TYPE = #codeType#,
+			A.P_CODE = #pcode#,
+			A.IS_MENU=#isMenu#
+		WHERE
+			A.CODE_ID = #codeId#
+	</update>
+	<!-- 删除代码信息 -->
+	<delete id="deletePCodeInfo" parameterClass="java.util.Map">
+		DELETE FROM S9_SYS_CODE  WHERE CODE_ID IN
+		<iterate property="contentEditId" conjunction="," close=")" open="(">
+			#contentEditId[]#
+		</iterate>
+	</delete>
+	<!-- 删除代码信息根据 代码分类信息标识 -->
+	<delete id="deletePCodeSortByCodeSortId" parameterClass="java.lang.String">
+		DELETE FROM S9_SYS_CODE  WHERE CODE_SORT_ID = #codeSortId#
+	</delete>
+
+	<!-- 查询分类名称是否已经存在 -->
+	<select id="findCodeSortNameIsExist" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT
+			COUNT(0)
+		FROM
+			S9_SYS_CODE_SORT B
+		WHERE
+			B.VALID_FLAG=1
+			<isNotEmpty prepend="AND" property="codeSortName">
+					B.CODE_SORT_NAME = #codeSortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="codeType">
+					B.CODE_TYPE = #codeType#
+			</isNotEmpty>
+	</select>
+	<!-- 根据codeValue查询codeName -->
+	<select id="findCodeNameByValue" parameterClass="java.util.Map" resultClass="java.lang.String">
+	SELECT
+		B.CODE_NAME
+	FROM
+		S9_SYS_CODE B
+		WHERE
+			 B.CODE_VALUE = #codeValue#
+	</select>
+</sqlMap>

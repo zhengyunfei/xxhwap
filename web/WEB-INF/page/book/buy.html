@@ -11,10 +11,10 @@
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-<div class="header">
+<!--<div class="header">
     <a class="back-icon" href="#"></a>
     买书
-</div>
+</div>-->
 <div class="weui_toptips weui_warn js_tooltips">格式不对</div>
 <div class="container" id="container"></div>
 
@@ -24,7 +24,7 @@
     <div class="weui_cell weui_cell_warn">
         <div class="weui_cell_hd" style="width:60px;"><label for="" class="weui_label">ISBN:</label></div>
         <div class="weui_cell_bd weui_cell_primary" >
-            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13"  placeholder="&nbsp;请直接输入或点击右侧图标扫描" style="font-size: 12px;"/>
+            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13"  placeholder="&nbsp;请直接输入或点击右侧图标扫描" />
         </div>
         <div class="weui_cell_ft">
             <img id="scanQRCode1" src="${css}/webui/images/saoma.png" width="30px;" height="30px;"/>
@@ -42,48 +42,68 @@
         <div class="weui_cell">
                     <div class="weui_cell_hd" ><label for="" class="weui_label">书名:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input class="weui_input_right" type="text" id="title" name="title"  />
+                        <input class="weui_input" type="text" id="title" name="title"  />
                     </div>
         </div>
         <div class="weui_cell">
                     <div class="weui_cell_hd"><label for="" class="weui_label">作者:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input class="weui_input_right" type="text" id="author" name="author"  />
+                        <input class="weui_input" type="text" id="author" name="author"  />
                 </div>
             </div>
         <div class="weui_cell">
                     <div class="weui_cell_hd" ><label for="" class="weui_label">出版社:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input class="weui_input_right" type="text" id="publisher" name="publisher"   />
+                        <input class="weui_input" type="text" id="publisher" name="publisher"   />
                     </div>
         </div>
         <div class="weui_cell">
                     <div class="weui_cell_hd" ><label for="" class="weui_label">版次:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input class="weui_input_right" id="binding" name="binding" type="text" pattern="[0-9]*"  />
+                        <input class="weui_input" id="binding" name="binding" type="text" pattern="[0-9]*"  />
                      </div>
         </div>
 
-            <div class="weui_cell">
-                <div class="weui_cell_hd" ><label class="weui_label"><font color="red">*</font>学校:</label></div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="text" id="school" name="school"  style="font-size: 12px;"/>
+
+
+        <div class="weui_cells">
+            <div class="weui_cell weui_cell_select">
+                <div class="weui_cell_hd" style="width:50%">
+                    <select class="weui_select" name="select2" id="select2">
+                        <option value="">选择学校</option>
+                        [@find_code_list pcode="999999" codeSortId="119" ]
+                        [#if codes?? && codes?size>0]
+                        [#list codes as code]
+                            <option value="${code.codeValue!''}">${code.codeName!''}</option>
+                        [/#list]
+                        [/#if]
+                        [/@find_code_list]
+                    </select>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary" style="width:50%">
+                    <select class="weui_select" name="school" id="school" style="width: 100%;">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+            <div class="weui_cells">
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        <label for="" class="weui_label">笔记:</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select2">
+                            <option  value=""></option>
+                            <option value="1">多</option>
+                            <option value="0">少</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="weui_cell">
-                    <div class="weui_cell_hd" ><label class="weui_label">笔记:</label></div>
-                    <div class="weui_cell weui_cell_select weui_select_before">
-                                <div class="weui_cell_bd weui_cell_primary">
-                                    <select class="weui_select" name="biji" id="biji">
-                                        <option  value=""></option>
-                                        <option value="1">多</option>
-                                        <option value="0">少</option>
-                                    </select>
-                                </div>
-                    </div>
-            </div>
-            <div class="weui_cell">
-                <div class="weui_cell_hd" ><label class="weui_label"><font color="red">*</font>数量:</label></div>
+                <div class="weui_cell_hd" ><label class="weui_label">数量:</label></div>
                 <div class="weui_cell_bd weui_cell_primary" >
                     <input class="weui_input" type="number" id="number" name="number" pattern="[0-9]*" />
                 </div>
@@ -92,12 +112,21 @@
         <div class="weui_btn_area">
             <a class="weui_btn weui_btn_primary" href="javascript:" id="sendBtn" >搜索</a>
         </div>
-    <div class="weui_cells">
-        <div class="weui_cells_tips">增加买卖就能减少伤害</div>
-        <div class="weui_cell_ft">—莫风</div>
-    </div>
+     <div class="bd">
+         <div class="weui_cells_title"></div>
+         <div class="weui_cells">
+             <div class="weui_cell">
+                 <div class="weui_cell_bd weui_cell_primary">
+                     <p>增加买卖就能减少伤害</p>
+                 </div>
+                 <div class="weui_cell_ft">—摸风</div>
+             </div>
+         </div>
     </div>
    </form>
+
+
+
 </script>
 
 <script src="${css}/webui/js/router.min.js?v=1"></script>
@@ -106,6 +135,15 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
+
+        $("#select2").bind('change',function(){
+            var value=$(this).val();
+            $("#school option").remove();
+            var url="${cmsReq}/code/getCodeInfo.html";
+            var data={"codeSortId":"119","pCode":value};
+            getSchool(url,data)
+        });
+
         $('#publisher').bind('blur', function (){
             var school=$("#school").val();
             if(school.trim().length==0){
@@ -217,6 +255,27 @@
                 $("#publisher").val(data.publisher);
                 $("#binding").val(data.binding);
                 $("#isbn13").val(data.isbn13);
+            } ,error:function (err) {
+                showTips("没有搜到书籍，请手动输入");
+            }
+        });
+    }
+    function getSchool(url,data){
+        $.ajax({
+            type: 'POST',
+            url: url ,
+            data: data ,
+            dataType: 'json',
+            success: function (data) {
+                $("#school option").remove();
+                var list=data.list;
+                var lenth=list.length;
+                for(var i=0;i<lenth;i++){
+                    var value=list[i].codeValue;
+                    var text=list[i].codeName;
+                    $("#school").append("<option value='"+value+"'>"+text+"</option>");
+                }
+
             } ,error:function (err) {
                 showTips("没有搜到书籍，请手动输入");
             }

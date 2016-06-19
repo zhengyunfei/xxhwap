@@ -26,7 +26,7 @@
             <div class="author_press_mybuy">笔记:[#if book.biji=='0']少[#else]多[/#if]&nbsp;&nbsp;|&nbsp;&nbsp;数量:${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥${book.price!''}</div>
             <div class="author_press_right">
                 [#if book.status==0]
-                    <i class="weui_btn weui_btn_mini weui_btn_primary">等待买家</i><br/>
+                    <i class="weui_btn weui_btn_mini weui_btn_primary">等待买家</i>&nbsp;
                     [#if book.isCancel==0]
                         <i class="weui_btn weui_btn_mini weui_btn_gray">撤销出售</i>
                     [#else]
@@ -34,7 +34,7 @@
                     [/#if]
 
                 [#else]
-                    <i class="weui_btn weui_btn_mini weui_btn_primary">交易成功</i><br/>
+                    <i class="weui_btn weui_btn_mini weui_btn_primary">交易成功</i>&nbsp;
                      <a href="javascript:showDialog('${book.id}','dealFail')" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a>
                 [/#if]
             </div>
