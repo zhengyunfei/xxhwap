@@ -45,7 +45,9 @@ public class UserInterceptor implements HandlerInterceptor {
         }
         if(openId!=null&&!"null".equals(openId)){
             return true;
+        }else{
+            request.getRequestDispatcher("/error.html").forward(request, response);
+            return false;
         }
-        return false;
     }
 }
