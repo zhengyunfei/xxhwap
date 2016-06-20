@@ -24,7 +24,7 @@
     <div class="weui_cell weui_cell_warn">
         <div class="weui_cell_hd" style="width:60px;"><label for="" class="weui_label">ISBN:</label></div>
         <div class="weui_cell_bd weui_cell_primary" >
-            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13"  placeholder="&nbsp;请直接输入或点击右侧图标扫描" />
+            <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13"  placeholder="请直接输入或点击右侧图标扫描" />
         </div>
         <div class="weui_cell_ft">
             <img id="scanQRCode1" src="${css}/webui/images/saoma.png" width="30px;" height="30px;"/>
@@ -70,7 +70,7 @@
             <div class="weui_cell weui_cell_select">
                 <div class="weui_cell_hd" style="width:50%">
                     <select class="weui_select" name="select2" id="select2">
-                        <option value="">选择学校</option>
+                        <option value="">选择地区</option>
                         [@find_code_list pcode="999999" codeSortId="119" ]
                         [#if codes?? && codes?size>0]
                         [#list codes as code]
@@ -82,6 +82,7 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:50%">
                     <select class="weui_select" name="school" id="school" style="width: 100%;">
+                        <option value="">选择学校</option>
                     </select>
                 </div>
             </div>

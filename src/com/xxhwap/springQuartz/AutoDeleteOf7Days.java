@@ -32,7 +32,7 @@ public class AutoDeleteOf7Days{
         queryMap.put("time",day);
         try{
             int count=bookDao.deleteByMap(queryMap);
-            System.out.println("定时任务删除了。。。。。。。。。。。。。。。。。。。。"+count+"条数据");
+           // System.out.println("定时任务删除了。。。。。。。。。。。。。。。。。。。。"+count+"条数据");
         }catch (Exception e){
             e.printStackTrace();
         }

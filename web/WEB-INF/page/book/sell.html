@@ -13,7 +13,7 @@
     卖书
 </div>-->
 <div class="weui_toptips weui_warn js_tooltips" >格式不对</div>
-<div class="container" id="container"></div>
+<div class="container" id="container">
 
 <script type="text/html" id="tpl_home">
     <form id="form1" method="post" action="">
@@ -96,7 +96,7 @@
             <div class="weui_cell weui_cell_select">
                 <div class="weui_cell_hd" style="width:50%">
                     <select class="weui_select" name="select2" id="select2">
-                        <option value="">选择学校</option>
+                        <option value="">选择地区</option>
                         [@find_code_list pcode="999999" codeSortId="119" ]
                         [#if codes?? && codes?size>0]
                         [#list codes as code]
@@ -108,6 +108,7 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:50%">
                     <select class="weui_select" name="school" id="school" style="width: 100%;">
+                        <option value="">选择学校</option>
                     </select>
                 </div>
             </div>
@@ -133,18 +134,18 @@
                        <div class="weui_cell">
                 <div class="weui_cell_hd" style="width:15%"><label class="weui_label">数量</label></div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:30%">
-                    <input class="weui_input" type="number" id="number" name="number" pattern="[0-9]*" placeholder="数量"/>
+                    <input class="weui_input" type="number" id="number" name="number" pattern="[0-9]*" />
                 </div>
                 <div class="weui_cell_hd" style="width:25%"><label class="weui_label">单本售价</label></div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:25%">
-                    <input class="weui_input" type="number" id="price" name="price" pattern="[0-9]*" placeholder="售价"/>
+                    <input class="weui_input" type="number" id="price" name="price" pattern="[0-9]*" />
                 </div>
             </div>
 
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="number" id="mobile" name="mobile" pattern="[0-9]*" placeholder="手机号码"/>
+                    <input class="weui_input" type="number" id="mobile" name="mobile" pattern="[0-9]*" />
                 </div>
             </div>
           <!--  <div class="weui_cell weui_vcode weui_cell_warn">
@@ -178,6 +179,7 @@
 
        </div>
    </form>
+    </div>
 </script>
 
 <script src="${css}/webui/js/zepto.min.js"></script>

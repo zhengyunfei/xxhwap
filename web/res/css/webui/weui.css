@@ -410,7 +410,7 @@ input.weui_btn_plain_default {
 }
 .weui_cells_tips {
     margin-top: .3em;
-    color: #888;
+   /* color: #888;*/
     padding-left: 15px;
     padding-right: 15px;
     font-size: 14px;

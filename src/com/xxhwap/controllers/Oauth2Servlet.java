@@ -39,7 +39,6 @@ public class Oauth2Servlet {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
             String code = request.getParameter("code");
-            System.out.println("code============================"+code);
             //判断页面跳转
             String key = request.getParameter("state");
             Config config = new Config();
@@ -54,7 +53,6 @@ public class Oauth2Servlet {
             //获取当前登录的用户id
 
             JSONObject jsonObject = JSONObject.fromObject(json);
-            System.out.println("jsonObject========================="+jsonObject);
             if (jsonObject.has("openid")) {
                 openid = jsonObject.getString("openid");
             }
@@ -63,6 +61,7 @@ public class Oauth2Servlet {
             //保存用户的openid到全局缓存中
             application.setAttribute(MobilePageContants.CURRENT_USER_OPENID,openid);
             application.setAttribute(MobilePageContants.CURRENT_USER_KEY,key);
+            request.setAttribute(MobilePageContants.CURRENT_USER_REQUEST_OPENID,openid);
             String page="";
             if(UrlContants.MENU_KEY_1.equals(key)){
                 page=domain+"book/buy.html";

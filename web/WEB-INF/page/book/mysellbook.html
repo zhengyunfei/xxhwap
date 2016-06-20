@@ -45,7 +45,7 @@
                     [/#if]
 
                 [#else]
-                    <i class="weui_btn weui_btn_mini weui_btn_primary">交易成功</i>&nbsp;
+                    <a href="javascript:showDialog('${book.id}','dealSuccess')" class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a>&nbsp;
                      <a href="javascript:showDialog('${book.id}','dealFail')" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a>
                 [/#if]
             </div>
@@ -121,7 +121,10 @@
              $("#okBtn").attr('data-value',id);
              //cancelSale(id);
              showDiv();
-         }else{
+         }else if('dealSuccess'==type){
+             cancelSale(id);
+         }
+         else{
              $(".weui_dialog_bd").html("您的书将继续出挂在我们平台上,且两天内不能撤销出售");
              $("#okBtn").attr('data-role',type);
              $("#okBtn").attr('data-value',id);

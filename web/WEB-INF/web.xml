@@ -61,14 +61,5 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/spring-servlet.xml</param-value>
     </context-param>-->
-    <error-page>
-        <error-code>404</error-code>
-        <location>/error.html</location>
-    </error-page>
-
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error.html</location>
-    </error-page>
 
 </web-app>

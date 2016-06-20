@@ -8,7 +8,6 @@ import com.xxhwap.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,18 +56,22 @@ public class BookPageControll {
 	 * @param mv
      */
 	public static void isWeiXinOpenLink(HttpServletRequest request, ModelAndView mv) {
+		boolean flg=false;
+		String ua = ((HttpServletRequest) request).getHeader("user-agent")
+				.toLowerCase();
+		if (ua.indexOf("micromessenger") <= 0) {// 是微信浏览器
+			flg = true;
+		}
 		ServletContext application =request.getSession().getServletContext();
-		String openId=application.getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
 		String key=application.getAttribute(MobilePageContants.CURRENT_USER_KEY)+"";
 		Config config = new Config();
 		String appid = config.getString("appid");
 		String appsecret = config.getString("appsecret");
 		String domain = config.getString("domain");
-		String  page="";
-		if(StringUtils.isEmpty(openId)||"null".equals(openId)){
-			page="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+domain+"/oauth/do.html&response_type=code&scope=snsapi_base&state="+key+"#wechat_redirect";
+		if(flg){
+			String  page="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+domain+"/oauth/do.html&response_type=code&scope=snsapi_base&state="+key+"#wechat_redirect";
+			//mv.setViewName("redirect:"+page);
 		}
-		mv.setViewName("redirect:"+page);
 	}
 
 	private void sweepParam(HttpServletRequest request, ModelAndView mv) {

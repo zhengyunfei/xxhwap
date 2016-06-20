@@ -3,6 +3,7 @@ package com.xxhwap.utils;
 /**
  * Created by Administrator on 2016/5/30.
  */
+
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -23,6 +24,10 @@ import org.apache.http.util.EntityUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.List;
@@ -259,5 +264,44 @@ public class HttpUtils {
         HttpClient client = new DefaultHttpClient();
         client.getConnectionManager().getSchemeRegistry().register(sch);
         return client;
+    }
+    // 从服务器获得一个输入流(本例是指从服务器获得一个image输入流)
+    public static FileInputStream getInputStream(String urlpath) {
+        InputStream inputStream = null;
+        HttpURLConnection httpURLConnection = null;
+
+        try {
+            URL url = new URL(urlpath);
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            // 设置网络连接超时时间
+            httpURLConnection.setConnectTimeout(3000);
+            // 设置应用程序要从网络连接读取数据
+            httpURLConnection.setDoInput(true);
+
+            httpURLConnection.setRequestMethod("GET");
+            int responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == 200) {
+                // 从服务器返回一个输入流
+                inputStream = httpURLConnection.getInputStream();
+
+            }
+
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        FileInputStream fin = null; // 转换后的文件输入流
+
+// 如果是FileInputStream类型，进行转换
+        if (inputStream instanceof FileInputStream) {
+            fin = (FileInputStream) inputStream;
+        } else {
+
+        }
+        return fin;
+
     }
 }
