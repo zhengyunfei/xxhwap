@@ -4,6 +4,7 @@ package com.xxhwap.utils;
  * Created by Administrator on 2015/12/15.
  */
 
+import org.springframework.util.StringUtils;
 import weibo4j.org.json.JSONObject;
 
 import java.io.InputStream;
@@ -17,10 +18,11 @@ public class Ticket {
         Config config=new Config();
         String appid=config.getString("appid");
         String appsecreet=config.getString("appsecret");
-        String access_token = com.xxhwap.utils.weixin.WeixinUtil.getAccessToken(appid,appsecreet).getToken(); //有效期为7200秒
-        String url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+ access_token +"&type=jsapi";
-
         try {
+        AccessToken tokenThread=com.xxhwap.utils.weixin.WeixinUtil.getAccessToken(appid,appsecreet);
+        if(!StringUtils.isEmpty(tokenThread)){
+            String access_token = tokenThread.getToken(); //有效期为7200秒
+            String url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+ access_token +"&type=jsapi";
             URL urlGet = new URL(url);
             HttpURLConnection http = (HttpURLConnection) urlGet.openConnection();
             http.setRequestMethod("GET"); // 必须是get方式请求
@@ -39,8 +41,10 @@ public class Ticket {
             ticket = demoJson.getString("ticket");
             //System.out.println(ticket);
             is.close();
+        }
+
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         return ticket;

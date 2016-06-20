@@ -6,6 +6,7 @@
     <title>卖书</title>
     <link rel="stylesheet" href="${css}/webui/weui.css?v=1"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
+    [#include "load.html"]
 </head>
 <body ontouchstart>
 <!--<div class="header">
@@ -197,62 +198,67 @@
             var data={"codeSortId":"119","pCode":value};
             getSchool(url,data)
         });
-
-        /* $('#isbn10').live('blur', function (){
+        $("#school").bind('click',function(){
+            var value=$(this).val();
+            if(''==value||null==value){
+                showTips("请先选择地区");
+            }
+        });
+        /* $('#isbn10').bind('blur', function (){
              var isbn10=$("#isbn10").val();
              if(isbn10.trim().length!=8||isbn10.trim().length!=8){
                  showTips("isbn10值错误,请输入8位或者13位isbn码");
              }
          });
-         $('#title').live('blur', function (){
+         $('#title').bind('blur', function (){
              var title=$("#title").val();
              if(title.trim().length==0){
                  showTips("请输入书名");
              }
          });
-         $('#author').live('blur', function (){
+         $('#author').bind('blur', function (){
              var author=$("#author").val();
              if(author.trim().length==0){
                  showTips("请输入作者");
              }
          });
-         $('#publisher').live('blur', function (){
+         $('#publisher').bind('blur', function (){
              var publisher=$("#publisher").val();
              if(publisher.trim().length==0){
                  showTips("请输入出版社");
              }
          });*/
-        $('#publisher').live('blur', function (){
+        $('#publisher').bind('blur', function (){
             var school=$("#school").val();
-            if(school.trim().length==0){
+            if(''==school||school.trim().length==0){
                 showTips("请输入学校");
             }
         });
-        $('#biji').live('blur', function (){
+        $('#biji').bind('blur', function (){
             var biji=$("#biji").val();
-            if(biji.trim().length==0){
+            if(''==biji||biji.trim().length==0){
                 showTips("请输入笔记");
             }
         });
-        $('#number').live('blur', function (){
+        $('#number').bind('blur', function (){
             var number=$("#number").val();
-            if(number.trim().length==0){
+            if(''==number||number.trim().length==0){
                 showTips("请输入数量");
             }
         });
-        $('#price').live('blur', function (){
+        $('#price').bind('blur', function (){
             var price=$("#price").val();
-            if(price.trim().length==0){
+            if(''==price||price.trim().length==0){
                 showTips("请输入单本售价");
             }
         });
-        $('#mobile').live('blur', function (){
+        $('#mobile').bind('blur', function (){
             var mobile=$("#mobile").val();
-            if(mobile.trim().length==0){
+            if(''==mobile||mobile.trim().length==0){
                 showTips("请输入手机号码");
             }
         });
-        $("#sendBtn").live('click',function () {
+        $("#sendBtn").bind('click',function () {
             var school=$("#school").val();
             var biji=$("#biji").val();
             var number=$("#number").val();

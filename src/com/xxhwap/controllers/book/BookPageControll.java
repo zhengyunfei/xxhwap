@@ -44,7 +44,7 @@ public class BookPageControll {
 								  HttpServletResponse response, ModelMap model) {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
-		sweepParam(request, mv);//获取扫一扫参数
+		//sweepParam(request, mv);//获取扫一扫参数
 		mv.setViewName(MobilePageContants.BUG_BOOK_PAGE);
 		isWeiXinOpenLink(request, mv);
 		return mv;
@@ -79,9 +79,16 @@ public class BookPageControll {
 		Map<String, String> res= Sign.getConfigMessageForWater(url);
 		Config config=new Config();
 		mv.addObject("appid",config.getString("appid"));
-		mv.addObject("timestamp",res.get("timestamp"));
-		mv.addObject("nonceStr",res.get("nonceStr"));
-		mv.addObject("signature",res.get("signature"));
+		if(res.containsKey("timestamp")){
+			mv.addObject("timestamp",res.get("timestamp"));
+		}
+		if(res.containsKey("nonceStr")){
+			mv.addObject("nonceStr",res.get("nonceStr"));
+		}
+		if(res.containsKey("signature")){
+			mv.addObject("signature",res.get("signature"));
+		}
+
 	}
 
 	/**
