@@ -8,11 +8,13 @@ import com.xxhwap.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -45,7 +47,28 @@ public class BookPageControll {
 		FmUtils.FmData(request,model);
 		sweepParam(request, mv);//获取扫一扫参数
 		mv.setViewName(MobilePageContants.BUG_BOOK_PAGE);
+		isWeiXinOpenLink(request, mv);
 		return mv;
+	}
+
+	/**
+	 * 判断是否在微信浏览器中打开
+	 * @param request
+	 * @param mv
+     */
+	public static void isWeiXinOpenLink(HttpServletRequest request, ModelAndView mv) {
+		ServletContext application =request.getSession().getServletContext();
+		String openId=application.getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
+		String key=application.getAttribute(MobilePageContants.CURRENT_USER_KEY)+"";
+		Config config = new Config();
+		String appid = config.getString("appid");
+		String appsecret = config.getString("appsecret");
+		String domain = config.getString("domain");
+		String  page="";
+		if(StringUtils.isEmpty(openId)||"null".equals(openId)){
+			page="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+domain+"/oauth/do.html&response_type=code&scope=snsapi_base&state="+key+"#wechat_redirect";
+		}
+		mv.setViewName("redirect:"+page);
 	}
 
 	private void sweepParam(HttpServletRequest request, ModelAndView mv) {
@@ -93,6 +116,7 @@ public class BookPageControll {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
 		mv.setViewName(MobilePageContants.MY_SEND_LIST_BOOK);
+		isWeiXinOpenLink(request,mv);
 		return mv;
 	}
 	/**
@@ -110,6 +134,7 @@ public class BookPageControll {
 		System.out.println(System.getProperty("user.dir").replace("bin", "upload"));
 		sweepParam(request, mv);//获取扫一扫参数
 		mv.setViewName(MobilePageContants.MY_SELL_BOOK);
+		isWeiXinOpenLink(request,mv);
 		return mv;
 	}
 	/**
@@ -125,6 +150,7 @@ public class BookPageControll {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
 		mv.setViewName(MobilePageContants.MY_BUY_BOOK_PAGE);
+		isWeiXinOpenLink(request,mv);
 		return mv;
 	}
 	/**
@@ -140,6 +166,7 @@ public class BookPageControll {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
 		mv.setViewName(MobilePageContants.MY_SELL_BOOK_PAGE);
+		isWeiXinOpenLink(request,mv);
 		return mv;
 	}
 	/**

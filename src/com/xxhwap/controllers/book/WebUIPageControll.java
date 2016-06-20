@@ -47,6 +47,7 @@ public class WebUIPageControll {
 		FmUtils.FmData(request,model);
 		sweepParam(request, mv);//获取扫一扫参数
 		mv.setViewName(MobilePageContants.SELL_BOOK_PAGE);
+		BookPageControll.isWeiXinOpenLink(request,mv);
 		return mv;
 	}
 	private void sweepParam(HttpServletRequest request, ModelAndView mv) {
@@ -189,6 +190,7 @@ public class WebUIPageControll {
 			}
 		}
 		mv.setViewName(MobilePageContants.MY_DETAIL_PAGE);
+		BookPageControll.isWeiXinOpenLink(request,mv);
 		return mv;
 	}
 	/**
@@ -258,6 +260,7 @@ public class WebUIPageControll {
 			}
 		}
 		mv.setViewName("redirect:/webui/ps"+id+".html");
+		BookPageControll.isWeiXinOpenLink(request,mv);
 		return mv;
 	}
 	/**
@@ -284,6 +287,7 @@ public class WebUIPageControll {
 			}
 		}
 		mv.setViewName(MobilePageContants.MY_PAY_SUCCESS_PAGE);
+		BookPageControll.isWeiXinOpenLink(request,mv);
 		return mv;
 	}
 
