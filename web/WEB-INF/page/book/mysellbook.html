@@ -13,7 +13,7 @@
 </head>
 <body>
 <!--send book list info start-->
-[@send_book_list  openId="${current_user_openid_key!''}"]
+[@send_book_list  openId="${current_user_openid_key!''}" count="5"]
 [#if books ?? && books?size>0]
 [#list books as book]
 
@@ -23,7 +23,7 @@
             <div class="title"><a href="${cmsReq}/book/detail${book.id}.html" >${book.title!''}</a></div>
             <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
             <div class="author_press_mybuy">
-                [@find_code_list pcode="999999" codeSortId="119" codeValue="${book.school!''}"]
+                [@find_code_list pcode="999999" codeSortId="119" codeValue="${book.school!''}" ]
                 [#if codes?? && codes?size>0]
                 [#list codes as code]
                     ${code.codeName!''}

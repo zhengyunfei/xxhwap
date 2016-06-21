@@ -123,6 +123,9 @@
 			</isParameterPresent>
 		</dynamic>
 		ORDER BY B.DISP_SN
+		<isNotEmpty prepend="limit" property="count">
+			#start#,#count#
+		</isNotEmpty>
 	</select>
 	<!-- 查询P_CODE表代码信息列表总记录数 -->
 	<select id="selectPCodesInfoCount" resultClass="java.lang.Integer">

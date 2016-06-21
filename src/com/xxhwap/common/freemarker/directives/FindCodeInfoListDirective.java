@@ -26,6 +26,8 @@ public class FindCodeInfoListDirective implements TemplateDirectiveModel {
 	private static final String PARAM_PCODE = "pcode";
 	private static final String PARAM_CODE_SORT_ID = "codeSortId";
 	private static final String PARAM_CODE_VALUE = "codeValue";
+	private static final String PARAM_COUNT = "count";
+	private static final String PARAM_PAGE = "page";
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -36,6 +38,8 @@ public class FindCodeInfoListDirective implements TemplateDirectiveModel {
 			String pcode = DirectiveUtils.getString(PARAM_PCODE, params);
 			String codeSortId = DirectiveUtils.getString(PARAM_CODE_SORT_ID, params);
 			String codeValue= DirectiveUtils.getString(PARAM_CODE_VALUE, params);
+			String count= DirectiveUtils.getString(PARAM_COUNT, params);
+			String page= DirectiveUtils.getString(PARAM_PAGE, params);
 			if(!StringUtils.isEmpty(pcode)){
 				queryMap.put("pcode",pcode);
 			}
@@ -44,6 +48,16 @@ public class FindCodeInfoListDirective implements TemplateDirectiveModel {
 			}
 			if(!StringUtils.isEmpty(codeValue)){
 				queryMap.put("codeValue",codeValue);
+			}
+			if(!StringUtils.isEmpty(count)){
+				int c=Integer.parseInt(count);
+				queryMap.put("count",c);
+				if(!StringUtils.isEmpty(page)){
+					int p=Integer.parseInt(page);
+					queryMap.put("start",(c*(p-1)+1));
+				}else{
+					queryMap.put("start",0);
+				}
 			}
 
 			List<CodeInfo> list = new ArrayList<CodeInfo>();

@@ -27,7 +27,7 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 	private static final String PARAM_VALUE = "openId";
 	private static final String PARAM_COUNT = "count";
 	private static final String PARAM_FLAG = "flag";
-
+	private static final String PARAM_PAGE = "page";
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void execute(Environment env, Map params, TemplateModel[] model,
@@ -36,16 +36,22 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 			Map<String,Object> queryMap=new HashMap<String, Object>();
 			String openId = DirectiveUtils.getString(PARAM_VALUE, params);
 			String flag = DirectiveUtils.getString(PARAM_FLAG, params);
+			String count= DirectiveUtils.getString(PARAM_COUNT, params);
+			String page= DirectiveUtils.getString(PARAM_PAGE, params);
 			if(!StringUtils.isEmpty(openId)){
 				queryMap.put("openId",openId);
 			}
 			if(!StringUtils.isEmpty(flag)){
 				queryMap.put("role",flag);
 			}
-			if(params.containsKey("count")){
-				int count = DirectiveUtils.getInt(PARAM_COUNT, params);
-				if(!StringUtils.isEmpty(count)){
-					queryMap.put("count",count);
+			if(!StringUtils.isEmpty(count)){
+				int c=Integer.parseInt(count);
+				queryMap.put("count",c);
+				if(!StringUtils.isEmpty(page)){
+					int p=Integer.parseInt(page);
+					queryMap.put("start",(c*(p-1)+1));
+				}else{
+					queryMap.put("start",0);
 				}
 			}
 			List<TudouBookInfo> list = new ArrayList<TudouBookInfo>();

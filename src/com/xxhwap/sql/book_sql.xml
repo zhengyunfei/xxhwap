@@ -87,12 +87,11 @@ SELECT
 			num>=#number#
 		</isNotEmpty>
 	</dynamic>
-	<dynamic prepend="limit">
-		<isNotEmpty prepend="" property="count">
-			 0,#count#
-		</isNotEmpty>
-	</dynamic>
+
 	order by 	sendTime
+	<isNotEmpty prepend="limit" property="count">
+		#start#,#count#
+	</isNotEmpty>
 </select>
 
 <select id='findById' resultMap='bookMap'>
