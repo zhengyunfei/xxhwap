@@ -9,10 +9,10 @@
     <link rel="stylesheet" type="text/css" href="${css}/m.css?v=2" />
     <link rel="stylesheet" type="text/css" href="${css}/mindex.css" />
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-    [#include "load.html"]
-</head>
-<body>
 
+</head>
+<body style="background-color: #EEEEEE">
+[#include "load.html"]
 <!--<div class="header">
     <a class="back-icon" href="#"></a>
     买书
@@ -66,11 +66,42 @@
                      </div>
         </div>
 
-
-
         <div class="weui_cells">
+            <div class="weui_cell weui_cell_select weui_select_after">
+                <div class="weui_cell_hd">
+                    <label for="" class="weui_label">地区:</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <select class="weui_select" name="select2" id="select2">
+                        <option value="">选择地区</option>
+                        [@find_code_list pcode="999999" codeSortId="119" ]
+                        [#if codes?? && codes?size>0]
+                        [#list codes as code]
+                        <option value="${code.codeValue!''}">${code.codeName!''}</option>
+                        [/#list]
+                        [/#if]
+                        [/@find_code_list]
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cells">
+            <div class="weui_cell weui_cell_select weui_select_after">
+                <div class="weui_cell_hd">
+                    <label for="" class="weui_label">地区:</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <select class="weui_select" name="school" id="school" style="width: 100%;">
+                        <option value="">选择学校</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+     <!--<div class="weui_cells">
             <div class="weui_cell weui_cell_select">
-                <div class="weui_cell_hd" style="width:50%">
+                <div class="weui_cell_hd" style="width:35%">
                     <select class="weui_select" name="select2" id="select2">
                         <option value="">选择地区</option>
                         [@find_code_list pcode="999999" codeSortId="119" ]
@@ -82,13 +113,13 @@
                         [/@find_code_list]
                     </select>
                 </div>
-                <div class="weui_cell_bd weui_cell_primary" style="width:50%">
+                <div class="weui_cell_bd weui_cell_primary" style="width:65%">
                     <select class="weui_select" name="school" id="school" style="width: 100%;">
                         <option value="">选择学校</option>
                     </select>
                 </div>
             </div>
-        </div>
+        </div>-->
 
 
             <div class="weui_cells">
@@ -136,10 +167,9 @@
 <script src="${css}/webui/js/example.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </body>
-<script type="text/javascript">
+<script>
     $(document).ready(function(){
-
-        $("#select2").bind('change',function(){
+        $("#select2").change(function(){
             var value=$(this).val();
             $("#school option").remove();
             var url="${cmsReq}/code/getCodeInfo.html";
@@ -162,14 +192,14 @@
         $('#biji').bind('blur', function (){
             var biji=$("#biji").val();
             if(biji.trim().length==0){
-               // $(this).focus();
+                // $(this).focus();
                 showTips("请输入笔记");
             }
         });
         $('#number').bind('blur', function (){
             var number=$("#number").val();
             if(number.trim().length==0){
-               // $(this).focus();
+                // $(this).focus();
                 showTips("请输入数量");
             }
         });
@@ -181,11 +211,11 @@
             var mobile=$("#mobile").val();
             var f=true;
             if(''==school||school.trim().length==0){
-              //  $("#school").focus();
+                //  $("#school").focus();
                 f=showTips("请输入学校");
             }
             else if(''==biji||biji.trim().length==0){
-               // $("#biji").focus();
+                // $("#biji").focus();
                 f=showTips("请输入笔记");
             }
             else if(''==number||number<=0||number.trim().length==0){
@@ -216,6 +246,30 @@
         $("#form1").attr('method','get');
         $("#form1").submit();
     }
+    function getSchool(url,data){
+        $.ajax({
+            type: 'POST',
+            url: url ,
+            data: data ,
+            dataType: 'json',
+            success: function (data) {
+                $("#school option").remove();
+                var list=data.list;
+                var lenth=list.length;
+                for(var i=0;i<lenth;i++){
+                    var value=list[i].codeValue;
+                    var text=list[i].codeName;
+                    $("#school").append("<option value='"+value+"'>"+text+"</option>");
+                }
+
+            } ,error:function (err) {
+                showTips("没有搜到书籍，请手动输入");
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
 
     wx.config({
         debug: false,
@@ -268,27 +322,7 @@
             }
         });
     }
-    function getSchool(url,data){
-        $.ajax({
-            type: 'POST',
-            url: url ,
-            data: data ,
-            dataType: 'json',
-            success: function (data) {
-                $("#school option").remove();
-                var list=data.list;
-                var lenth=list.length;
-                for(var i=0;i<lenth;i++){
-                    var value=list[i].codeValue;
-                    var text=list[i].codeName;
-                    $("#school").append("<option value='"+value+"'>"+text+"</option>");
-                }
 
-            } ,error:function (err) {
-                showTips("没有搜到书籍，请手动输入");
-            }
-        });
-    }
 </script>
 
 </html>

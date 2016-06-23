@@ -358,6 +358,7 @@ input.weui_btn_plain_default {
     -webkit-transform: scaleY(0.5);
     transform: scaleY(0.5);
     left: 15px;
+    margin-bottom:10px;
 }
 .weui_cell:first-child:before {
     display: none;
@@ -515,6 +516,23 @@ input.weui_btn_plain_default {
     display: block;
     word-wrap: break-word;
     word-break: break-all;
+    font-weight: bold;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:#999;
+    font-size:12px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:#999;
+    font-size:12px;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:#999;
+    font-size:12px;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:#999;
+    font-size:12px;
 }
 .weui_input {
     width: 100%;
@@ -533,7 +551,7 @@ input.weui_btn_plain_default {
     outline: 0;
     -webkit-appearance: none;
     background-color: transparent;
-    font-size: inherit;
+    font-size: small;
     color: inherit;
     height: 1.41176471em;
     line-height: 1.41176471;

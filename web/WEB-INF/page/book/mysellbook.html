@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8">
     <title>我卖的书</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="keywords" content="征集,活动,设计,设计师,设计网站,设计社区,中国原创,原创,原创作品,站酷,站酷网,ZCOOL,站酷移动版">
+    <meta name="description" content="站酷（ZCOOL），中国最具人气的设计师互动平台，300万设计师聚集地。致力于打造伴随设计创意群体学习、交流、就业、交易、创业各个成长环节的生态体系。站酷，让设计更有价值，与创意群体一同进步。">
+    <meta charset="utf-8" content="text/html" http-equiv="content-type">
+    <meta http-equiv="Cache-Control" content="max-age=3600">
+    <meta name="MobileOptimized" content="240">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link href="${css}/zhanku.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="${css}/webui/weui.css"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
-    <link rel="stylesheet" type="text/css" href="${css}/m.css?v=1" />
-    <link rel="stylesheet" type="text/css" href="${css}/mindex.css?v=1" />
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
     <script>
         $(document).ready(function() {
@@ -109,108 +113,83 @@
         }
     </script>
 </head>
-<body style="background-color: #E9E9E9;">
+<body class="">
 [#include "load.html"]
-<!--send book list info start-->
-[@send_book_list  openId="${current_user_openid_key!''}" count="5"]
-[#if books ?? && books?size>0]
-[#list books as book]
-    <div class="single_item" id="div${book.id}">
-        <a href="${cmsReq}/book/detail${book.id}.html" ><img class="book_pic" src="${book.imagePath!''}"></a>
-        <div class="book_info">
-            <div class="title"><a href="${cmsReq}/book/detail${book.id}.html" >${book.title!''}</a></div>
-            <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
-            <div class="author_press_mybuy">
-                [@find_code_list pcode="999999" codeSortId="119" codeValue="${book.school!''}" ]
-                [#if codes?? && codes?size>0]
-                [#list codes as code]
-                    ${code.codeName!''}
+<div class="containBox" id="containBox">
+    <div id="user-works" class="pd-10">
+        <ul>
+            [@send_book_list  openId="${current_user_openid_key!''}" count="5"]
+            [#if books ?? && books?size>0]
+                [#list books as book]
+                    <li class="cl item" >
+                        <div class="picbox" onclick="location.href='${cmsReq}/book/detail${book.id}.html'"><img src="${book.imagePath!''}"></div>
+                        <div class="textbox" onclick="location.href='${cmsReq}/book/detail${book.id}.html'">
+                            [#if book.title?length lt 9]
+                            ${book.title}
+                            [#else]
+                            ${book.title[0..9]}..
+                            [/#if]
+                        </div>
+                        <p class="time" style="width:100%">
+                            [@find_code_list pcode="999999" codeSortId="119" codeValue="${book.school!''}" ]
+                            [#if codes?? && codes?size>0]
+                            [#list codes as code]
+                            ${code.codeName!''}
+                            [/#list]
+                            [#else]
+                            ${book.school!''}
+                            [/#if]
+                            [/@find_code_list]  <br>${book.binding!''}<br>
+                            [#if book.biji=='0']少[#else]多[/#if]<br>数量:${book.number!''}<br>单价:￥${book.price!''}
+                        </p>
+                        <p class="toolbar">
+                            [#if book.status==0]
+                              <span>
+                            <i class="weui_btn weui_btn_mini weui_btn_primary">等待买家</i></span>&nbsp;
+                            [#if book.isCancel==0]
+                             <span> <i class="weui_btn weui_btn_mini weui_btn_gray">撤销出售</i></span>
+                            [#else]
+                           <span><span><a href="javascript:showDialog('${book.id}','cancelSale')" class="weui_btn weui_btn_mini weui_btn_warn">撤销出售</a></span></span>
+                            [/#if]
+
+                            [#else]
+                           <span> <span><a href="javascript:showDialog('${book.id}','dealSuccess')" class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a></span></span>
+                           <span  style="margin-left:20px"> <span><a href="javascript:showDialog('${book.id}','dealFail')" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a></span></span>
+                            [/#if]
+                        </p>
+                    </li>
                 [/#list]
-                [#else]
-                    ${book.school!''}
-                [/#if]
-                [/@find_code_list]
-                &nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}
-            </div>
-            <div class="author_press_mybuy">笔记:[#if book.biji=='0']少[#else]多[/#if]&nbsp;&nbsp;|&nbsp;&nbsp;数量:${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥${book.price!''}</div>
-            <div class="author_press_right">
-                [#if book.status==0]
-                    <i class="weui_btn weui_btn_mini weui_btn_primary">等待买家</i>&nbsp;
-                    [#if book.isCancel==0]
-                        <i class="weui_btn weui_btn_mini weui_btn_gray">撤销出售</i>
-                    [#else]
-                         <a href="javascript:showDialog('${book.id}','cancelSale')" class="weui_btn weui_btn_mini weui_btn_warn">撤销出售</a>
-                    [/#if]
-
-                [#else]
-                    <a href="javascript:showDialog('${book.id}','dealSuccess')" class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a>&nbsp;
-                     <a href="javascript:showDialog('${book.id}','dealFail')" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a>
-                [/#if]
-            </div>
-         <!--  <ul class="extend_info2">
-               <!-- <li class="created_at"><span></span></li>
-                <li class="comment"><span></span></li>-->
-              <!--  <li class="comment">
-                    <a class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a><br/>
-                    <a class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a>
-                </li>
-            </ul>-->
-         </div>
-    </div>
-[/#list]
-[#else]
-<center>暂无数据</center>
-[/#if]
-[/@send_book_list]
-<!--BEGIN dialog1-->
-<div class="weui_dialog_confirm" id="dialog1" style="display:none ;">
-    <div class="weui_mask"></div>
-    <div class="weui_dialog">
-        <div class="weui_dialog_hd"><strong class="weui_dialog_title">温馨提示</strong></div>
-        <div class="weui_dialog_bd">确定要删除吗</div>
-        <div class="weui_dialog_ft">
-            <a href="javascript:;" id="cancelBtn" class="weui_btn_dialog default">取消</a>
-            <a href="javascript:;" id="okBtn" data-role="" data-value="" class="weui_btn_dialog primary">确定</a>
-        </div>
-    </div>
-</div>
-<!--END dialog1-->
-<div id="toast" style="display: none;color:white;" >
-    <div class="weui_mask_transparent"></div>
-    <div class="weui_toast" style="width: 9rem;">
-        <i class="weui_icon_toast" id="icon" ></i>
-        <p class="weui_toast_content" style="color:white;">已完成</p>
-    </div>
-</div>
-<div class="weui_cells">
-    <div class="weui_cells_tips">To touch the wind,and be touched</div>
-    <div class="weui_cell_ft">—摸风</div>
-</div>
-<!--动态加载框-->
-<div class="single_item" style="display: none;">
-    <a href="#" ><img class="book_pic" src=""></a>
-    <div class="book_info">
-        <div class="title"><a href="" >${book.title!''}</a></div>
-        <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
-        <div class="author_press_mybuy">
-            &nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}
-        </div>
-        <div class="author_press_mybuy">笔记:&nbsp;&nbsp;|&nbsp;&nbsp;数量:&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥</div>
-        <div class="author_press_right">
-            [#if book.status==0]
-            <i class="weui_btn weui_btn_mini weui_btn_primary">等待买家</i>&nbsp;
-            [#if book.isCancel==0]
-            <i class="weui_btn weui_btn_mini weui_btn_gray">撤销出售</i>
             [#else]
-            <a href="" class="weui_btn weui_btn_mini weui_btn_warn">撤销出售</a>
+                 <center>暂无数据</center>
             [/#if]
+            [/@send_book_list]
 
-            [#else]
-            <a href="" class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a>&nbsp;
-            <a href="" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a>
-            [/#if]
+
+            <input style="display: none;" class="current" value="3">
+        </ul>
+        <a class="view-more" id="indexPaging" href="http://m.zcool.com.cn/javascript:;" onclick="getMoreWapActivity()" style="color: rgb(159, 159, 159); display: block;">查看更多</a>
+        <div class="loadingbar vm" style="display: none;"><img src="http://static.zcool.cn/client/image/loading.gif">&nbsp;&nbsp;<span>正在加载</span></div>
+    </div>
+    <!--BEGIN dialog1-->
+    <div class="weui_dialog_confirm" id="dialog1" style="display:none ;">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd"><strong class="weui_dialog_title">温馨提示</strong></div>
+            <div class="weui_dialog_bd">确定要删除吗</div>
+            <div class="weui_dialog_ft">
+                <a href="javascript:;" id="cancelBtn" class="weui_btn_dialog default">取消</a>
+                <a href="javascript:;" id="okBtn" data-role="" data-value="" class="weui_btn_dialog primary">确定</a>
+            </div>
         </div>
     </div>
-</div>
+    <!--END dialog1-->
+    <div id="toast" style="display: none;color:white;" >
+        <div class="weui_mask_transparent"></div>
+        <div class="weui_toast" style="width: 9rem;">
+            <i class="weui_icon_toast" id="icon" ></i>
+            <p class="weui_toast_content" style="color:white;">已完成</p>
+        </div>
+    </div>
 </body>
 </html>
+

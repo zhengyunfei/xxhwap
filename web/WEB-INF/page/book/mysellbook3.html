@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我卖的书</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="${css}/webui/weui.css"/>
+    <link rel="stylesheet" href="${css}/webui/example.css"/>
+    <link rel="stylesheet" type="text/css" href="${css}/m.css?v=1" />
+    <link rel="stylesheet" type="text/css" href="${css}/mindex.css?v=1" />
+    <link href="http://static.zcool.cn/v3.5.160602.0/zcool/client/css/style.css" rel="stylesheet" type="text/css">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#cancelBtn").bind('click',function(){
+                $("#dialog1").hide();
+            });
+            $("#okBtn").bind('click',function(){
+                var role=$(this).attr('data-role');
+                var id=$(this).attr('data-value');
+                if('cancelSale'==role){
+                    cancelSale(id);
+                }
+                if('dealFail'==role){
+                    dealFail(id);
+                }
+            });
+
+        });
+        function showDiv(){
+            $("#dialog1").show();
+        }
+        function  close() {
+            $("#dialog1").hide();
+        }
+        function showDialog(id,type){
+            if('cancelSale'==type){
+                $(".weui_dialog_bd").html("你确定要撤销出售吗");
+                $("#okBtn").attr('data-role',type);
+                $("#okBtn").attr('data-value',id);
+                //cancelSale(id);
+                showDiv();
+            }else if('dealSuccess'==type){
+                cancelSale(id);
+            }
+            else{
+                $(".weui_dialog_bd").html("您的书将继续出挂在我们平台上,且两天内不能撤销出售");
+                $("#okBtn").attr('data-role',type);
+                $("#okBtn").attr('data-value',id);
+                //dealFail(id);
+                showDiv();
+            }
+
+        }
+        function cancelSale(id) {
+            var url="${cmsReq}/book/cancelSale.html";
+            var data={"id":id};
+            forAjaxPost(url,data);
+        }
+        function dealSuccess(id){
+
+        }
+        function dealFail(id){
+            var url="${cmsReq}/book/dealFail.html";
+            var  data={"id":id};
+            forAjaxPost(url,data);
+        }
+        function forAjaxPost(url,data){
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type:'post',
+                data: data,
+                success: function(r){
+                    var result=r.result;
+                    close();
+                    if("cancelSaleSuccess"==result){
+                        $(".weui_toast_content").html("操作成功");
+                        $("#toast").show();
+                        //$("#div"+data.id).remove();
+                        setTimeout(function (){
+                            $("#toast").hide();
+                            var page="${cmsReq}/book/mysell.html";
+                            window.location.href=page;
+                        }, 3000);
+                    }
+                    if("error"==result){
+                        $(".weui_toast_content").html("服务器休息了,请稍后再来骚扰");
+                        $("#toast").show();
+                        setTimeout(function (){
+                            $("#toast").hide();
+                        }, 3000);
+                    }
+                    if("dealSuccess"==result){
+                        $(".weui_toast_content").html("操作成功");
+                        //重新刷新页面
+                        $("#toast").show();
+                        setTimeout(function (){
+                            $("#toast").hide();
+                            var page="${cmsReq}/book/mysell.html";
+                            window.location.href=page;
+                        }, 3000);
+
+                    }
+
+                },error:function(){
+
+                }
+            });
+        }
+    </script>
+</head>
+<body style="background-color: #E9E9E9;">
+[#include "load.html"]
+<!--send book list info start-->
+[@send_book_list  openId="${current_user_openid_key!''}" count="5"]
+[#if books ?? && books?size>0]
+[#list books as book]
+    <div class="single_item" id="div${book.id}">
+        <a href="${cmsReq}/book/detail${book.id}.html" ><img class="book_pic" src="${book.imagePath!''}"></a>
+        <div class="book_info">
+            <div class="title"><a href="${cmsReq}/book/detail${book.id}.html" >${book.title!''}</a></div>
+            <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
+            <div class="author_press_mybuy">
+                [@find_code_list pcode="999999" codeSortId="119" codeValue="${book.school!''}" ]
+                [#if codes?? && codes?size>0]
+                [#list codes as code]
+                    ${code.codeName!''}
+                [/#list]
+                [#else]
+                    ${book.school!''}
+                [/#if]
+                [/@find_code_list]
+                &nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}
+            </div>
+            <div class="author_press_mybuy">笔记:[#if book.biji=='0']少[#else]多[/#if]&nbsp;&nbsp;|&nbsp;&nbsp;数量:${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥${book.price!''}</div>
+            <div class="author_press_right">
+                [#if book.status==0]
+                    <i class="weui_btn weui_btn_mini weui_btn_primary">等待买家</i>&nbsp;
+                    [#if book.isCancel==0]
+                        <i class="weui_btn weui_btn_mini weui_btn_gray">撤销出售</i>
+                    [#else]
+                         <a href="javascript:showDialog('${book.id}','cancelSale')" class="weui_btn weui_btn_mini weui_btn_warn">撤销出售</a>
+                    [/#if]
+
+                [#else]
+                    <a href="javascript:showDialog('${book.id}','dealSuccess')" class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a>&nbsp;
+                     <a href="javascript:showDialog('${book.id}','dealFail')" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a>
+                [/#if]
+            </div>
+         <!--  <ul class="extend_info2">
+               <!-- <li class="created_at"><span></span></li>
+                <li class="comment"><span></span></li>-->
+              <!--  <li class="comment">
+                    <a class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a><br/>
+                    <a class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a>
+                </li>
+            </ul>-->
+         </div>
+    </div>
+[/#list]
+[#else]
+<center>暂无数据</center>
+[/#if]
+[/@send_book_list]
+<!--BEGIN dialog1-->
+<div class="weui_dialog_confirm" id="dialog1" style="display:none ;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">温馨提示</strong></div>
+        <div class="weui_dialog_bd">确定要删除吗</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" id="cancelBtn" class="weui_btn_dialog default">取消</a>
+            <a href="javascript:;" id="okBtn" data-role="" data-value="" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+<!--END dialog1-->
+<div id="toast" style="display: none;color:white;" >
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast" style="width: 9rem;">
+        <i class="weui_icon_toast" id="icon" ></i>
+        <p class="weui_toast_content" style="color:white;">已完成</p>
+    </div>
+</div>
+<div class="weui_cells">
+    <div class="weui_cells_tips">To touch the wind,and be touched</div>
+    <div class="weui_cell_ft">—摸风</div>
+</div>
+<!--动态加载框-->
+<div class="single_item" style="display: none;">
+    <a href="#" ><img class="book_pic" src=""></a>
+    <div class="book_info">
+        <div class="title"><a href="" >${book.title!''}</a></div>
+        <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
+        <div class="author_press_mybuy">
+            &nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}
+        </div>
+        <div class="author_press_mybuy">笔记:&nbsp;&nbsp;|&nbsp;&nbsp;数量:&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥</div>
+        <div class="author_press_right">
+            [#if book.status==0]
+            <i class="weui_btn weui_btn_mini weui_btn_primary">等待买家</i>&nbsp;
+            [#if book.isCancel==0]
+            <i class="weui_btn weui_btn_mini weui_btn_gray">撤销出售</i>
+            [#else]
+            <a href="" class="weui_btn weui_btn_mini weui_btn_warn">撤销出售</a>
+            [/#if]
+
+            [#else]
+            <a href="" class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a>&nbsp;
+            <a href="" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a>
+            [/#if]
+        </div>
+    </div>
+</div>
+</body>
+</html>
