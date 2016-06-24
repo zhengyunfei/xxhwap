@@ -540,7 +540,7 @@ input.weui_btn_plain_default {
     outline: 0;
     -webkit-appearance: none;
     background-color: transparent;
-    font-size: inherit;
+    font-size: small;
     color: inherit;
     height: 1.41176471em;
     line-height: 1.41176471;

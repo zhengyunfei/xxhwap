@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +43,7 @@ public class BookPageControll {
 								  HttpServletResponse response, ModelMap model) {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
-		//sweepParam(request, mv);//获取扫一扫参数
+		sweepParam(request, mv);//获取扫一扫参数
 		mv.setViewName(MobilePageContants.BUG_BOOK_PAGE);
 		isWeiXinOpenLink(request, mv);
 		return mv;
@@ -70,7 +69,7 @@ public class BookPageControll {
 		String domain = config.getString("domain");
 		if(flg){
 			String  page="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+domain+"/oauth/do.html&response_type=code&scope=snsapi_base&state="+key+"#wechat_redirect";
-			//mv.setViewName("redirect:"+page);
+			mv.setViewName("redirect:"+page);
 		}
 	}
 
@@ -106,8 +105,9 @@ public class BookPageControll {
 		TudouBookInfo bookInfo=null;
 		try {
 			 bookInfo=RetrieveDocumentByURL.getTuDouBookInfo(TU_DOU_BOOK_URI.replace("ISBN",isbn));
+			 returnMap.put("book",bookInfo);
+		} catch (Exception e) {
 			returnMap.put("book",bookInfo);
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return returnMap;

@@ -38,30 +38,35 @@ public class RetrieveDocumentByURL {
         System.out.println(message);*/
 
     }
-    public static TudouBookInfo getTuDouBookInfo(String url) throws ClientProtocolException, IOException{
-        URL urlGet = new URL(url);
-        HttpURLConnection http = (HttpURLConnection) urlGet
-                .openConnection();
-        http.setRequestMethod("GET"); // 必须是get方式请求
-        http.setRequestProperty("Content-Type",
-                "application/x-www-form-urlencoded");
-        http.setDoOutput(true);
-        http.setDoInput(true);
-        System.setProperty("sun.net.client.defaultConnectTimeout", "30000");// 连接超时30秒
-        System.setProperty("sun.net.client.defaultReadTimeout", "30000"); // 读取超时30秒
-        http.connect();
-        InputStream is = http.getInputStream();
-        System.out.println("查询出来的book================================="+is);
-        TudouBookInfo book = new BookXMLParser(is).getBook();
-        System.out.println("查询出来的book================================="+book);
+    public static TudouBookInfo getTuDouBookInfo(String url){
+        TudouBookInfo book=null;
+        try{
+            URL urlGet = new URL(url);
+            HttpURLConnection http = (HttpURLConnection) urlGet
+                    .openConnection();
+            http.setRequestMethod("GET"); // 必须是get方式请求
+            http.setRequestProperty("Content-Type",
+                    "application/x-www-form-urlencoded");
+            http.setDoOutput(true);
+            http.setDoInput(true);
+            System.setProperty("sun.net.client.defaultConnectTimeout", "30000");// 连接超时30秒
+            System.setProperty("sun.net.client.defaultReadTimeout", "30000"); // 读取超时30秒
+            http.connect();
+            InputStream is = http.getInputStream();
+            System.out.println("查询出来的book================================="+is);
+            book = new BookXMLParser(is).getBook();
+            System.out.println("查询出来的book================================="+book);
+            System.out.println("isbn13:->" + book.getIsbn13());
+            System.out.println("isbn10:->" + book.getIsbn10());
+            System.out.println("title:->" + book.getTitle());
+            System.out.println("summary:->"+ book.getSummary());
+            System.out.println("price:-->" + book.getPrice());
+            System.out.println("author:-->" + book.getAuthor());
+            System.out.println("ImagePath:-->" + book.getImagePath());
+        }catch (Exception e){
 
-        System.out.println("isbn13:->" + book.getIsbn13());
-        System.out.println("isbn10:->" + book.getIsbn10());
-        System.out.println("title:->" + book.getTitle());
-        System.out.println("summary:->"+ book.getSummary());
-        System.out.println("price:-->" + book.getPrice());
-        System.out.println("author:-->" + book.getAuthor());
-        System.out.println("ImagePath:-->" + book.getImagePath());
+        }
+
         return book;
     }
     public static void main(String[] args) throws ClientProtocolException, IOException {

@@ -88,11 +88,10 @@
         <div class="weui_cells">
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">
-                    <label for="" class="weui_label">地区:</label>
+                    <label for="" class="weui_label">学校:</label>
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="school" id="school" style="width: 100%;">
-                        <option value="">选择学校</option>
                     </select>
                 </div>
             </div>
@@ -261,6 +260,9 @@
                     var text=list[i].codeName;
                     $("#school").append("<option value='"+value+"'>"+text+"</option>");
                 }
+                if(lenth==0){
+                    showTips("没有搜到书籍，请手动输入");
+                }
 
             } ,error:function (err) {
                 showTips("没有搜到书籍，请手动输入");
@@ -312,11 +314,16 @@
             dataType: 'json',
             success: function (data) {
                 var data=data.book;
-                $("#title").val(data.title);
-                $("#author").val(data.author);
-                $("#publisher").val(data.publisher);
-                $("#binding").val(data.binding);
-                $("#isbn13").val(data.isbn13);
+                if(null!=data&&''!=data){
+                    $("#title").val(data.title);
+                    $("#author").val(data.author);
+                    $("#publisher").val(data.publisher);
+                    $("#binding").val(data.binding);
+                    $("#isbn13").val(data.isbn13);
+                }else{
+                    showTips("没有搜到书籍，请手动输入");
+                }
+
             } ,error:function (err) {
                 showTips("没有搜到书籍，请手动输入");
             }
