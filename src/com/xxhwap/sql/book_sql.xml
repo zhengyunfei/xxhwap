@@ -86,6 +86,10 @@ SELECT
 		<isNotEmpty prepend="AND" property="number">
 			num>=#number#
 		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="oid">
+			oid=#oid#
+		</isNotEmpty>
+
 	</dynamic>
 
 	order by 	sendTime

@@ -61,7 +61,23 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 			}
 			List<TudouBookInfo> list = new ArrayList<TudouBookInfo>();
 			list = bookService.findSendBookList(queryMap);
+			//有可能我卖的书，被分开买了，所以要根据oid查询出来
+			List<TudouBookInfo> childList=new ArrayList<TudouBookInfo>();
 			int size=list.size();
+			for(int i=0;i<size;i++){
+				String id=list.get(i).getId()+"";//此id作为oid去查询
+				Map<String,Object> m=new HashMap<String, Object>();
+				m.put("oid",id);
+				childList=bookService.findSendBookList(m);
+				if(!StringUtils.isEmpty(childList)&&childList.size()>0){
+					//那么需要将这一部分也加到我卖的书里面
+					int childSize=childList.size();
+					for(int j=0;j<childSize;j++){
+						list.set(i,childList.get(j));
+					}
+				}
+
+			}
 			String now= DateUtil.getBeforeNDaysTime(2);
 			for(int i=0;i<size;i++){
 				int isCancel=1;
