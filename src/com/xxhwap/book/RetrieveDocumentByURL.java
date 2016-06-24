@@ -55,6 +55,10 @@ public class RetrieveDocumentByURL {
             InputStream is = http.getInputStream();
             System.out.println("查询出来的book================================="+is);
             book = new BookXMLParser(is).getBook();
+            //把book中额imagePage替换一下，要不然不清晰
+            String imagePath=book.getImagePath();
+            String page=imagePath.replace("https://img1.doubanio.com/spic","https://img1.doubanio.com/mpic");
+            book.setImagePath(page);
             System.out.println("查询出来的book================================="+book);
             System.out.println("isbn13:->" + book.getIsbn13());
             System.out.println("isbn10:->" + book.getIsbn10());
@@ -70,8 +74,8 @@ public class RetrieveDocumentByURL {
         return book;
     }
     public static void main(String[] args) throws ClientProtocolException, IOException {
-      // new RetrieveDocumentByURL("http://api.douban.com/book/subject/isbn/6947751402018");
-        new RetrieveDocumentByURL("https://api.douban.com/v2/book/isbn/:6947751402018");
+      new RetrieveDocumentByURL("http://api.douban.com/book/subject/isbn/9787544364478");
+        //new RetrieveDocumentByURL("https://api.douban.com/v2/book/isbn/:9787544364478");
     }
 
 }

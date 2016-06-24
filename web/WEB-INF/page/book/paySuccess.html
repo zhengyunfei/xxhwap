@@ -42,6 +42,13 @@
 </div>
 </div>
 <div class="weui_toptips weui_warn js_tooltips">格式不对</div>
+<div id="toast" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <i class="weui_icon_toast"></i>
+        <p class="weui_toast_content">支付完成</p>
+    </div>
+</div>
 <div class="weui_cell" >
     <div class="weui_cell_hd"><label class="weui_label">你已向贫困地区的孩子捐赠0<!--${book.totalPrice!'0'}-->元</label></div>
     </div>
@@ -72,6 +79,7 @@
 </html>
 <script type="text/javascript">
 $(document).ready(function(){
+    showTips();
     window.history.forward(1);
         $('#number').bind('blur', function (){
             var number=$("#number").val();
@@ -96,14 +104,21 @@ $(document).ready(function(){
         })
 
     });
-    function showTips(value){
-        $('.js_tooltips').html(value);
-        $('.js_tooltips').show();
+    function showTips(){
+        $('#toast').fadeIn(300);
         setTimeout(function (){
-            $('.js_tooltips').hide();
+            $('#toast').fadeOut(3000);
         }, 3000);
-        return false;
     }
+function showToast(value){
+    $('.js_tooltips').html(value);
+    $('.js_tooltips').show();
+    setTimeout(function (){
+        $('.js_tooltips').hide();
+    }, 3000);
+    return false;
+}
+
     function buy_book(){
         var url="${cmsReq}/webui/payPage.html";
         // var data=$("#form1").serialize();

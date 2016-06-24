@@ -321,7 +321,7 @@ body.sideBox-open{ overflow: hidden;}
 #user-works .item a,#user-works .item a:hover{ color:#282828}
 #user-works .picbox{ float:left; width:45%; font-size:100%; min-height:100px}
 #user-works .picbox img{ width:100%; height:auto; display:block;}
-#user-works .textbox{ margin-left:44%;padding-left:10px; padding-right:10px;  word-break:break-all;padding-top: 5px; }
+#user-works .textbox{ margin-left:44%;padding-left:10px; padding-right:10px;  word-break:break-all;padding-top: 5px;font-weight: bold }
 #user-works .textbox h2{ font-size:16px; padding-top:5px; margin:0; line-height:1.4; word-break:break-all; }
 #user-works .time{ position:absolute;left:45%; padding-left:10px;font-size:14px; color:#999}
 #user-works .toolbar{ position:absolute; left:45%; padding-left:5px; bottom:5px; font-size:12px; line-height:20px; color:#999}

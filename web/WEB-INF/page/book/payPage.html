@@ -51,7 +51,7 @@
 <div class="weui_cell" >
     <div class="weui_cell_hd" style="width: 80%;"><label class="weui_label">你将向贫困地区捐赠0<!--${book.totalPrice!'0'}-->元</label></div>
     <div class="weui_btn_area" style="width:30%">
-        <a class="weui_btn weui_btn_primary" href="javascript:" id="buyBtn">支付</a>
+        <a class="weui_btn weui_btn_primary" href="javascript:void(0)" id="buyBtn">支付</a>
     </div>
     </div>
     <div class="weui_cells_title"></div>
@@ -84,8 +84,9 @@
         var url="${cmsReq}/webui/paysave.html";
         var id=$("#id").val();
         var number=$("#number").val();
-        $("#form1").attr('action',url+"?id="+id+"&number="+number);
+        window.location.href=url+"?id="+id+"&number="+number;
+       /* $("#form1").attr('action',url+"?id="+id+"&number="+number);
         $("#form1").attr('method','get');
-        $("#form1").submit();
+        $("#form1").submit();*/
     }
 </script>

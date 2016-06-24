@@ -6,9 +6,11 @@
     <title>卖书</title>
     <link rel="stylesheet" href="${css}/webui/weui.css?v=1"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
-    [#include "load.html"]
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
 </head>
 <body ontouchstart>
+[#include "load.html"]
 <!--<div class="header">
     <a class="back-icon" href="#"></a>
     卖书
@@ -109,6 +111,7 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:65%">
                     <select class="weui_select" name="school" id="school" style="width: 100%;">
+                        <option value="">学校</option>
                     </select>
                 </div>
             </div>
@@ -264,23 +267,23 @@
             var price=$("#price").val();
             var mobile=$("#mobile").val();
             var f=true;
-            if(''==school||school.trim().length==0){
+            if(''==school||null==school||school.trim().length==0){
                 showTips("请输入学校");
                 f=false
             }
-            else if(''==biji||biji.trim().length==0){
+            else if(''==biji||null==biji||biji.trim().length==0){
                 showTips("请输入笔记");
                 f=false;
             }
-            else if(''==number||number<=0||number.trim().length==0){
+            else if(''==number||null==mobile||number<=0||number.trim().length==0){
                 showTips("请输入数量");
                 f=false
             }
-            else if(''==price||price.trim().length==0){
+            else if(''==price||null==price||price.trim().length==0){
                 showTips("请输入单本售价");
                 f=false
             }
-            else if(''==mobile||mobile.trim().length==0){
+            else if(''==mobile||null==mobile||mobile.trim().length==0){
                 showTips("请输入手机号码");
                 f=false
             }else{
@@ -292,10 +295,10 @@
     });
     function showTips(value){
         $('.js_tooltips').html(value);
-        $('.js_tooltips').show();
+        $('.js_tooltips').fadeIn(300);
         setTimeout(function (){
-            $('.js_tooltips').hide();
-        }, 3000);
+            $('.js_tooltips').fadeOut(3000);
+        }, 6000);
         return false;
     }
     function save_book(){

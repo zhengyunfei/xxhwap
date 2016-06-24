@@ -287,6 +287,7 @@ input.weui_btn_mini {
 }
 .weui_btn_primary {
     background-color: #04BE02;
+    height:40px;
 }
 .weui_btn_primary:not(.weui_btn_disabled):visited {
     color: #FFFFFF;

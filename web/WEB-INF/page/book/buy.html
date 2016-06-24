@@ -209,15 +209,15 @@
             var price=$("#price").val();
             var mobile=$("#mobile").val();
             var f=true;
-            if(''==school||school.trim().length==0){
+            if(''==school||null==school||school.trim().length==0){
                 //  $("#school").focus();
                 f=showTips("请输入学校");
             }
-            else if(''==biji||biji.trim().length==0){
+            else if(''==biji||null==biji||biji.trim().length==0){
                 // $("#biji").focus();
                 f=showTips("请输入笔记");
             }
-            else if(''==number||number<=0||number.trim().length==0){
+            else if(''==number||null==number||number<=0||number.trim().length==0){
                 //$("#number").focus();
                 f=showTips("请输入数量");
             }else{
@@ -232,10 +232,10 @@
     });
     function showTips(value){
         $('.js_tooltips').html(value);
-        $('.js_tooltips').show();
+        $('.js_tooltips').fadeIn(300);
         setTimeout(function (){
-            $('.js_tooltips').hide();
-        }, 3000);
+            $('.js_tooltips').fadeOut(3000);
+        }, 6000);
         return false;
     }
     function query_book(){

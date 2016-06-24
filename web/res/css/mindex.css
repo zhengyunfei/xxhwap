@@ -30,7 +30,8 @@ div.single_item div.book_info
 
 div.book_info div.title
 {
-    font-size: 14px;
+    word-break:break-all;
+    font-weight: bold;
 }
 
 div.book_info div.author_press
@@ -42,8 +43,8 @@ div.book_info div.author_press
 div.book_info div.author_press_mybuy
 {
     padding: 4px 0 0 0;
-    font-size: 12px;
-    /**color: rgb(154,154,154);**/
+    font-size: small;
+    color: rgb(154,154,154);
 }
 div.book_info div.author_press_right
 {
@@ -59,7 +60,7 @@ div.book_info div.price_info
 }
 div.book_info span.now_price
 {
-    font-size: 18px;
+    font-size: small;
     color: rgb(0,199,180);
 }
 ul.extend_info

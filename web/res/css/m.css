@@ -172,7 +172,7 @@ div.book_info div.price_info
 }
 div.book_info span.now_price
 {
-    font-size: 18px;
+    font-size: small;
     color: rgb(0,199,180);
 }
 ul.extend_info
