@@ -49,8 +49,6 @@ public class FmUtils {
 			model.put("base", site.getHttpUrIAddr());
 			String domain=site.getContextPath();
 			String base=site.getHttpUrIAddr();
-			System.out.println("base======"+site.getHttpUrIAddr());
-			System.out.println("domain======"+domain);
 			model.put("images", domain+ RESPATH+ IMAGEPATH);
 			model.put("css", domain+ RESPATH + CSSPATH);
 			model.put("js", domain+ RESPATH+ SCRIPTSPATH);

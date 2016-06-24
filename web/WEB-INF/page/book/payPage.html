@@ -33,7 +33,16 @@
     <div class="book_info">
         <div class="title">${book.title!''}</div>
         <div class="author_press">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
-        <div class="author_press">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
+        <div class="author_press">[@find_code_list  codeSortId="119" codeValue="${book.school!''}"]
+            [#if codes?? && codes?size>0]
+            [#list codes as code]
+            ${code.codeName!''}
+            [/#list]
+            [#else]
+            ${book.school!''}
+            [/#if]
+            [/@find_code_list]
+            &nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
         <div class="price_info">
             <!--<span class="now_price">${book.biji!''}|${book.number!''}|￥${book.price!''}</span>&nbsp;-->
             <!-- <span class="line_through">￥28.00</span>-->
@@ -74,13 +83,18 @@
 </body>
 </html>
 <script type="text/javascript">
+    var i=0;
     $(document).ready(function(){
         $("#buyBtn").bind('click',function () {
+            if(i==0){
                 pay_book();
+            }
+
         })
 
     });
     function pay_book(){
+        i++;
         var url="${cmsReq}/webui/paysave.html";
         var id=$("#id").val();
         var number=$("#number").val();
