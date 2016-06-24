@@ -20,7 +20,7 @@
             <div class="title">${book.title!''}</div>
             <div class="author_press_mybuy">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
             <div class="author_press_mybuy">
-                [@find_code_list pcode="999999" codeSortId="119" codeValue="${book.school!''}"]
+                [@find_code_list  codeSortId="119" codeValue="${book.school!''}"]
                 [#if codes?? && codes?size>0]
                 [#list codes as code]
                 ${code.codeName!''}

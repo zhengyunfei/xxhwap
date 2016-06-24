@@ -27,6 +27,7 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 	private static final String PARAM_VALUE = "openId";
 	private static final String PARAM_COUNT = "count";
 	private static final String PARAM_FLAG = "flag";
+	private static final String PARAM_STATUS = "status";
 	private static final String PARAM_PAGE = "page";
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -38,8 +39,12 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 			String flag = DirectiveUtils.getString(PARAM_FLAG, params);
 			String count= DirectiveUtils.getString(PARAM_COUNT, params);
 			String page= DirectiveUtils.getString(PARAM_PAGE, params);
+			String status= DirectiveUtils.getString(PARAM_STATUS, params);
 			if(!StringUtils.isEmpty(openId)){
 				queryMap.put("openId",openId);
+			}
+			if(!StringUtils.isEmpty(status)){
+				queryMap.put("status",status);
 			}
 			if(!StringUtils.isEmpty(flag)){
 				queryMap.put("role",flag);

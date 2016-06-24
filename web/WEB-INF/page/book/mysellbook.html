@@ -118,7 +118,7 @@
 <div class="containBox" id="containBox">
     <div id="user-works" class="pd-10">
         <ul>
-            [@send_book_list  openId="${current_user_openid_key!''}" count="5"]
+            [@send_book_list  openId="${current_user_openid_key!''}" count="5" status="0"]
             [#if books ?? && books?size>0]
                 [#list books as book]
                     <li class="cl item" >
