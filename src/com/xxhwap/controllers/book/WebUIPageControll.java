@@ -244,6 +244,14 @@ public class WebUIPageControll {
 					newBookInfo.setNumber(number);
 					newBookInfo.setStatus(MobilePageContants.STATUS_1);//saled
 					newBookInfo.setOid(id);
+					//从缓存中获取openid
+					ServletContext application =request.getSession().getServletContext();
+					//保存用户的openid到全局缓存中
+					String openId=application.getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
+					if(!StringUtils.isEmpty(openId)){
+						bookInfo.setOpenId(openId);
+					}
+					newBookInfo.setOpenId(openId);
 					long pid=bookService.saveBook(newBookInfo);
 					//step 2 update ori book num=onumber-num
 					bookInfo.setId(Long.parseLong(id));

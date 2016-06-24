@@ -57,7 +57,8 @@ public class RetrieveDocumentByURL {
             book = new BookXMLParser(is).getBook();
             //把book中额imagePage替换一下，要不然不清晰
             String imagePath=book.getImagePath();
-            String page=imagePath.replace("https://img1.doubanio.com/spic","https://img1.doubanio.com/mpic");
+            String page=imagePath.replace("http://img3.douban.com/spic","https://img1.doubanio.com/mpic");
+            page=page.replace("spic","mpic");
             book.setImagePath(page);
             System.out.println("查询出来的book================================="+book);
             System.out.println("isbn13:->" + book.getIsbn13());

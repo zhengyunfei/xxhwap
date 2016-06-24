@@ -29,6 +29,7 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 	public long sendBook(TudouBookInfo bookInfo) {
 		long id=0;
 		try{
+			bookInfo.setImagePath(bookInfo.getImagePath().replace("http://img3.douban.com/spic","https://img1.doubanio.com/mpic"));
 			id=(Long)this.insert(ADD,bookInfo);
 		}catch (Exception e){
 			e.printStackTrace();
@@ -39,6 +40,7 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 	public long saveBook(TudouBookInfo bookInfo) {
 		long id=0;
 		try{
+			bookInfo.setImagePath(bookInfo.getImagePath().replace("http://img3.douban.com/spic","https://img1.doubanio.com/mpic"));
 			id=(Long)this.insert(SAVE,bookInfo);
 		}catch (Exception e){
 			e.printStackTrace();

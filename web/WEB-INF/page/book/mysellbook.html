@@ -131,16 +131,9 @@
                             [/#if]
                         </div>
                         <p class="time" style="width:100%">
-                            [@find_code_list pcode="999999" codeSortId="119" codeValue="${book.school!''}" ]
-                            [#if codes?? && codes?size>0]
-                            [#list codes as code]
-                            ${code.codeName!''}
-                            [/#list]
-                            [#else]
-                            ${book.school!''}
-                            [/#if]
-                            [/@find_code_list]  <br>${book.binding!''}<br>
-                            [#if book.biji=='0']少[#else]多[/#if]<br>数量:${book.number!''}<br>单价:￥${book.price!''}
+                            [@find_code_list codeSortId="119" codeValue="${book.school!''}" ][#if codes?? && codes?size>0][#list codes as code]${code.codeName!''}[/#list][#else]${book.school!''}[/#if][/@find_code_list]
+                            <br>[#if book.binding?? && book.binding!=""]${book.binding!''}|[/#if][#if book.biji=='0']少[#else]多<br>[/#if]
+                            数量:<font color="#00BFA5">${book.number!''}</font>|单价:<font color="#00BFA5"><b>￥${book.price!''}</b></font>
                         </p>
                         <p class="toolbar">
                             [#if book.status==0]
@@ -149,12 +142,12 @@
                             [#if book.isCancel==0]
                              <span> <i class="weui_btn weui_btn_mini weui_btn_gray">撤销出售</i></span>
                             [#else]
-                           <span><span><a href="javascript:showDialog('${book.id}','cancelSale')" class="weui_btn weui_btn_mini weui_btn_warn">撤销出售</a></span></span>
+                           <span><a href="javascript:showDialog('${book.id}','cancelSale')" class="weui_btn weui_btn_mini weui_btn_warn">撤销出售</a></span>
                             [/#if]
 
                             [#else]
-                           <span> <span><a href="javascript:showDialog('${book.id}','dealSuccess')" class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a></span></span>
-                           <span  style="margin-left:20px"> <span><a href="javascript:showDialog('${book.id}','dealFail')" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a></span></span>
+                           <span> <a href="javascript:showDialog('${book.id}','dealSuccess')" class="weui_btn weui_btn_mini weui_btn_primary">交易成功</a></span>
+                           <span > <a href="javascript:showDialog('${book.id}','dealFail')" class="weui_btn weui_btn_mini weui_btn_warn">交易失败</a></span>
                             [/#if]
                         </p>
                     </li>

@@ -214,7 +214,7 @@ th {
   }
   pre,
   blockquote {
-    border: 1px solid #999;
+    border: 1px solid #969696;
 
     page-break-inside: avoid;
   }
@@ -2573,14 +2573,14 @@ output {
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
 }
 .form-control::-moz-placeholder {
-  color: #999;
+  color: #969696;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #999;
+  color: #969696;
 }
 .form-control::-webkit-input-placeholder {
-  color: #999;
+  color: #969696;
 }
 .form-control[disabled],
 .form-control[readonly],
@@ -5953,7 +5953,7 @@ button.close {
   background-color: #fff;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
-  border: 1px solid #999;
+  border: 1px solid #969696;
   border: 1px solid rgba(0, 0, 0, .2);
   border-radius: 6px;
   outline: 0;
@@ -6225,7 +6225,7 @@ button.close {
   bottom: -11px;
   left: 50%;
   margin-left: -11px;
-  border-top-color: #999;
+  border-top-color: #969696;
   border-top-color: rgba(0, 0, 0, .25);
   border-bottom-width: 0;
 }
@@ -6240,7 +6240,7 @@ button.close {
   top: 50%;
   left: -11px;
   margin-top: -11px;
-  border-right-color: #999;
+  border-right-color: #969696;
   border-right-color: rgba(0, 0, 0, .25);
   border-left-width: 0;
 }
@@ -6256,7 +6256,7 @@ button.close {
   left: 50%;
   margin-left: -11px;
   border-top-width: 0;
-  border-bottom-color: #999;
+  border-bottom-color: #969696;
   border-bottom-color: rgba(0, 0, 0, .25);
 }
 .popover.bottom > .arrow:after {
@@ -6271,7 +6271,7 @@ button.close {
   right: -11px;
   margin-top: -11px;
   border-right-width: 0;
-  border-left-color: #999;
+  border-left-color: #969696;
   border-left-color: rgba(0, 0, 0, .25);
 }
 .popover.left > .arrow:after {
