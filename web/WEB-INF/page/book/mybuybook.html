@@ -30,8 +30,8 @@
                 [/#if]
                 [/@find_code_list]
                 &nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
-            <div class="author_press_mybuy">笔记:[#if book.biji=='0']少[#else]多[/#if]&nbsp;&nbsp;|&nbsp;&nbsp;数量:${book.number!''}&nbsp;&nbsp;|&nbsp;&nbsp;单价:￥${book.price!''}</div>
-            <div class="author_press_mybuy">卖家手机号:${book.mobile!''}</div>
+            <div class="author_press_mybuy">笔记:<font color="#05C4AC">[#if book.biji=='0']少[#else]多[/#if]</font>&nbsp;&nbsp;|&nbsp;&nbsp;数量:<font color="#05C4AC">${book.number!''}</font>&nbsp;&nbsp;|&nbsp;&nbsp;单价:<font color="#05C4AC">￥${book.price!''}</font></div>
+            <div class="author_press_mybuy">卖家手机号:<a href="tel:${book.mobile!''}">${book.mobile!''}</a></div>
            <!-- <div class="price_info">
                 <span class="now_price">￥${book.price!''}</span>&nbsp;
                 <span class="line_through">￥28.00</span>
