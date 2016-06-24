@@ -2,15 +2,13 @@
 <!DOCTYPE html><html><head>
     <meta charset="utf-8">
     <title>我卖的书</title>
-    <meta name="keywords" content="征集,活动,设计,设计师,设计网站,设计社区,中国原创,原创,原创作品,站酷,站酷网,ZCOOL,站酷移动版">
-    <meta name="description" content="站酷（ZCOOL），中国最具人气的设计师互动平台，300万设计师聚集地。致力于打造伴随设计创意群体学习、交流、就业、交易、创业各个成长环节的生态体系。站酷，让设计更有价值，与创意群体一同进步。">
     <meta charset="utf-8" content="text/html" http-equiv="content-type">
     <meta http-equiv="Cache-Control" content="max-age=3600">
     <meta name="MobileOptimized" content="240">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <link href="${css}/zhanku.css?v=1" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="${css}/webui/weui.css"/>
+    <link rel="stylesheet" href="${css}/webui/weui.css?v=1"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
     <script>
@@ -118,7 +116,7 @@
 <div class="containBox" id="containBox">
     <div id="user-works" class="pd-10">
         <ul>
-            [@send_book_list  openId="${current_user_openid_key!''}" count="5" status="0"]
+            [@send_book_list  openId="${current_user_openid_key!''}"  status="0"]
             [#if books ?? && books?size>0]
                 [#list books as book]
                     <li class="cl item" >

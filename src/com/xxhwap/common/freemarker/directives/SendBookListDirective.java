@@ -73,7 +73,7 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 					//那么需要将这一部分也加到我卖的书里面
 					int childSize=childList.size();
 					for(int j=0;j<childSize;j++){
-						list.set(i,childList.get(j));
+						list.add(childList.get(j));
 					}
 				}
 
