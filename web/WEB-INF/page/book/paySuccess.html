@@ -10,7 +10,7 @@
     [#include "load.html"]
     </head>
 <body>
-<form id="form1" method="post" action="">
+<form id="form1" method="post" action="" onsubmit="return false">
 <div class="header">
     <a class="back-icon" href="${cmsReq}/book/mybuy.html"></a>
     买书
@@ -87,6 +87,7 @@
 </body>
 </html>
 <script type="text/javascript">
+    var i=0;
 $(document).ready(function(){
     showTips();
     window.history.forward(1);
@@ -116,7 +117,7 @@ $(document).ready(function(){
     function showTips(){
         $('#toast').fadeIn(300);
         setTimeout(function (){
-            $('#toast').fadeOut(3000);
+            $('#toast').fadeOut(300);
         }, 3000);
     }
 function showToast(value){
@@ -141,8 +142,10 @@ function showToast(value){
         if(number>sum){
             showTips("购买数量不能大于"+sum);
         }
-        $("#form1").attr('action',url+"?id="+id+"&number="+number);
-        $("#form1").attr('method','get');
-        $("#form1").submit();
+        var url=url+"?id="+id+"&number="+number;
+        if(i==0){
+            i++;
+            window.location.href=url;
+        }
     }
 </script>

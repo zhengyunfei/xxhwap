@@ -51,6 +51,7 @@
 </body>
 </html>
 <script type="text/javascript">
+    var i=0;
     $(document).ready(function(){
         $('#number').bind('blur', function (){
             var number=$("#number").val();
@@ -103,8 +104,12 @@
         var url="${cmsReq}/webui/payPage.html";
         var id=$("#id").val();
         var number=$("#number").val();
-        $("#form1").attr('action',url+"?id="+id+"&number="+number);
-        $("#form1").attr('method','get');
-        $("#form1").submit();
+        if(i==0){
+            i++;
+            window.location.href=url+"?id="+id+"&number="+number;
+        }
+        //$("#form1").attr('action',url+"?id="+id+"&number="+number);
+        //$("#form1").attr('method','get');
+        //$("#form1").submit();
     }
 </script>
