@@ -115,4 +115,15 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 		}
 		return flg;
 	}
+
+	@Override
+	public int findSendBookListCount(Map<String, Object> map) {
+		int count=0;
+		try{
+			count=(Integer) this.query(GETCOUNT,map);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

@@ -45,4 +45,9 @@ public class BookerviceImpl implements IBookService {
 	public boolean delBookById(String id) {
 		return bookDao.delBookById(id);
 	}
+
+	@Override
+	public int findSendBookListCount(Map<String, Object> map) {
+		return bookDao.findSendBookListCount(map);
+	}
 }

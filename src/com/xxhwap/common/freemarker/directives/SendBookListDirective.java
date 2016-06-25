@@ -1,6 +1,7 @@
 package com.xxhwap.common.freemarker.directives;
 
 import com.xxhwap.book.TudouBookInfo;
+import com.xxhwap.contrants.MobilePageContants;
 import com.xxhwap.services.IBookService;
 import com.xxhwap.utils.DateUtil;
 import freemarker.core.Environment;
@@ -66,9 +67,14 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 			int size=list.size();
 			for(int i=0;i<size;i++){
 				String id=list.get(i).getId()+"";//此id作为oid去查询
+				int isValid=list.get(i).getIsValid();
 				Map<String,Object> m=new HashMap<String, Object>();
 				m.put("oid",id);
 				childList=bookService.findSendBookList(m);
+				//去掉无效的标示
+				if(MobilePageContants.STATUS_0==isValid){
+					list.remove(i);
+				}
 				if(!StringUtils.isEmpty(childList)&&childList.size()>0){
 					//那么需要将这一部分也加到我卖的书里面
 					int childSize=childList.size();

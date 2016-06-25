@@ -31,6 +31,15 @@ public class TudouBookInfo  implements Serializable {
     private int status;//出售状态 0 未出售 1 已出售
     private int role;//出售状态 0 卖家 1 买家
     private int isCancel;//是否可以撤销出售的标志 0 不可撤销 1 可以撤销
+    private  int isValid;//有效标示 0 无效 不显示  1 有效  才显示
+
+    public int getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(int isValid) {
+        this.isValid = isValid;
+    }
 
     public int getIsCancel() {
         return isCancel;

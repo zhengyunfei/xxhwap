@@ -25,4 +25,6 @@ public interface IBookDao {
 	public int getCount(Map<String, Object> map);
 
 	public boolean delBookById(String id);
+
+	public int findSendBookListCount(Map<String, Object> map);
 }

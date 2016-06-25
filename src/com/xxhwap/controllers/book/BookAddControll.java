@@ -41,6 +41,24 @@ public class BookAddControll {
 		Map<String,Object> map=new HashMap<String, Object>();
 		Map<String,Object> result=new HashMap<String, Object>();
 		try{
+			//首先查询此图书信息
+			TudouBookInfo book=bookService.findById(id);
+			if(StringUtils.isEmpty(book.getOid())){
+				//step 1如果此书下面没有 交易成功的图书，则直接删除，否则将有效标示至为无效
+			    map.put("oid",id);
+				int count=bookService.findSendBookListCount(map);
+				if(count==0){
+					bookService.delBookById(id);//step1 这届删除
+				}else{
+					//更改有效标示
+					TudouBookInfo updateBook=new TudouBookInfo();
+					updateBook.setId(Long.parseLong(id));
+					updateBook.setIsValid(MobilePageContants.STATUS_0);
+					bookService.updateBook(updateBook);
+				}
+			}else{
+				bookService.delBookById(id);
+			}
 			boolean flg=bookService.delBookById(id);
 			if(flg){
 				result.put("result","cancelSaleSuccess");

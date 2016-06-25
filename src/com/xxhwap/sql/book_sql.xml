@@ -238,8 +238,16 @@ FROM book
 			 UPDATE
 			 	book
 			 SET
-					 num = #number#,
-					 status = #status#
+					<isNotEmpty property="number" prepend=",">
+						num = #number#
+					</isNotEmpty>
+					<isNotEmpty property="status" prepend=",">
+						status=#status#
+					</isNotEmpty>
+					<isNotEmpty property="isValid" prepend=",">
+						isValid=#isValid#
+					</isNotEmpty>
+
 					 <isNotEmpty property="lastCancelSaleTime" prepend=",">
 						 last_cancel_sale_time=#lastCancelSaleTime#
 					 </isNotEmpty>
@@ -278,6 +286,10 @@ FROM book
 			<isNotEmpty prepend="AND" property="isCancelFlg">
 				last_cancel_sale_time >= #isCancelFlg#
 			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oid">
+				oid = #oid#
+			</isNotEmpty>
+
 		</dynamic>
 	</select>
 
