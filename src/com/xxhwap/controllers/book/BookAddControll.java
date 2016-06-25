@@ -54,7 +54,7 @@ public class BookAddControll {
 					TudouBookInfo updateBook=new TudouBookInfo();
 					updateBook.setId(Long.parseLong(id));
 					updateBook.setIsValid(MobilePageContants.STATUS_0);
-					bookService.updateBook(updateBook);
+					bookService.updateBookForIsValid(updateBook);
 				}
 			}else{
 				bookService.delBookById(id);

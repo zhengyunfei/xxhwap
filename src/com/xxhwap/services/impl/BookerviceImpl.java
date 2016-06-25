@@ -50,4 +50,9 @@ public class BookerviceImpl implements IBookService {
 	public int findSendBookListCount(Map<String, Object> map) {
 		return bookDao.findSendBookListCount(map);
 	}
+
+	@Override
+	public void updateBookForIsValid(TudouBookInfo updateBook) {
+		 bookDao.updateBookForIsValid(updateBook);
+	}
 }

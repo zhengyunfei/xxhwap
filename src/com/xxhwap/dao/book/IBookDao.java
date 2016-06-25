@@ -27,4 +27,6 @@ public interface IBookDao {
 	public boolean delBookById(String id);
 
 	public int findSendBookListCount(Map<String, Object> map);
+
+	boolean updateBookForIsValid(TudouBookInfo updateBook);
 }

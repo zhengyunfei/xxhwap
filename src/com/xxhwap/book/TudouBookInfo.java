@@ -23,7 +23,7 @@ public class TudouBookInfo  implements Serializable {
     private String imagePath;
     private String school;
     private String biji;
-    private String number;//数量
+    private int number;//数量
     private String mobile;
     private String sendTime;
     private String openId;
@@ -134,11 +134,11 @@ public class TudouBookInfo  implements Serializable {
         this.biji = biji;
     }
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 

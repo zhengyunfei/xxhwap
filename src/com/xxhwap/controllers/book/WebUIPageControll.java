@@ -3,6 +3,7 @@ package com.xxhwap.controllers.book;
 import com.xxhwap.book.TudouBookInfo;
 import com.xxhwap.contrants.MobilePageContants;
 import com.xxhwap.services.IBookService;
+import com.xxhwap.token.AvoidDuplicateSubmission;
 import com.xxhwap.utils.Config;
 import com.xxhwap.utils.FmUtils;
 import com.xxhwap.utils.Sign;
@@ -82,6 +83,7 @@ public class WebUIPageControll {
 	 * @return
 	 */
 	@RequestMapping(value = "/webui/sendbook.html", method = RequestMethod.POST)
+	@AvoidDuplicateSubmission(needRemoveToken = true)
 	@ResponseBody
 	public Map<String,Object> sendbook(HttpServletRequest request,
 									   HttpServletResponse response, ModelMap model, TudouBookInfo bookInfo) {
@@ -142,7 +144,7 @@ public class WebUIPageControll {
 			String binding=bookInfo.getBinding();
 			String school=bookInfo.getSchool();
 			String biji=bookInfo.getBiji();
-			String number=bookInfo.getNumber();
+			String number=bookInfo.getNumber()+"";
 			queryMap.put("status",MobilePageContants.STATUS_0);//default query not sale
 			if(!StringUtils.isEmpty(title)){
 				queryMap.put("title",title);
@@ -205,16 +207,15 @@ public class WebUIPageControll {
 	 */
 	@RequestMapping(value = "/webui/payPage.html", method = RequestMethod.GET)
 	public ModelAndView gonext(HttpServletRequest request,
-							   HttpServletResponse response, ModelMap model, String  id,String number) {
+							   HttpServletResponse response, ModelMap model, String  id,int number) {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
 		if(!StringUtils.isEmpty(id)) {
 			TudouBookInfo bookInfo=bookService.findById(id);
 			if(!StringUtils.isEmpty(bookInfo)){
 				bookInfo.setNumber(number);
-				int num=Integer.parseInt(number);
 				float price=Float.parseFloat(bookInfo.getPrice());
-				float totalPrice=num*price;
+				float totalPrice=number *price;
 				bookInfo.setTotalPrice(totalPrice+"");
 				mv.addObject("book",bookInfo);
 			}
@@ -231,20 +232,20 @@ public class WebUIPageControll {
 	 * @return
 	 */
 	@RequestMapping(value = "/webui/paysave.html", method = RequestMethod.GET)
+	@AvoidDuplicateSubmission(needRemoveToken = true)
 	public ModelAndView paysave(HttpServletRequest request,
 								   HttpServletResponse response, ModelMap model, String  id,String number) {
 		ModelAndView mv=new ModelAndView();
 		if(!StringUtils.isEmpty(id)) {
 			TudouBookInfo bookInfo=bookService.findById(id);
 			if(!StringUtils.isEmpty(bookInfo)){
-				String onum=bookInfo.getNumber();
-				int onumber=Integer.parseInt(onum);
+				int onumber=bookInfo.getNumber();
 				int num=Integer.parseInt(number);
 				//pan duan yong hu buy num is not larger ku cun
 				if(num<onumber){
 					//step 1 add book to database
 					TudouBookInfo newBookInfo=bookInfo;
-					newBookInfo.setNumber(number);
+					newBookInfo.setNumber(num);
 					newBookInfo.setStatus(MobilePageContants.STATUS_1);//saled
 					newBookInfo.setOid(id);
 					//从缓存中获取openid
@@ -258,7 +259,7 @@ public class WebUIPageControll {
 					long pid=bookService.saveBook(newBookInfo);
 					//step 2 update ori book num=onumber-num
 					bookInfo.setId(Long.parseLong(id));
-					bookInfo.setNumber((onumber-num)+"");
+					bookInfo.setNumber((onumber-num));
 					bookInfo.setStatus(MobilePageContants.STATUS_0);
 					bookService.updateBook(bookInfo);
 					id=pid+"";
@@ -289,8 +290,7 @@ public class WebUIPageControll {
 		if(!StringUtils.isEmpty(id)) {
 			TudouBookInfo bookInfo=bookService.findById(id);
 			if(!StringUtils.isEmpty(bookInfo)){
-				String number=bookInfo.getNumber();
-				int num=Integer.parseInt(number);
+				int num=bookInfo.getNumber();
 				float price=Float.parseFloat(bookInfo.getPrice());
 				float totalPrice=num*price;
 				bookInfo.setTotalPrice(totalPrice+"");

@@ -241,16 +241,8 @@ FROM book
 			 UPDATE
 			 	book
 			 SET
-					<isNotEmpty property="number" prepend=",">
-						num = #number#
-					</isNotEmpty>
-					<isNotEmpty property="status" prepend=",">
+						num = #number#,
 						status=#status#
-					</isNotEmpty>
-					<isNotEmpty property="isValid" prepend=",">
-						isValid=#isValid#
-					</isNotEmpty>
-
 					 <isNotEmpty property="lastCancelSaleTime" prepend=",">
 						 last_cancel_sale_time=#lastCancelSaleTime#
 					 </isNotEmpty>
@@ -259,6 +251,14 @@ FROM book
 					 </isNotEmpty>
 			 WHERE
 				id = #id#
+	</update>
+	<update id="updateIsValid" parameterClass="book">
+		UPDATE
+		book
+		SET
+			isValid=#isValid#
+		WHERE
+		id = #id#
 	</update>
 
     <!--auto delete-->

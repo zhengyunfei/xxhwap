@@ -23,4 +23,6 @@ public interface IBookService {
     public boolean delBookById(String id);
 
     public int findSendBookListCount(Map<String, Object> map);
+
+    void updateBookForIsValid(TudouBookInfo updateBook);
 }

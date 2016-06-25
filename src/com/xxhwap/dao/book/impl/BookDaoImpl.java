@@ -20,6 +20,7 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 	private static final String ADD = COMMON+"add";
 	private static final String SAVE = COMMON+"save";
 	private static final String UPDATE = COMMON+"update";
+	private static final String UPDATE_ISVALID = COMMON+"updateIsValid";
 	private static final String DELETE = COMMON+"delete";
 	private static final String DELET_BY_ID = COMMON+"deleteById";
 	private static final String FINDALLLIST = COMMON+"findAllList";
@@ -125,5 +126,18 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+	@Override
+	public boolean updateBookForIsValid(TudouBookInfo updateBook) {
+		boolean flg=false;
+		try{
+			this.update(UPDATE_ISVALID,updateBook);
+			flg=true;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return flg;
+
 	}
 }
