@@ -26,6 +26,7 @@
 	<result property="role" column="role"/>
 	<result property="lastCancelSaleTime" column="last_cancel_sale_time"/>
 	<result property="oid" column="oid"/>
+	<result property="isValid" column="isValid"/>
 </resultMap>
 <!--查询-->
 <select id='findAllList' resultMap='bookMap'>
@@ -52,7 +53,8 @@ SELECT
 	status,
 	role,
 	last_cancel_sale_time,
-	oid
+	oid,
+	isValid
 	FROM
 		book
 	<dynamic prepend="WHERE">
@@ -122,7 +124,8 @@ SELECT
 	status,
 	role,
 	last_cancel_sale_time,
-	oid
+	oid,
+	isValid
 FROM book
 	<dynamic prepend="WHERE">
 		<isNotEmpty prepend="AND" property="id">
