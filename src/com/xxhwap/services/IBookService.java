@@ -24,5 +24,5 @@ public interface IBookService {
 
     public int findSendBookListCount(Map<String, Object> map);
 
-    void updateBookForIsValid(TudouBookInfo updateBook);
+    boolean updateBookForIsValid(TudouBookInfo updateBook);
 }

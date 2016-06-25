@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>买书</title>
-    <link rel="stylesheet" href="${css}/webui/weui.css?v=2"/>
+    <link rel="stylesheet" href="${css}/webui/weui.css"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
-    <link rel="stylesheet" type="text/css" href="${css}/m.css?v=2" />
+    <link rel="stylesheet" type="text/css" href="${css}/m.css" />
     <link rel="stylesheet" type="text/css" href="${css}/mindex.css" />
+    <link rel="stylesheet" type="text/css" href="${css}/loaders.css"/>
+    <link rel="stylesheet" href="${css}/fakeloader.css">
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script src="${js}/fakeloader.min.js"></script>
+    <script src="${css}/webui/js/router.min.js"></script>
+    <script src="${css}/webui/js/example.js"></script>
+
 
 </head>
 <body style="background-color: #EEEEEE">
-[#include "load.html"]
 <!--<div class="header">
     <a class="back-icon" href="#"></a>
     买书
@@ -147,15 +152,26 @@
         </div>
         </form>
 [#include "foot.html"]
+    <div class="fakeloader"></div>
 
 
 </script>
 
-<script src="${css}/webui/js/router.min.js?v=1"></script>
-<script src="${css}/webui/js/example.js"></script>
+
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </body>
 <script>
+    document.onreadystatechange = subSomething;//当页面加载状态改变的时候执行这个方法.
+    function subSomething()
+    {
+        $(".fakeloader").fakeLoader({
+            timeToHide:81200,
+            bgColor:"#2ecc71",
+            spinner:"spinner1"
+        });
+        if(document.readyState == "complete") //当页面加载状态
+            $(".fakeloader").fadeOut(2000)
+    }
     $(document).ready(function(){
         $("#select2").change(function(){
             var value=$(this).val();

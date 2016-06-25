@@ -52,7 +52,7 @@ public class BookerviceImpl implements IBookService {
 	}
 
 	@Override
-	public void updateBookForIsValid(TudouBookInfo updateBook) {
-		 bookDao.updateBookForIsValid(updateBook);
+	public boolean updateBookForIsValid(TudouBookInfo updateBook) {
+		return  bookDao.updateBookForIsValid(updateBook);
 	}
 }

@@ -6,14 +6,20 @@
     <link rel="stylesheet" type="text/css" href="${css}/m.css" />
     <link rel="stylesheet" href="${css}/webui/weui.css"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
+    <link rel="stylesheet" type="text/css" href="${css}/loaders.css"/>
+    <link rel="stylesheet" href="${css}/fakeloader.css">
     <link href="${css}/zhanku.css" rel="stylesheet" type="text/css">
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-    [#include "load.html"]
-    </head>
-<body>
-<form id="form1" method="post" action="">
-    <input type="hidden" name="token" value="${token}">
+    <script src="${js}/fakeloader.min.js"></script>
+    <script src="${css}/webui/js/router.min.js"></script>
+    <script src="${css}/webui/js/example.js"></script>
 
+</head>
+<body>
+<div class="fakeloader"></div>
+<div class="container" id="container"></div>
+<script type="text/html" id="tpl_home">
+<form id="form1" method="post" action="">
     <div class="header">
     <a class="back-icon" href="javascript:history.back(-1)"></a>
     买书
@@ -30,7 +36,16 @@
     <div class="book_info">
         <div class="title">${book.title!''}</div>
         <div class="author_press">${book.author!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.publisher!''}</div>
-        <div class="author_press">${book.school!''}&nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
+        <div class="author_press">[@find_code_list  codeSortId="119" codeValue="${book.school!''}"]
+            [#if codes?? && codes?size>0]
+            [#list codes as code]
+            ${code.codeName!''}
+            [/#list]
+            [#else]
+            ${book.school!''}
+            [/#if]
+            [/@find_code_list]
+            &nbsp;&nbsp;|&nbsp;&nbsp;${book.binding!''}</div>
         <div class="author_press">
             <span>笔记:[#if book.biji=='0']少[#else]多[/#if]|数量:${book.number!''}|单价:￥${book.price!''}</span>
             <!-- <span class="line_through">￥28.00</span>-->
@@ -49,10 +64,23 @@
     </div>
     </div>
 <div style="height: 50px;"></div>
+    <div class="fakeloader"></div>
 </form>
+</script>
 </body>
 </html>
 <script type="text/javascript">
+    document.onreadystatechange = subSomething;//当页面加载状态改变的时候执行这个方法.
+    function subSomething()
+    {
+        $(".fakeloader").fakeLoader({
+            timeToHide:81200,
+            bgColor:"#2ecc71",
+            spinner:"spinner1"
+        });
+        if(document.readyState == "complete") //当页面加载状态
+            $(".fakeloader").fadeOut(2000)
+    }
     var i=0;
     $(document).ready(function(){
         $('#number').bind('blur', function (){

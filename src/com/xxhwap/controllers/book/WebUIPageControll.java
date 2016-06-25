@@ -221,6 +221,7 @@ public class WebUIPageControll {
 			}
 		}
 		mv.setViewName(MobilePageContants.MY_PAY_PAGE);
+		mv.addObject("token",id);
 		return mv;
 	}
 
@@ -257,6 +258,7 @@ public class WebUIPageControll {
 					}
 					newBookInfo.setOpenId(openId);
 					long pid=bookService.saveBook(newBookInfo);
+					System.out.println("保存成功==============================="+pid);
 					//step 2 update ori book num=onumber-num
 					bookInfo.setId(Long.parseLong(id));
 					bookInfo.setNumber((onumber-num));
