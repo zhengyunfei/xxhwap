@@ -6,34 +6,22 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.UUID;
 
-/**
- * <p>
- * 防止重复提交过滤器
- * </p>
- *
- * @author: zhengyunfei
- * @date: 2013-6-27上午11:19:05
- */
-public class AvoidDuplicateSubmissionInterceptor extends HandlerInterceptorAdapter {
-   // private static final Logger LOG = Logger.getLogger(AvoidDuplicateSubmissionInterceptor.class);
+public class TokenInterceptor extends HandlerInterceptorAdapter {
 
     @Override
-    public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response, Object handler) throws Exception {
-       // UserEntity user = (UserEntity) SessionUtils.getAttribute(request, MobileContants.USER_SESSION_KEY);
-      //  if (user != null) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
-
-            AvoidDuplicateSubmission annotation = method.getAnnotation(AvoidDuplicateSubmission.class);
+            Token annotation = method.getAnnotation(Token.class);
             if (annotation != null) {
-                boolean needSaveSession = annotation.needSaveToken();
+                boolean needSaveSession = annotation.save();
                 if (needSaveSession) {
-                    request.getSession(false).setAttribute("token", TokenProcessor.getInstance().generateToken(request));
+                    request.getSession(false).setAttribute("token", UUID.randomUUID().toString());
                 }
-
-                boolean needRemoveSession = annotation.needRemoveToken();
+                boolean needRemoveSession = annotation.remove();
                 if (needRemoveSession) {
                     if (isRepeatSubmit(request)) {
                         return false;
@@ -41,8 +29,10 @@ public class AvoidDuplicateSubmissionInterceptor extends HandlerInterceptorAdapt
                     request.getSession(false).removeAttribute("token");
                 }
             }
-       // }
-        return true;
+            return true;
+        } else {
+            return super.preHandle(request, response, handler);
+        }
     }
 
     private boolean isRepeatSubmit(HttpServletRequest request) {
@@ -59,5 +49,4 @@ public class AvoidDuplicateSubmissionInterceptor extends HandlerInterceptorAdapt
         }
         return false;
     }
-
 }

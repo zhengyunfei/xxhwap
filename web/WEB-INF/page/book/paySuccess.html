@@ -90,29 +90,6 @@
     var i=0;
 $(document).ready(function(){
     showTips();
-    window.history.forward(1);
-        $('#number').bind('blur', function (){
-            var number=$("#number").val();
-            if(number.trim().length==0){
-                showTips("请输入数量");
-            }
-            var sum="${book.number!'0'}";
-            if(number>sum){
-                showTips("只剩下"+sum+"本了");
-            }
-        });
-
-        $("#buyBtn").bind('click',function () {
-            var number=$("#number").val();
-            if(number.trim().length==0){
-                showTips("请输入数量");
-            }
-            var sum="${book.number!'0'}";
-            if(number>sum){
-                showTips("购买数量不能大于"+sum);
-            }
-        })
-
     });
     function showTips(){
         $('#toast').fadeIn(300);
@@ -128,24 +105,4 @@ function showToast(value){
     }, 3000);
     return false;
 }
-
-    function buy_book(){
-        var url="${cmsReq}/webui/payPage.html";
-        // var data=$("#form1").serialize();
-        var id=$("#id").val();
-        var number=$("#number").val();
-        var number=$("#number").val();
-        if(number.trim().length==0){
-            showTips("请输入数量");
-        }
-        var sum="${book.number!'0'}";
-        if(number>sum){
-            showTips("购买数量不能大于"+sum);
-        }
-        var url=url+"?id="+id+"&number="+number;
-        if(i==0){
-            i++;
-            window.location.href=url;
-        }
-    }
 </script>

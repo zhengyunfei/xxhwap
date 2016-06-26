@@ -3,7 +3,7 @@ package com.xxhwap.controllers.book;
 import com.xxhwap.book.TudouBookInfo;
 import com.xxhwap.contrants.MobilePageContants;
 import com.xxhwap.services.IBookService;
-import com.xxhwap.token.AvoidDuplicateSubmission;
+import com.xxhwap.token.Token;
 import com.xxhwap.utils.Config;
 import com.xxhwap.utils.FmUtils;
 import com.xxhwap.utils.Sign;
@@ -83,7 +83,6 @@ public class WebUIPageControll {
 	 * @return
 	 */
 	@RequestMapping(value = "/webui/sendbook.html", method = RequestMethod.POST)
-	@AvoidDuplicateSubmission(needRemoveToken = true)
 	@ResponseBody
 	public Map<String,Object> sendbook(HttpServletRequest request,
 									   HttpServletResponse response, ModelMap model, TudouBookInfo bookInfo) {
@@ -92,9 +91,6 @@ public class WebUIPageControll {
 		ServletContext application =request.getSession().getServletContext();
 		//保存用户的openid到全局缓存中
 		String openId=application.getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
-		String requestOpneId=application.getAttribute(MobilePageContants.CURRENT_USER_REQUEST_OPENID)+"";
-		System.out.println("发布是获取的openid========"+openId);
-		System.out.println("发布是获取的openid=2======="+requestOpneId);
 		if(!StringUtils.isEmpty(openId)){
 			bookInfo.setOpenId(openId);
 		}
@@ -206,6 +202,7 @@ public class WebUIPageControll {
 	 * @return
 	 */
 	@RequestMapping(value = "/webui/payPage.html", method = RequestMethod.GET)
+	@Token(save=true)
 	public ModelAndView gonext(HttpServletRequest request,
 							   HttpServletResponse response, ModelMap model, String  id,int number) {
 		ModelAndView mv=new ModelAndView();
@@ -232,8 +229,8 @@ public class WebUIPageControll {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/webui/paysave.html", method = RequestMethod.GET)
-	@AvoidDuplicateSubmission(needRemoveToken = true)
+	@RequestMapping(value = "/webui/paysave.html", method = RequestMethod.POST)
+	@Token(remove=true)
 	public ModelAndView paysave(HttpServletRequest request,
 								   HttpServletResponse response, ModelMap model, String  id,String number) {
 		ModelAndView mv=new ModelAndView();

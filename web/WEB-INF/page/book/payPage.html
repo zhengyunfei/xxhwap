@@ -100,9 +100,9 @@
         var url="${cmsReq}/webui/paysave.html";
         var id=$("#id").val();
         var number=$("#number").val();
-        window.location.href=url+"?id="+id+"&number="+number;
-       /* $("#form1").attr('action',url+"?id="+id+"&number="+number);
-        $("#form1").attr('method','get');
-        $("#form1").submit();*/
+       // window.location.href=url+"?id="+id+"&number="+number;
+       $("#form1").attr('action',url);
+        $("#form1").attr('method','post');
+        $("#form1").submit();
     }
 </script>

@@ -60,6 +60,8 @@
 		<property name="cache" value="true" />
 		<property name="prefix" value="" />
 		<property name="suffix" value=".html" />
+		<property name="allowSessionOverride" value="true"/>
+
 		<property name="viewClass"
 				  value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
 		<property name="exposeSpringMacroHelpers" value="true" />
@@ -69,14 +71,15 @@
 		<property name="contentType" value="text/html;charset=UTF-8" />
 	</bean>
 	<!--token配置-->
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-		<property name="interceptors">
-			<list>
-				<bean class="com.xxhwap.token.AvoidDuplicateSubmissionInterceptor"/>
-			</list>
-		</property>
+	<!-- 拦截器配置 -->
+	<mvc:interceptors>
+			<!-- 配置Token拦截器，防止用户重复提交数据 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.xxhwap.token.TokenInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
-	</bean>
 	<!-- 静态资源过滤 -->
 	<mvc:resources mapping="/res/**" location="/res/" />
 </beans>
