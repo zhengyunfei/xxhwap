@@ -10,8 +10,22 @@
     <link href="${css}/zhanku.css?v=1" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="${css}/webui/weui.css?v=1"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
+    <link rel="stylesheet" type="text/css" href="${css}/loaders.css"/>
+    <link rel="stylesheet" href="${css}/fakeloader.css">
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script src="${js}/fakeloader.min.js"></script>
     <script>
+        document.onreadystatechange = subSomething;//当页面加载状态改变的时候执行这个方法.
+        function subSomething()
+        {
+            $(".fakeloader").fakeLoader({
+                timeToHide:81200,
+                bgColor:"#2ecc71",
+                spinner:"spinner1"
+            });
+            if(document.readyState == "complete") //当页面加载状态
+                $(".fakeloader").fadeOut(2000)
+        }
         $(document).ready(function() {
             $("#cancelBtn").bind('click',function(){
                 $("#dialog1").hide();
@@ -112,7 +126,7 @@
     </script>
 </head>
 <body class="">
-[#include "load.html"]
+<div class="fakeloader"></div>
 <div class="containBox" id="containBox">
     <div id="user-works" class="pd-10">
         <ul>
