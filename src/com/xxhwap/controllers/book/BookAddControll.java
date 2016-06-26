@@ -47,7 +47,6 @@ public class BookAddControll {
 				//step 1如果此书下面没有 交易成功的图书，则直接删除，否则将有效标示至为无效
 			    map.put("oid",id);
 				int count=bookService.findSendBookListCount(map);
-				System.out.println("count====================================="+count);
 				if(count==0){
 					flg=bookService.delBookById(id);//step1 这届删除
 				}else{
@@ -56,6 +55,7 @@ public class BookAddControll {
 					updateBook.setId(Long.parseLong(id));
 					updateBook.setIsValid(MobilePageContants.STATUS_0);
 					bookService.updateBookForIsValid(updateBook);
+					flg=true;
 				}
 			if(flg){
 				result.put("result","cancelSaleSuccess");

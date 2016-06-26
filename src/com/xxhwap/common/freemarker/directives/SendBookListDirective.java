@@ -71,6 +71,7 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 				Map<String,Object> m=new HashMap<String, Object>();
 				m.put("oid",id);
 				childList=bookService.findSendBookList(m);
+				System.out.println("id========"+id+"子节点个数＝＝＝＝＝＝＝＝＝＝＝＝"+childList.size());
 				//去掉无效的标示
 				if(MobilePageContants.STATUS_0==isValid){
 					list.remove(i);
@@ -79,13 +80,14 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 					//那么需要将这一部分也加到我卖的书里面
 					int childSize=childList.size();
 					for(int j=0;j<childSize;j++){
-						list.add(childList.get(j));
+						list.add(list.size()-1,childList.get(j));
 					}
 				}
 
 			}
 			String now= DateUtil.getBeforeNDaysTime(2);
-			for(int i=0;i<size;i++){
+			int total=list.size();
+			for(int i=0;i<total;i++){
 				int isCancel=1;
 				String lastCancelDealTime=list.get(i).getLastCancelSaleTime();
 				if(!StringUtils.isEmpty(lastCancelDealTime)){
