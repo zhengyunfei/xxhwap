@@ -70,7 +70,6 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 				Map<String,Object> m=new HashMap<String, Object>();
 				m.put("oid",id);
 				childList=bookService.findSendBookList(m);
-				System.out.println("id========"+id+"子节点个数＝＝＝＝＝＝＝＝＝＝＝＝"+childList.size());
 				if(!StringUtils.isEmpty(childList)&&childList.size()>0){
 					//那么需要将这一部分也加到我卖的书里面
 					int childSize=childList.size();
@@ -80,6 +79,7 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 				}
 
 			}
+			List<TudouBookInfo> result=new ArrayList<TudouBookInfo>();
 			String now= DateUtil.getBeforeNDaysTime(2);
 			for(int m=0;m<list.size();m++){
 				int isCancel=1;
@@ -93,11 +93,12 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 				list.get(m).setIsCancel(isCancel);
 				//去掉无效的标示
 				int isValid=list.get(m).getIsValid();
-				if(MobilePageContants.STATUS_0==isValid){
-					list.remove(m);
+				int kucun=list.get(m).getNumber();
+				if(MobilePageContants.STATUS_1==isValid&&kucun>0){
+					result.add(list.get(m));
 				}
 			}
-			env.setVariable("books", ObjectWrapper.DEFAULT_WRAPPER.wrap(list));
+			env.setVariable("books", ObjectWrapper.DEFAULT_WRAPPER.wrap(result));
 		}catch (Exception e){
 			e.printStackTrace();
 		}

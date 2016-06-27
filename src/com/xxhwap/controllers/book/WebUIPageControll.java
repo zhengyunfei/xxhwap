@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -88,13 +87,14 @@ public class WebUIPageControll {
 									   HttpServletResponse response, ModelMap model, TudouBookInfo bookInfo) {
 		Map<String,Object> resultMap=new HashMap<String, Object>();
 		//从缓存中获取openid
-		ServletContext application =request.getSession().getServletContext();
+		//ServletContext application =request.getSession().getServletContext();
 		//保存用户的openid到全局缓存中
-		String openId=application.getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
+		String openId=request.getSession().getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
 		if(!StringUtils.isEmpty(openId)){
 			bookInfo.setOpenId(openId);
 		}
 		String page="";
+		System.out.println("发布者openid＝＝＝＝＝＝＝＝"+openId);
 		long id=bookService.sendBook(bookInfo);
 		if(id>0){
 			resultMap.put("success",true);
@@ -240,16 +240,17 @@ public class WebUIPageControll {
 				int onumber=bookInfo.getNumber();
 				int num=Integer.parseInt(number);
 				//pan duan yong hu buy num is not larger ku cun
-				if(num<onumber){
-					//step 1 add book to database
+				if(num<=onumber){
+					//step 1 add book to databa
 					TudouBookInfo newBookInfo=bookInfo;
 					newBookInfo.setNumber(num);
 					newBookInfo.setStatus(MobilePageContants.STATUS_1);//saled
 					newBookInfo.setOid(id);
 					//从缓存中获取openid
-					ServletContext application =request.getSession().getServletContext();
+					//ServletContext application =request.getSession().getServletContext();
 					//保存用户的openid到全局缓存中
-					String openId=application.getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
+					String openId=request.getSession().getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
+					System.out.println("购买者openid＝＝＝＝＝＝＝＝＝＝＝＝＝＝"+openId);
 					if(!StringUtils.isEmpty(openId)){
 						bookInfo.setOpenId(openId);
 					}

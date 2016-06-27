@@ -52,7 +52,13 @@ public class FmUtils {
 			model.put("images", domain+ RESPATH+ IMAGEPATH);
 			model.put("css", domain+ RESPATH + CSSPATH);
 			model.put("js", domain+ RESPATH+ SCRIPTSPATH);
-			model.put("cmsReq", site.getHttpUrIAddr()+domain);
+			//model.put("cmsReq", site.getHttpUrIAddr()+domain);
+			Config config = new Config();
+			String webMain = config.getString("domain");
+			model.put("cmsReq", webMain);
+			System.out.println("base========="+base);
+			System.out.println("domain========="+webMain);
+			System.out.println("cmsReq========="+site.getHttpUrIAddr()+domain);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
 			String currDate = sdf.format(new Date());
 			model.put("now", currDate);

@@ -267,9 +267,12 @@ FROM book
 		DELETE FROM
 			book
 		WHERE
-		 status=1
+		 (status=1
+		 or num=0
+		 or isValid=0)
 		AND
 		sale_time < #time#
+		and sale_time is not null
 		]]>
 	</delete>
 	<!--auto delete-->

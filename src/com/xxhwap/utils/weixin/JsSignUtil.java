@@ -34,7 +34,6 @@ public class JsSignUtil {
                 "&noncestr=" + nonce_str +
                 "&timestamp=" + timestamp +
                 "&url=" + url;
-        System.out.println("string1="+string1);
 
         try
         {

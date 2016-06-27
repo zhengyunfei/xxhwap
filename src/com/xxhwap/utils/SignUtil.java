@@ -18,7 +18,7 @@ public class SignUtil {
 	/**
 	 * 与开发模式接口配置信息中的Token保持一致
 	 */
-	private static String token = "bsbServlet";
+	private static String token = "bookToken";
 
 	/**
 	 * 校验签名

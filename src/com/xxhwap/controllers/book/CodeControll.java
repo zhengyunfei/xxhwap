@@ -38,6 +38,7 @@ public class CodeControll {
 	@ResponseBody
 	public Map<String,Object> cancelSale(HttpServletRequest request,
 								 HttpServletResponse response, ModelMap model,String pCode,String codeSortId) {
+		System.out.println("根据地区查找学校的方法进来了吗》》》》》》》》》》》》》》》》》");
 		Map<String,Object> map=new HashMap<String, Object>();
 		Map<String,Object> result=new HashMap<String, Object>();
 		List<CodeInfo> list=new ArrayList<CodeInfo>();

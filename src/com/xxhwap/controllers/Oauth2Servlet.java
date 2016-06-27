@@ -56,12 +56,11 @@ public class Oauth2Servlet {
             if (jsonObject.has("openid")) {
                 openid = jsonObject.getString("openid");
             }
-            System.out.println("oepnId===================================="+openid);
             ServletContext application =request.getSession().getServletContext();
             //保存用户的openid到全局缓存中
-            application.setAttribute(MobilePageContants.CURRENT_USER_OPENID,openid);
+           // application.setAttribute(MobilePageContants.CURRENT_USER_OPENID,openid);
             application.setAttribute(MobilePageContants.CURRENT_USER_KEY,key);
-            request.setAttribute(MobilePageContants.CURRENT_USER_REQUEST_OPENID,openid);
+            request.getSession().setAttribute(MobilePageContants.CURRENT_USER_OPENID,openid);
             String page="";
             if(UrlContants.MENU_KEY_1.equals(key)){
                 page=domain+"book/buy.html";
