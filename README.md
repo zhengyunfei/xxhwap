@@ -38,6 +38,6 @@
 
 此项目需要借助微信公众平台，因为上传图书，扫一扫条形码获取图书都是借助微信jsapi内置接口开发的。
 
-部分页面截图：
+部分页面截图：见wiki https://github.com/zhengyunfei/xxhwap/wiki
 
              
