@@ -82,9 +82,7 @@ SELECT
 		<isNotEmpty prepend="AND" property="school">
 			instr(school,#school#)>0
 		</isNotEmpty>
-		<isNotEmpty prepend="AND" property="biji">
-			biji=#biji#
-		</isNotEmpty>
+
 		<isNotEmpty prepend="AND" property="number">
 			num>=#number#
 		</isNotEmpty>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>买书</title>
-    <link rel="stylesheet" href="${css}/webui/weui.css"/>
+    <link rel="stylesheet" href="${css}/webui/weui.css?v=12"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
     <link rel="stylesheet" type="text/css" href="${css}/m.css" />
     <link rel="stylesheet" type="text/css" href="${css}/mindex.css" />
@@ -30,7 +30,7 @@
 <script type="text/html" id="tpl_home">
     <form id="form1" method="post" action="">
     <div class="weui_cells">
-    <div class="weui_cell weui_cell_warn">
+    <div class="weui_cell weui_cell_warn" style="height:34px;">
         <div class="weui_cell_hd" style="width:60px;"><label for="" class="weui_label">ISBN:</label></div>
         <div class="weui_cell_bd weui_cell_primary" >
             <input class="weui_input" type="number" pattern="[0-9]*" id="isbn13" name="isbn13"  placeholder="请直接输入或点击右侧图标扫描" />
@@ -49,13 +49,13 @@
             </div>
         </div>
         <div class="weui_cell">
-                    <div class="weui_cell_hd" ><label for="" class="weui_label">书名:</label></div>
+                    <div class="weui_cell_hd" ><label for="" class="weui_label"><font color="red">*</font>书名:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input" type="text" id="title" name="title"  />
                     </div>
         </div>
         <div class="weui_cell">
-                    <div class="weui_cell_hd"><label for="" class="weui_label">作者:</label></div>
+                    <div class="weui_cell_hd"><label for="" class="weui_label"><font color="red">*</font>作者:</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <input class="weui_input" type="text" id="author" name="author"  />
                 </div>
@@ -76,11 +76,11 @@
         <div class="weui_cells">
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">
-                    <label for="" class="weui_label">地区:</label>
+                    <label for="" class="weui_label"><font color="red">*</font>地区:</label>
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="select2" id="select2">
-                        <option value="">选择地区</option>
+                        <option value=""></option>
                         [@find_code_list pcode="999999" codeSortId="119" ]
                         [#if codes?? && codes?size>0]
                         [#list codes as code]
@@ -95,7 +95,7 @@
         <div class="weui_cells">
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">
-                    <label for="" class="weui_label">学校:</label>
+                    <label for="" class="weui_label"><font color="red">*</font>学校:</label>
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="school" id="school" style="width: 100%;">
@@ -103,30 +103,6 @@
                 </div>
             </div>
         </div>
-
-
-     <!--<div class="weui_cells">
-            <div class="weui_cell weui_cell_select">
-                <div class="weui_cell_hd" style="width:35%">
-                    <select class="weui_select" name="select2" id="select2">
-                        <option value="">选择地区</option>
-                        [@find_code_list pcode="999999" codeSortId="119" ]
-                        [#if codes?? && codes?size>0]
-                        [#list codes as code]
-                            <option value="${code.codeValue!''}">${code.codeName!''}</option>
-                        [/#list]
-                        [/#if]
-                        [/@find_code_list]
-                    </select>
-                </div>
-                <div class="weui_cell_bd weui_cell_primary" style="width:65%">
-                    <select class="weui_select" name="school" id="school" style="width: 100%;">
-                        <option value="">选择学校</option>
-                    </select>
-                </div>
-            </div>
-        </div>-->
-
 
             <div class="weui_cells">
                 <div class="weui_cell weui_cell_select weui_select_after">
@@ -179,6 +155,18 @@
             var data={"codeSortId":"119","pCode":value};
             getSchool(url,data)
         });
+        $('#title').bind('blur', function (){
+            var title=$("#title").val();
+            if(''==title||null==title||title.trim().length==0){
+                showTips("请输入书名");
+            }
+        });
+        $('#author').bind('blur', function (){
+            var author=$("#author").val();
+            if(''==author||null==author||author.trim().length==0){
+                showTips("请输入作者");
+            }
+        });
         $("#school").bind('click',function(){
             var value=$(this).val();
             if(''==value||null==value){
@@ -192,39 +180,50 @@
                 showTips("请输入学校");
             }
         });
-        $('#biji').bind('blur', function (){
+        /*$('#biji').bind('blur', function (){
             var biji=$("#biji").val();
             if(biji.trim().length==0){
                 // $(this).focus();
                 showTips("请输入笔记");
             }
-        });
-        $('#number').bind('blur', function (){
+        });*/
+       /* $('#number').bind('blur', function (){
             var number=$("#number").val();
             if(number.trim().length==0){
                 // $(this).focus();
                 showTips("请输入数量");
             }
-        });
+        });*/
         $("#sendBtn").bind('click',function () {
             var school=$("#school").val();
             var biji=$("#biji").val();
             var number=$("#number").val();
             var price=$("#price").val();
             var mobile=$("#mobile").val();
+            var title=$("#title").val();
+            var author=$("#author").val();
+            var select2=$("#select2").val();
             var f=true;
-            if(''==school||null==school||school.trim().length==0){
+            if(''==title||null==title||title.trim().length==0){
+                showTips("请输入书名");
+                f=false;
+            }else if(''==author||null==author||author.trim().length==0){
+                showTips("请输入作者");
+                f=false;
+            }
+            else if(''==select2||null==select2||select2.trim().length==0){
+                //  $("#school").focus();
+                f=showTips("请输入地区");
+            }
+            else if(''==school||null==school||school.trim().length==0){
                 //  $("#school").focus();
                 f=showTips("请输入学校");
             }
-            else if(''==biji||null==biji||biji.trim().length==0){
+           /* else if(''==biji||null==biji||biji.trim().length==0){
                 // $("#biji").focus();
                 f=showTips("请输入笔记");
-            }
-            else if(''==number||null==number||number<=0||number.trim().length==0){
-                //$("#number").focus();
-                f=showTips("请输入数量");
-            }else{
+            }*/
+            else{
                 f=true;
             }
             if(f){

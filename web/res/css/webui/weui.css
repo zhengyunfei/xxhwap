@@ -440,6 +440,7 @@ input.weui_btn_plain_default {
     border-left:none;
     border-right:none;
     border-bottom:1px solid #BBBBBB;
+    height:34px;
 }
 .weui_cell_ft {
     text-align: right;
@@ -637,8 +638,8 @@ input.weui_btn_plain_default {
     background-color: transparent;
     width: 100%;
     font-size: inherit;
-    height: 44px;
-    line-height: 44px;
+    height: 1.41176471em;
+    line-height: 1.41176471;
     position: relative;
     z-index: 1;
     padding-left: 15px;
@@ -692,6 +693,7 @@ input.weui_btn_plain_default {
 }
 .weui_select_after {
     padding-left: 15px;
+    height:34px;
 }
 .weui_select_after .weui_select {
     padding-left: 0;
