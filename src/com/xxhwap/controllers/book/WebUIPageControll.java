@@ -140,8 +140,10 @@ public class WebUIPageControll {
 			String binding=bookInfo.getBinding();
 			String school=bookInfo.getSchool();
 			String biji=bookInfo.getBiji();
-			String number=bookInfo.getNumber()+"";
+			/*String number=bookInfo.getNumber()+"";*/
 			queryMap.put("status",MobilePageContants.STATUS_0);//default query not sale
+			queryMap.put("isValid",MobilePageContants.STATUS_1);//default query not sale
+			queryMap.put("number",MobilePageContants.STATUS_1);//default kucun dayu dengyu1
 			if(!StringUtils.isEmpty(title)){
 				queryMap.put("title",title);
 			}
@@ -160,9 +162,9 @@ public class WebUIPageControll {
 			if(!StringUtils.isEmpty(biji)){
 				queryMap.put("biji",biji);
 			}
-			if(!StringUtils.isEmpty(number)){
+			/*if(!StringUtils.isEmpty(number)){
 				queryMap.put("number",number);
-			}
+			}*/
 		}
 		List<TudouBookInfo> list=bookService.findSendBookList(queryMap);
 		if(!StringUtils.isEmpty(list)&&list.size()>0){

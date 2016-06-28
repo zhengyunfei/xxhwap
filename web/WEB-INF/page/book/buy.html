@@ -243,6 +243,10 @@
     }
     function query_book(){
         var url="${cmsReq}/webui/querybook.html";
+        var number=$("#number").val();
+        if(''==number||null==number){
+            $("#number").val(0);
+        }
         // var data=$("#form1").serialize();
         $("#form1").attr('action',url);
         $("#form1").attr('method','get');

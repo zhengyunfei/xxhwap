@@ -71,7 +71,7 @@ SELECT
 			instr(title,#title#)>0
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="author">
-			author=#author#
+			instr(author,#author#)>0
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="publisher">
 			publisher=#publisher#
@@ -88,6 +88,9 @@ SELECT
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="oid">
 			oid=#oid#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="isValid">
+			isValid=#isValid#
 		</isNotEmpty>
 
 	</dynamic>
