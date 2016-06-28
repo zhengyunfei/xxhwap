@@ -61,11 +61,13 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 				}
 			}
 			List<TudouBookInfo> list = new ArrayList<TudouBookInfo>();
+			List<TudouBookInfo> queryList = new ArrayList<TudouBookInfo>();
 			list = bookService.findSendBookList(queryMap);
 			//有可能我卖的书，被分开买了，所以要根据oid查询出来
 			List<TudouBookInfo> childList=new ArrayList<TudouBookInfo>();
 			int size=list.size();
 			for(int i=0;i<size;i++){
+				queryList.add(list.get(i));
 				String id=list.get(i).getId()+"";//此id作为oid去查询
 				Map<String,Object> m=new HashMap<String, Object>();
 				m.put("oid",id);
@@ -74,28 +76,28 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 					//那么需要将这一部分也加到我卖的书里面
 					int childSize=childList.size();
 					for(int j=0;j<childSize;j++){
-						list.add(childList.get(j));
+						queryList.add(childList.get(j));
 					}
 				}
 
 			}
 			List<TudouBookInfo> result=new ArrayList<TudouBookInfo>();
 			String now= DateUtil.getBeforeNDaysTime(2);
-			for(int m=0;m<list.size();m++){
+			for(int m=0;m<queryList.size();m++){
 				int isCancel=1;
-				String lastCancelDealTime=list.get(m).getLastCancelSaleTime();
+				String lastCancelDealTime=queryList.get(m).getLastCancelSaleTime();
 				if(!StringUtils.isEmpty(lastCancelDealTime)){
 					int c=DateUtil.compare_date(now,lastCancelDealTime);
 					if(c<=0){//不可交易
 						isCancel=0;
 					}
 				}
-				list.get(m).setIsCancel(isCancel);
+				queryList.get(m).setIsCancel(isCancel);
 				//去掉无效的标示
-				int isValid=list.get(m).getIsValid();
-				int kucun=list.get(m).getNumber();
+				int isValid=queryList.get(m).getIsValid();
+				int kucun=queryList.get(m).getNumber();
 				if(MobilePageContants.STATUS_1==isValid&&kucun>0){
-					result.add(list.get(m));
+					result.add(queryList.get(m));
 				}
 			}
 			env.setVariable("books", ObjectWrapper.DEFAULT_WRAPPER.wrap(result));

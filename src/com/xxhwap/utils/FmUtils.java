@@ -56,9 +56,9 @@ public class FmUtils {
 			Config config = new Config();
 			String webMain = config.getString("domain");
 			model.put("cmsReq", webMain);
-			System.out.println("base========="+base);
-			System.out.println("domain========="+webMain);
-			System.out.println("cmsReq========="+site.getHttpUrIAddr()+domain);
+			//System.out.println("base========="+base);
+			//System.out.println("domain========="+webMain);
+			//System.out.println("cmsReq========="+site.getHttpUrIAddr()+domain);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
 			String currDate = sdf.format(new Date());
 			model.put("now", currDate);
