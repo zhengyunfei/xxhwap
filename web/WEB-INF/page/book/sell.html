@@ -410,7 +410,7 @@
                             return;
                         }
                         $.each(res.localIds, function (i, n) {
-                            $("#chooseImage").removeAttr('<img src="' + n + '" width="100%" height="120"/>');
+                           // $("#chooseImage").removeAttr('<img src="' + n + '" width="100%" height="120"/>');
                             $("#chooseImage").removeAttr('style');
                             $("#chooseImage").attr('style','background-image:url('+n+')');
                             upload();

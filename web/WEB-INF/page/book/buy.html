@@ -161,12 +161,12 @@
                 showTips("请输入书名");
             }
         });
-        $('#author').bind('blur', function (){
+       /* $('#author').bind('blur', function (){
             var author=$("#author").val();
             if(''==author||null==author||author.trim().length==0){
                 showTips("请输入作者");
             }
-        });
+        });*/
         $("#school").bind('click',function(){
             var value=$(this).val();
             if(''==value||null==value){
@@ -207,10 +207,10 @@
             if(''==title||null==title||title.trim().length==0){
                 showTips("请输入书名");
                 f=false;
-            }else if(''==author||null==author||author.trim().length==0){
+            }/*else if(''==author||null==author||author.trim().length==0){
                 showTips("请输入作者");
                 f=false;
-            }
+            }*/
             else if(''==select2||null==select2||select2.trim().length==0){
                 //  $("#school").focus();
                 f=showTips("请输入地区");

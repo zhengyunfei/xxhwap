@@ -96,7 +96,7 @@ public class SendBookListDirective implements TemplateDirectiveModel {
 				//去掉无效的标示
 				int isValid=queryList.get(m).getIsValid();
 				int kucun=queryList.get(m).getNumber();
-				if(MobilePageContants.STATUS_1==isValid&&kucun>0){
+				if(MobilePageContants.STATUS_1==isValid){
 					result.add(queryList.get(m));
 				}
 			}
