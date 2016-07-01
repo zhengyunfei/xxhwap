@@ -252,13 +252,11 @@ public class WebUIPageControll {
 					//ServletContext application =request.getSession().getServletContext();
 					//保存用户的openid到全局缓存中
 					String openId=request.getSession().getAttribute(MobilePageContants.CURRENT_USER_OPENID)+"";
-					System.out.println("购买者openid＝＝＝＝＝＝＝＝＝＝＝＝＝＝"+openId);
 					if(!StringUtils.isEmpty(openId)){
 						bookInfo.setOpenId(openId);
 					}
 					newBookInfo.setOpenId(openId);
 					long pid=bookService.saveBook(newBookInfo);
-					System.out.println("保存成功==============================="+pid);
 					//step 2 update ori book num=onumber-num
 					bookInfo.setId(Long.parseLong(id));
 					bookInfo.setNumber((onumber-num));

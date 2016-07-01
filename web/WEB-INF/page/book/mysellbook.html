@@ -130,7 +130,7 @@
 <div class="containBox" id="containBox">
     <div id="user-works" class="pd-10">
         <ul>
-            [@send_book_list  openId="${current_user_openid_key!''}"  flag="0"]
+            [@send_book_list  openId="${current_user_openid_key!'outCFwyb2Ymgbfnx50iLMprFh2pA'}"  flag="0"]
             [#if books ?? && books?size>0]
                 [#list books as book]
                     <li class="cl item" >
@@ -139,7 +139,7 @@
                             [#if book.title?length lt 9]
                             ${book.title}
                             [#else]
-                            ${book.title[0..9]}..
+                            ${book.title[0..8]}..
                             [/#if]
                         </div>
                         <p class="time" style="width:100%">

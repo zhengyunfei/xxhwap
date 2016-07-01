@@ -69,7 +69,7 @@ public class BookAddControll {
 		return result;
 	}
 	/**
-	 * dealFail
+	 * dealFail 交易失败：删除当前的书，更新原来的书的数量
 	 * @param request
 	 * @param response
 	 * @param model
@@ -87,29 +87,29 @@ public class BookAddControll {
 			if(!StringUtils.isEmpty(bookInfo)){
 				String oid=bookInfo.getOid();
 				//if oid is not null and status=0 then need set orign book num 同时 delete this book info
-				/**if(!StringUtils.isEmpty(oid)){
+				if(!StringUtils.isEmpty(oid)){
 					TudouBookInfo orignBook=bookService.findById(oid);
 					if(!StringUtils.isEmpty(orignBook)){
 						int ostatus=orignBook.getStatus();
 						if(ostatus==0){
 							//step 1 更新数据量
-							int num=Integer.parseInt(bookInfo.getNumber());
-							int onum=Integer.parseInt(orignBook.getNumber());
+							int num=bookInfo.getNumber();
+							int onum=orignBook.getNumber();
 							int total=num+onum;
-							orignBook.setNumber(total+"");
+							orignBook.setNumber(total);
 							bookService.updateBook(orignBook);
 							//step 2 删除当前book info
 							bookService.delBookById(id);
 						}
 					}
-				}else {**/
+				}else {
 					//else if oid is null then 只需要更新this book info status=0 and lastCancelSaleTime=now() and role=0 把角色从买家更换为卖家
 					 bookInfo.setStatus(MobilePageContants.STATUS_0);
 					 String now=DateUtil.getBeforeNDaysTime(0);
 					 bookInfo.setLastCancelSaleTime(now);
 				     bookInfo.setRole(MobilePageContants.STATUS_0);//卖家
 					bookService.updateBook(bookInfo);
-			//	}
+				}
 
 			}
 			result.put("result","dealSuccess");
