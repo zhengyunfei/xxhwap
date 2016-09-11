@@ -22,7 +22,8 @@ public class MobilePageContants {
         public static String SELL_BOOK_PAGE="book/sell";
         public static String MY_BUY_BOOK_PAGE="book/mybuybook";
         public static String MY_SELL_BOOK_PAGE="book/mysellbook";
-
+       //校园卡
+        public static String SCHOOL_CARD_INDEX="book/SchoolCard";
 
 
         //常量

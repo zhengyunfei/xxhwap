@@ -69,7 +69,7 @@ public class BookPageControll {
 		String domain = config.getString("domain");
 		if(flg){
 			String  page="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+domain+"/oauth/do.html&response_type=code&scope=snsapi_base&state="+key+"#wechat_redirect";
-			//mv.setViewName("redirect:"+page);
+			mv.setViewName("redirect:"+page);
 		}
 	}
 
