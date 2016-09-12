@@ -40,7 +40,7 @@ public class SchoolCardDaoImpl extends IbatisBaseDao implements ISchoolCardDao {
 	public long saveSchoolCard(SchoolCardBo SchoolCardInfo) {
 		long id=0;
 		try{
-			id=(Long)this.insert(SAVE,SchoolCardInfo);
+			id=(Long)this.insert(ADD,SchoolCardInfo);
 		}catch (Exception e){
 			e.printStackTrace();
 		}

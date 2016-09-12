@@ -4,15 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>WeUI</title>
+    <title>校园卡拾失信息交流板</title>
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css"/>
     <link rel="stylesheet" href="${css}/webui/example.css"/>
 </head>
 <div class="weui_toptips weui_warn js_tooltips">格式不对</div>
+<form id="form1" method="post" onsubmit="return false;">
 <div class="container" id="container">
     <input type="hidden" id="tabCard" value="1"/>
     <input type="hidden" id="isClickQuery1" value="0"/>
     <input type="hidden" id="isClickQuery2" value="0"/>
+    <input type="hidden" id="flag" name="flag" value="0"/>
     <div class="hd" style="padding:1em 0">
         <h1 class="page_title" style="font-size:22px">校园卡拾失信息交流板</h1>
     </div>
@@ -33,7 +35,7 @@
                         <div class="weui_cell ">
                             <div class="weui_cell_hd"><label for="" class="weui_label weui_cell_warn">*卡号</label></div>
                             <div class="weui_cell_bd weui_cell_primary">
-                                <input class="weui_input" type="number" pattern="[0-9]*" value="weui input error" placeholder="请输入卡号"/>
+                                <input class="weui_input" type="number" id="cardNo" name="cardNo" pattern="[0-9]*" value="weui input" placeholder="请输入卡号"/>
                             </div>
                             <div class="weui_cell_ft">
                                 <i class="weui_icon_warn"></i>
@@ -45,7 +47,7 @@
                                 <label for="" class="weui_label">地区</label>
                             </div>
                             <div class="weui_cell_bd weui_cell_primary">
-                                <select class="weui_select" name="select2" id="select2">
+                                <select class="weui_select" name="area" id="area">
                                     <option value=""></option>
                                     [@find_code_list pcode="999999" codeSortId="119" ]
                                     [#if codes?? && codes?size>0]
@@ -69,7 +71,7 @@
                         <div class="weui_cell ">
                             <div class="weui_cell_hd "><label for="" class="weui_label">电话号码</label></div>
                             <div class="weui_cell_bd weui_cell_primary">
-                                <input class="weui_input" type="number" pattern="[0-9]*" maxlength="11" minlength="11" value="weui input error" placeholder="请输入电话"/>
+                                <input class="weui_input" type="number" id="mobile" name="mobile" pattern="[0-9]*" maxlength="11" minlength="11" value="weui input error" placeholder="请输入电话"/>
                             </div>
                             <div class="weui_cell_ft">
                                 <i class="weui_icon_warn"></i>
@@ -84,7 +86,7 @@
                 </div>
 
                 <div class="weui_cells_title">提示信息</div>
-                <div class="weui_cells_tips">底部说明文字底部说明文字</div>
+                <div class="weui_cells_tips error"></div>
             </div>
         </div>
     </div>
@@ -93,6 +95,7 @@
 
 </div>
 </div>
+</form>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 <script src="${css}/webui/js/zepto.min.js"></script>
 <script src="${css}/webui/js/router.min.js"></script>
@@ -128,7 +131,7 @@
          $("#tab2").addClass("weui_bar_item_on");
         $("#tab1").removeClass("weui_bar_item_on");
     }
-        $("#select2").change(function(){
+        $("#area").change(function(){
             var value=$(this).val();
             $("#school option").remove();
             var url="${cmsReq}/code/getCodeInfo.html";
@@ -147,6 +150,36 @@
                     showTips("学校不能为空");
                     return;
                 }
+                var area=$("#area").val();
+                var tabCard=$("#tabCard").val();
+                $("#flag").val(tabCard);
+                var url="${base}/card/query.html";
+                var data=$("#form1").serialize();
+               $.ajax({
+                        type:"POST",
+                        url:url,
+                        data:data,
+                        datatype: "json",
+                        beforeSend:function(){
+                            var flag=$("#tabCard").val();
+                            var isClickQuery=$("#isClickQuery"+flag).val(1);
+                        },
+                        success:function(data){
+                          var count=data.count;
+                          if(count==0){
+                            $(".weui_cells_tips").html("<font color='red'>没有找到相关信息，请点击发布</font>");
+                          }else{
+                            $(".weui_cells_tips").html("<font color='red'>已找到相关信息，见上</font>");
+                            var bo=data.card;
+                            $("#mobile").val(bo.mobile);
+                          }
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                            //HideLoading();
+                        },
+                        error: function(){
+                        }
+                });
 
         })
         //fa bu
@@ -155,9 +188,55 @@
             var isClickQuery=$("#isClickQuery"+flag).val();
             if(isClickQuery==0){
                 showTips("请先点击搜索");
-
+            }else{
+                var cardNo=$("#cardNo").val();
+              if(''==cardNo||null==cardNo){
+                    showTips("卡号不能为空");
+                    return;
+                }
+                var school=$("#school").val();
+                if(''==school||null==school){
+                    showTips("学校不能为空");
+                    return;
+                }
+                var area=$("#area").val();
+                var tabCard=$("#tabCard").val();
+                $("#flag").val(tabCard);
+                var url="${base}/card/send.html";
+                var data=$("#form1").serialize();
+               $.ajax({
+                        type:"POST",
+                        url:url,
+                        data:data,
+                        datatype: "json",
+                        beforeSend:function(){
+                        // $("#msg").html("logining");
+                        },
+                        success:function(data){
+                          var result=data.success;
+                          if(result){
+                            $(".weui_cells_tips").html("发布成功");
+                          }else{
+                            $(".weui_cells_tips").html("发布失败");
+                          }
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                            //HideLoading();
+                        },
+                        error: function(){
+                        }
+                });
             }
         })
+         $("#school").bind('click',function(){
+                var school=$(this).val();
+                if(''==school||null==school){
+                    showTips("请先选择地区");
+                    return;
+                }
+
+        })
+
 
 });
  function showTips(value){
