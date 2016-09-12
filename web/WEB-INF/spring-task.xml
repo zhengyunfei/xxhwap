@@ -16,6 +16,6 @@
 		<property name="bookDao" ref="myBookDao"/>
 	</bean>
 	<task:scheduled-tasks>
-		<task:scheduled ref="autoDeleteOf7Days" method="delete" cron="0 0 13 * * ?" /><!--每天早上1点触发-->
+		<task:scheduled ref="autoDeleteOf7Days" method="delete" cron="0 0 1 * * ?" /><!--每天早上1点触发-->
 	</task:scheduled-tasks>
 </beans>

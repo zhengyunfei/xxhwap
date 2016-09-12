@@ -34,7 +34,7 @@ public class SchoolCardControll {
 		ModelAndView mv=new ModelAndView();
 		FmUtils.FmData(request,model);
 		mv.setViewName(MobilePageContants.SCHOOL_CARD_INDEX);
-		//isWeiXinOpenLink(request, mv);
+		BookPageControll.isWeiXinOpenLink(request, mv);
 		return mv;
 	}
 

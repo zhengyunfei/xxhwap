@@ -153,7 +153,7 @@
                 var area=$("#area").val();
                 var tabCard=$("#tabCard").val();
                 $("#flag").val(tabCard);
-                var url="${base}/card/query.html";
+                var url="${cmsReq}/card/query.html";
                 var data=$("#form1").serialize();
                $.ajax({
                         type:"POST",
@@ -202,7 +202,7 @@
                 var area=$("#area").val();
                 var tabCard=$("#tabCard").val();
                 $("#flag").val(tabCard);
-                var url="${base}/card/send.html";
+                var url="${cmsReq}/card/send.html";
                 var data=$("#form1").serialize();
                $.ajax({
                         type:"POST",
