@@ -32,9 +32,7 @@ SELECT
 		<isNotEmpty prepend="AND" property="cardNo">
 			cardNo = #cardNo#
 		</isNotEmpty>
-		<isNotEmpty prepend="AND" property="flag">
-			flag = #flag#
-		</isNotEmpty>
+
 	</dynamic>
 
 	order by 	sendTime
@@ -64,9 +62,7 @@ FROM school_card
 		<isNotEmpty prepend="AND" property="cardNo">
 			cardNo = #cardNo#
 		</isNotEmpty>
-		<isNotEmpty prepend="AND" property="flag">
-			flag = #flag#
-		</isNotEmpty>
+
 	</dynamic>
 	limit 0,1
 </select>
@@ -105,9 +101,7 @@ FROM school_card
 			<isNotEmpty prepend="AND" property="cardNo">
 				cardNo = #cardNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="AND" property="flag">
-				flag = #flag#
-			</isNotEmpty>
+
 		</dynamic>
 	</select>
 
