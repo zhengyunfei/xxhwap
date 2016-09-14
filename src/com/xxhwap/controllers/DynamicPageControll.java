@@ -105,7 +105,7 @@ public class DynamicPageControll {
 			out.print(jsonObject.toString());
 			out.close();
 			// 图片消息
-   System.out.println("result==========================================="+result);
+   			System.out.println("result==========================================="+result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

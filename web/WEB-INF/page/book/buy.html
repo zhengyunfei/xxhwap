@@ -26,7 +26,11 @@
 </div>-->
 <div class="weui_toptips weui_warn js_tooltips">格式不对</div>
 <div class="container" id="container"></div>
-
+[@find_last_select_area_or_school openId="${current_user_openid_key!''}" type="area"]
+[#if codeValue??]
+  <input type="hidden" id="codeValue" value="${codeValue}"/>
+[/#if]
+[/@find_last_select_area_or_school]
 <script type="text/html" id="tpl_home">
     <form id="form1" method="post" action="">
     <div class="weui_cells">
@@ -83,9 +87,9 @@
                         <option value=""></option>
                         [@find_code_list pcode="999999" codeSortId="119" ]
                         [#if codes?? && codes?size>0]
-                        [#list codes as code]
-                        <option value="${code.codeValue!''}">${code.codeName!''}</option>
-                        [/#list]
+                            [#list codes as code]
+                                <option value="${code.codeValue!''}">${code.codeName!''}</option>
+                            [/#list]
                         [/#if]
                         [/@find_code_list]
                     </select>
@@ -130,6 +134,7 @@
         </div>
         </form>
 [#include "foot.html"]
+
 </script>
 
 
@@ -148,12 +153,13 @@
             $(".fakeloader").fadeOut(2000)
     }
     $(document).ready(function(){
+        var area=$("#codeValue").val();
+        if(''!=area&&null!=area){
+            $("#select2").val(area);
+            changeArea();
+        }
         $("#select2").change(function(){
-            var value=$(this).val();
-            $("#school option").remove();
-            var url="${cmsReq}/code/getCodeInfo.html";
-            var data={"codeSortId":"119","pCode":value};
-            getSchool(url,data)
+           changeArea();
         });
         $('#title').bind('blur', function (){
             var title=$("#title").val();
@@ -251,6 +257,13 @@
         $("#form1").attr('action',url);
         $("#form1").attr('method','get');
         $("#form1").submit();
+    }
+    function changeArea(){
+            var value=$("#select2").val();
+            $("#school option").remove();
+            var url="${cmsReq}/code/getCodeInfo.html";
+            var data={"codeSortId":"119","pCode":value};
+            getSchool(url,data)
     }
     function getSchool(url,data){
         $.ajax({

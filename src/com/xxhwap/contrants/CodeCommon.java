@@ -48,7 +48,8 @@ public class CodeCommon {
 	public static final String QIANGDAN_TEMPLATE_MESSAGE="QIANGDAN_TEMPLATE_MESSAGE";//管理员自动派单模板消息
 	public static final String POSITION="洗车";//洗车工职务
 	public static final String QIANG_DAN_DAOJISHI="QIANG_DAN_DAOJISHI";//抢单倒计时
-
+	public static final String SCHOOL="school";
+	public static final String AREA="area";
 
 
 }

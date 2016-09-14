@@ -55,4 +55,9 @@ public class BookerviceImpl implements IBookService {
 	public boolean updateBookForIsValid(TudouBookInfo updateBook) {
 		return  bookDao.updateBookForIsValid(updateBook);
 	}
+
+	@Override
+	public String findLastSelectAreaOrSchool(Map<String, Object> queryMap, String type) {
+		return bookDao.findLastSelectAreaOrSchool(queryMap,type);
+	}
 }

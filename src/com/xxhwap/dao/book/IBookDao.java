@@ -29,4 +29,6 @@ public interface IBookDao {
 	public int findSendBookListCount(Map<String, Object> map);
 
 	boolean updateBookForIsValid(TudouBookInfo updateBook);
+
+	public String findLastSelectAreaOrSchool(Map<String, Object> queryMap, String type);
 }

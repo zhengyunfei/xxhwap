@@ -16,6 +16,11 @@
 
 </head>
 <body ontouchstart>
+[@find_last_select_area_or_school openId="${current_user_openid_key!''}" type="area"]
+[#if codeValue??]
+<input type="hidden" id="codeValue" value="${codeValue}"/>
+[/#if]
+[/@find_last_select_area_or_school]
 <!--<div class="header">
     <a class="back-icon" href="#"></a>
     卖书
@@ -228,12 +233,13 @@
     }
 
     $(document).ready(function(){
+        var area=$("#codeValue").val();
+        if(''!=area&&null!=area){
+            $("#select2").val(area);
+            changeArea();
+        }
         $("#select2").bind('change',function(){
-            var value=$(this).val();
-            $("#school option").remove();
-            var url="${cmsReq}/code/getCodeInfo.html";
-            var data={"codeSortId":"119","pCode":value};
-            getSchool(url,data)
+            changeArea();
         });
         $("#school").bind('click',function(){
             var value=$(this).val();
@@ -331,6 +337,13 @@
             $('.js_tooltips').fadeOut(3000);
         }, 6000);
         return false;
+    }
+     function changeArea(){
+            var value=$("#select2").val();
+            $("#school option").remove();
+            var url="${cmsReq}/code/getCodeInfo.html";
+            var data={"codeSortId":"119","pCode":value};
+            getSchool(url,data)
     }
     function save_book(){
         var url="${cmsReq}/webui/sendbook.html";

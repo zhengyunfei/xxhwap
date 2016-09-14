@@ -1,6 +1,7 @@
 package com.xxhwap.dao.book.impl;
 
 import com.xxhwap.book.TudouBookInfo;
+import com.xxhwap.contrants.CodeCommon;
 import com.xxhwap.dao.base.IbatisBaseDao;
 import com.xxhwap.dao.book.IBookDao;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,8 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 	private static final String FINDALLLIST = COMMON+"findAllList";
 	private static final String FINDBYID = COMMON+"findById";
 	private static final String GETCOUNT = COMMON+"getCount";
+	private static final String LAST_SELECT_AREA = COMMON+"findLastHistoryArea";
+	private static final String  LAST_SELECT_SCHOOL= COMMON+"findLastHistorySchool";
 	@Override
 	public long sendBook(TudouBookInfo bookInfo) {
 		long id=0;
@@ -139,5 +142,21 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 		}
 		return flg;
 
+	}
+
+	@Override
+	public String findLastSelectAreaOrSchool(Map<String, Object> queryMap, String type) {
+		String result="";
+		try{
+			if(CodeCommon.SCHOOL.equals(type)){
+				result= (String) this.query(LAST_SELECT_SCHOOL,queryMap);
+			}
+			if(CodeCommon.AREA.equals(type)){
+				result= (String) this.query(LAST_SELECT_AREA,queryMap);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

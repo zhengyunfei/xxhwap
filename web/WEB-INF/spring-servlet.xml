@@ -33,6 +33,7 @@
 			<map>
 				<entry key="send_book_list" value-ref="send_book_list"></entry>
 				<entry key="find_code_list" value-ref="find_code_list"></entry>
+				<entry key="find_last_select_area_or_school" value-ref="find_last_select_area_or_school"></entry>
 			</map>
 		</property>
 		<property name="templateLoaderPath">
@@ -53,6 +54,7 @@
 	<!--freemarker zidingyi tags-->
 	<bean id="send_book_list" class="com.xxhwap.common.freemarker.directives.SendBookListDirective" />
 	<bean id="find_code_list" class="com.xxhwap.common.freemarker.directives.FindCodeInfoListDirective" />
+	<bean id="find_last_select_area_or_school" class="com.xxhwap.common.freemarker.directives.FindSelectHistoryByOpenIdDirective" />
 	<bean id="viewResolver"
 		  class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<!-- <property name="viewNames" value="*.html" /> -->

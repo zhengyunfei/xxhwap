@@ -299,5 +299,20 @@ FROM book
 
 		</dynamic>
 	</select>
-
+<!--查询用户最近一次选择的学校-->
+	<select id='findLastHistorySchool' resultClass="java.lang.String">
+		SELECT school FROM book WHERE open_id=#openId# ORDER BY sendTime DESC LIMIT 0,1
+	</select>
+	<!--查询用户最近一次选择的地区-->
+	<select id='findLastHistoryArea' resultClass="java.lang.String">
+	SELECT
+		p_code
+	 FROM
+		 s9_sys_code
+	 WHERE
+		  code_sort_id='119'
+	  AND
+	  	code_value=
+	(SELECT school FROM book WHERE open_id=#openId# ORDER BY sendTime DESC LIMIT 0,1)
+	</select>
 </sqlMap>
