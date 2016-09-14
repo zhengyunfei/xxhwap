@@ -21,6 +21,11 @@
 <input type="hidden" id="codeValue" value="${codeValue}"/>
 [/#if]
 [/@find_last_select_area_or_school]
+[@find_last_select_area_or_school openId="${current_user_openid_key!''}" type="school"]
+[#if codeValue??]
+<input type="hidden" id="historySchool" value="${codeValue}"/>
+[/#if]
+[/@find_last_select_area_or_school]
 <!--<div class="header">
     <a class="back-icon" href="#"></a>
     卖书
@@ -343,7 +348,8 @@
             $("#school option").remove();
             var url="${cmsReq}/code/getCodeInfo.html";
             var data={"codeSortId":"119","pCode":value};
-            getSchool(url,data)
+            getSchool(url,data);
+
     }
     function save_book(){
         var url="${cmsReq}/webui/sendbook.html";
@@ -544,6 +550,7 @@
         });
     }
     function getSchool(url,data){
+		  var historySchool= $("#historySchool").val();
         $.ajax({
             type: 'POST',
             url: url ,
@@ -556,7 +563,15 @@
                 for(var i=0;i<lenth;i++){
                     var value=list[i].codeValue;
                     var text=list[i].codeName;
-                    $("#school").append("<option value='"+value+"'>"+text+"</option>");
+					if(historySchool==value){
+						  $("#school").append("<option selected value='"+value+"'>"+text+"</option>");
+					}else{
+                         $("#school").append("<option value='"+value+"'>"+text+"</option>");
+					}
+
+                }
+                if(lenth==0){
+                    showTips("没有搜到书籍，请手动输入");
                 }
 
             } ,error:function (err) {
