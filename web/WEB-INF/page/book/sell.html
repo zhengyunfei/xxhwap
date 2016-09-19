@@ -184,18 +184,18 @@
 
         <div class="weui_cells weui_cells_form">
                <div class="weui_cell">
-                <div class="weui_cell_hd" style="width:20%"><label class="weui_label"><font color="red">*</font>数量</label></div>
+                <div class="weui_cell_hd" style="width:20%"><label class="weui_label"><font color="red">*</font>数量:</label></div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:30%">
                     <input class="weui_input" type="number" id="number" name="number" pattern="[0-9]*" />
                 </div>
-                <div class="weui_cell_hd" style="width:20%"><label class="weui_label"><font color="red">*</font>售价</label></div>
+                <div class="weui_cell_hd" style="width:20%"><label class="weui_label"><font color="red">*</font>售价:</label></div>
                 <div class="weui_cell_bd weui_cell_primary" style="width:30%">
                     <input class="weui_input" type="number" id="price" name="price" pattern="[0-9]*" />
                 </div>
             </div>
 
             <div class="weui_cell">
-                <div class="weui_cell_hd"><label class="weui_label"><font color="red">*</font>手机号</label></div>
+                <div class="weui_cell_hd"><label class="weui_label"><font color="red">*</font>手机号:</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
                     [@find_user_by_openid openId="${current_user_openid_key!''}"]
                     [#if codeValue??]
