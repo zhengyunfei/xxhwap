@@ -197,7 +197,13 @@
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label"><font color="red">*</font>手机号</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="number" id="mobile" name="mobile" pattern="[0-9]*" />
+                    [@find_user_by_openid openId="${current_user_openid_key!''}"]
+                    [#if codeValue??]
+                         <input class="weui_input" type="number" id="mobile" name="mobile" pattern="[0-9]*" value="${codeValue!''}"/>
+                    [#else]
+                         <input class="weui_input" type="number" id="mobile" name="mobile" pattern="[0-9]*" />
+                    [/#if]
+                    [/@find_user_by_openid]
                 </div>
             </div>
           <!--  <div class="weui_cell weui_vcode weui_cell_warn">

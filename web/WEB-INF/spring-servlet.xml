@@ -34,6 +34,7 @@
 				<entry key="send_book_list" value-ref="send_book_list"></entry>
 				<entry key="find_code_list" value-ref="find_code_list"></entry>
 				<entry key="find_last_select_area_or_school" value-ref="find_last_select_area_or_school"></entry>
+				<entry key="find_user_by_openid" value-ref="find_user_by_openid"></entry>
 			</map>
 		</property>
 		<property name="templateLoaderPath">
@@ -55,6 +56,7 @@
 	<bean id="send_book_list" class="com.xxhwap.common.freemarker.directives.SendBookListDirective" />
 	<bean id="find_code_list" class="com.xxhwap.common.freemarker.directives.FindCodeInfoListDirective" />
 	<bean id="find_last_select_area_or_school" class="com.xxhwap.common.freemarker.directives.FindSelectHistoryByOpenIdDirective" />
+	<bean id="find_user_by_openid" class="com.xxhwap.common.freemarker.directives.FindUserInfoByOpenIdDirective" />
 	<bean id="viewResolver"
 		  class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<!-- <property name="viewNames" value="*.html" /> -->

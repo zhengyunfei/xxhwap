@@ -60,4 +60,9 @@ public class BookerviceImpl implements IBookService {
 	public String findLastSelectAreaOrSchool(Map<String, Object> queryMap, String type) {
 		return bookDao.findLastSelectAreaOrSchool(queryMap,type);
 	}
+
+	@Override
+	public TudouBookInfo findLastSendBook(Map<String, Object> queryMap) {
+		return bookDao.findLastSendBook(queryMap);
+	}
 }

@@ -31,4 +31,6 @@ public interface IBookDao {
 	boolean updateBookForIsValid(TudouBookInfo updateBook);
 
 	public String findLastSelectAreaOrSchool(Map<String, Object> queryMap, String type);
+
+	public TudouBookInfo findLastSendBook(Map<String, Object> queryMap);
 }

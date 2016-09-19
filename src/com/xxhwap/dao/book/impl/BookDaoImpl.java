@@ -26,6 +26,7 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 	private static final String DELET_BY_ID = COMMON+"deleteById";
 	private static final String FINDALLLIST = COMMON+"findAllList";
 	private static final String FINDBYID = COMMON+"findById";
+	private static final String FINDBYMAP = COMMON+"findByMap";
 	private static final String GETCOUNT = COMMON+"getCount";
 	private static final String LAST_SELECT_AREA = COMMON+"findLastHistoryArea";
 	private static final String  LAST_SELECT_SCHOOL= COMMON+"findLastHistorySchool";
@@ -158,5 +159,16 @@ public class BookDaoImpl extends IbatisBaseDao implements IBookDao{
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public TudouBookInfo findLastSendBook(Map<String, Object> queryMap) {
+		TudouBookInfo bookInfo=null;
+		try {
+			bookInfo= (TudouBookInfo) this.query(FINDBYID,queryMap);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return bookInfo;
 	}
 }

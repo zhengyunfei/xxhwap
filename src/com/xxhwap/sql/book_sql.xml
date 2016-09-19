@@ -135,7 +135,11 @@ FROM book
 		<isNotEmpty prepend="AND" property="oid">
 			oid=#oid#
 		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="openId">
+			open_id=#openId#
+		</isNotEmpty>
 	</dynamic>
+	order by sendTime DESC
 	limit 0,1
 </select>
 <!--发布book-->
